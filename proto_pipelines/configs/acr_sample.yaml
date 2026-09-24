@@ -84,8 +84,9 @@ af3_seeds: [0]
 af3_save_structures: true
 
 # --- anti-CRISPR evidence -----------------------------------------------
-# Four independent callers combined by a logistic model calibrated on 316
-# labelled sequences. Cross-validated: Acr vs other phage proteins 0.836.
+# Five independent callers combined by a logistic model calibrated on 316
+# labelled sequences. Cross-validated AUROCs are recorded in each model
+# JSON (cv_auroc) and in docs/ACR_PIPELINE.md.
 #
 # min_score 0.0 = record evidence, reject nothing. The callers are calibrated
 # on natural Acrs; their behaviour on generated sequence is uncharacterised,

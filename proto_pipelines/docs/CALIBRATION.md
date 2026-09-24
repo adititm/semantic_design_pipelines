@@ -43,7 +43,7 @@ different toxins), so some of those negatives may be genuine binders.
 growth-rescue outcomes on designed sequences. These labels are functional and
 in the right domain, which makes this the arm a transferable threshold would
 have to come from. Two safeguards are enforced in code, not prose: rows whose
-outcome is `UNKNOWN` in `data/rescue_matrix.csv` are **skipped, never assumed**,
+outcome is `UNKNOWN` in `calibration/data/rescue_matrix.csv` are **skipped, never assumed**,
 and the identity of `RelE` must be passed explicitly via `--rele-variant`
 because this repository contains two different proteins that could be meant
 (the natural homolog EvoRele1 was derived from, at 70.8% identity to it, and
@@ -63,7 +63,7 @@ python -m proto_pipelines.calibration.build_tadb_set \
     --antitoxins proto_pipelines/calibration/data/type_II_AT_exp.fas \
     --out proto_pipelines/calibration/data/calibration_pairs_pilot.csv --n-per-class 20
 sbatch --export=ALL,PAIRS=...,OUTDIR=...,NUM_SHARDS=8 \
-    proto_pipelines/slurm/calibration_folds.sbatch
+    proto_pipelines/archive/slurm/calibration_folds.sbatch
 python -m proto_pipelines.calibration.analyze \
     --results proto_pipelines/calibration/results/pilot_natural
 ```
@@ -77,7 +77,10 @@ the way it will be applied.
 
 Run on 80 natural TA pairs and 10 de novo pairs with experimental rescue
 labels. Raw data in `calibration/results/`; summaries in
-`pilot_natural/calibration_summary.csv` and `denovo/denovo_summary.csv`.
+`calibration/results/pilot_natural/calibration_summary.csv` and
+`calibration/results/denovo/denovo_summary.csv`. Both live under the
+gitignored `results/` tree, so a fresh clone will not have them until you
+re-run the scripts below.
 
 ### What the scores can do
 

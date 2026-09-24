@@ -32,7 +32,17 @@ git lfs install && git lfs pull
 pip install "git+https://github.com/evo-design/proto-language.git"
 pip install -e "./proto_pipelines[acr]"
 python proto_pipelines/tests/test_parity.py      # 18 checks, no GPU needed
+
+export PROTO_HOME=/path/you/own/proto_home
+proto_pipelines/scripts/run_pipeline.sh acr_sample \
+    proto_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
+
+`run_pipeline.sh` works on a workstation, under Slurm, or against connected
+compute — the only difference is the `device` key in the config. **No GPU?**
+Set `device: modal` (or `proto`) and no local accelerator, AlphaFold 3
+weights or MSA database is needed. Slurm is optional throughout; nothing in
+the pipelines requires it.
 
 ## Scope
 

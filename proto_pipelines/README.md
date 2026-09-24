@@ -32,20 +32,23 @@ pip install "git+https://github.com/evo-design/proto-language.git"
 pip install -e "./proto_pipelines[acr]"
 pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121   # match your driver
 
-export PROTO_HOME=/path/you/own/proto_home
-export PROTO_MODEL_CACHE=$PROTO_HOME/proto_model_cache
-export PROTO_DATABASES_DIR=$PROTO_MODEL_CACHE/databases
-export PROTO_ALPHAFOLD3_WEIGHTS_DIR=$PROTO_MODEL_CACHE/alphafold3
+export PROTO_HOME=/path/you/own/proto_home   # the runner derives the rest
 
-python proto_pipelines/tests/test_parity.py     # 17 checks, no GPU needed
-python -m proto_pipelines.pipelines.acr_sample \
-    --config proto_pipelines/configs/smoke/acr_sample_smoke.yaml
+python proto_pipelines/tests/test_parity.py     # 18 checks, no GPU needed
+proto_pipelines/scripts/run_pipeline.sh acr_sample \
+    proto_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
 
 The parity suite is the install check and needs neither a GPU nor AF3
-weights. The smoke config is a two-prompt run that exercises every stage;
-it took 54 minutes on one H100, most of it AlphaFold 3 MSAs and first-use
-tool-environment builds. Full [Setup](#setup) below.
+weights. The smoke config is a two-prompt run that exercises every stage; it
+took 54 minutes on one H100, most of it AlphaFold 3 MSAs and first-use
+tool-environment builds.
+
+**No GPU?** Set `device: modal` (or `proto`) in the config and the heavy tools
+run on connected compute — no local accelerator, AF3 weights or MSA database
+required. **Slurm is optional**: nothing in the pipelines needs it, and
+`run_pipeline.sh` covers every mode. See
+[Execution modes](#execution-modes) and full [Setup](#setup) below.
 
 ## The four workflows
 
@@ -328,7 +331,10 @@ proto_pipelines/
 ├── calibration/          Derives the shipped models — see calibration/README.md
 │   ├── data/                 the artefacts the pipeline loads (tracked)
 │   └── results/              intermediates (~1.6 GB, gitignored, reproducible)
-├── slurm/                Batch templates for the pipelines
+├── scripts/
+│   ├── run_pipeline.sh       run any pipeline: local, SLURM, or remote
+│   └── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
+├── slurm/                Optional batch templates — see slurm/README.md
 ├── docs/
 │   ├── ACR_PIPELINE.md       the anti-CRISPR stack in detail
 │   └── CALIBRATION.md        how the thresholds were derived, and their limits
@@ -426,19 +432,29 @@ organisations and may not be redistributed** — check the terms before use.
 
 AcrNET runs without PSI-BLAST, but a zeroed PSSM inflates its score and puts
 the protein in a weaker calibration regime (see
-[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)). `slurm/build_blastdb.sbatch`
-builds the UniRef30 database; set `acrnet_psiblast` and `acrnet_blast_db` in
-the config once it exists.
+[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)), so supply it if you can.
+
+```bash
+scripts/build_blastdb.sh        # no cluster needed; CPU-only, ~16 GB, a few hours
+```
+
+Then set `acrnet_psiblast` and `acrnet_blast_db` in the config.
+`slurm/build_blastdb.sbatch` is a thin wrapper around the same script for
+cluster users.
+
+De novo generated ORFs often have no UniRef30 homologs and land in `no_pssm`
+even with the database present — that is expected, not a misconfiguration.
 
 ### 5. Verify
 
 ```bash
-python proto_pipelines/tests/test_parity.py      # 17 checks, expect 0 failures
+python proto_pipelines/tests/test_parity.py      # 18 checks, expect 0 failures
 ```
 
 The parity suite is the install check: it exercises config parsing, every
-filter's accounting, the Acr callers against their calibration, and the
-shipped model feature order. It needs no GPU and no AF3 weights.
+filter's accounting, the Acr callers against their calibration, the shipped
+model feature order, and the custom-checkpoint guards. It needs no GPU and
+no AF3 weights.
 
 ### Working from a checkout
 
