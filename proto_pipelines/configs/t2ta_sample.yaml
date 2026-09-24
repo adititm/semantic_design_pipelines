@@ -26,8 +26,6 @@ output_dir: t2ta_sample
 # Evo 1.5, so reproducing its numbers needs BOTH lines switched to:
 #   generator: evo1
 #   model_name: evo-1.5-8k-base
-# Note: Evo 2 returns no per-sample scoring metrics in this proto-tools
-# build, so the evo_score column is empty under it. Evo 1.5 populates it.
 generator: evo2
 model_name: evo2_7b        # evo2_7b | evo2_40b | evo2_7b_base | evo2_1b_base | ...
 

@@ -103,8 +103,6 @@ class ProposalRecord:
         proposal_index: Index within this prompt's run.
         outcome: ``"accepted"``, or the label of the filter that rejected it.
         dna: The generated DNA (prompt included when ``prepend_prompt``).
-        evo_score: Evo's average log-likelihood for the sample, when the
-            checkpoint emits scoring metrics. ``None`` otherwise.
         energy: Aggregated constraint energy, or ``None`` when the proposal
             was rejected before scoring completed.
         constraint_data: ``{constraint label: metadata dict}`` for every
@@ -115,7 +113,6 @@ class ProposalRecord:
     proposal_index: int
     outcome: str
     dna: str
-    evo_score: float | None = None
     energy: float | None = None
     constraint_data: dict[str, dict[str, Any]] = field(default_factory=dict)
 
@@ -200,36 +197,6 @@ def _build_generator(prompt: Prompt, settings: GenerationSettings) -> Any:
     raise ValueError(f"generator must be 'evo1' or 'evo2', got {settings.generator!r}")
 
 
-def _evo_score(generator_metadata: dict[str, Any]) -> float | None:
-    """Extract a scalar Evo score from the generator metadata.
-
-    ``Evo1Generator`` records ``{"score": ...}``, but what sits behind that key
-    changed with proto-tools' causal-model output refactor: older builds store
-    a bare float, newer ones store a ``CausalModelScoringMetrics`` object
-    (serialised to a dict in the proposal history). Both shapes are read here
-    so this implementation works against either, preferring average log-likelihood since
-    it is length-normalised and therefore comparable across samples.
-
-    Args:
-        generator_metadata: The proposal's ``_generator_metadata`` mapping.
-
-    Returns:
-        A scalar score, or ``None`` when the checkpoint emitted none.
-    """
-    entry = generator_metadata.get("evo1") or generator_metadata.get("evo2") or {}
-    score = entry.get("score")
-    if score is None or isinstance(score, (int, float)):
-        return score
-    if isinstance(score, dict):
-        for key in ("avg_log_likelihood", "log_likelihood", "perplexity"):
-            if score.get(key) is not None:
-                return float(score[key])
-        return None
-    for attribute in ("avg_log_likelihood", "log_likelihood", "perplexity"):
-        value = getattr(score, attribute, None)
-        if value is not None:
-            return float(value)
-    return None
 
 
 def _records_from_history(optimizer: Any, prompt_id: str) -> list[ProposalRecord]:
@@ -255,7 +222,6 @@ def _records_from_history(optimizer: Any, prompt_id: str) -> list[ProposalRecord
             segments = constructs[0].get("segments") if constructs else None
             segment_data = segments[0] if segments else {}
             constraints = segment_data.get("constraints") or {}
-            generators = segment_data.get("generators") or {}
             records[index] = ProposalRecord(
                 prompt_id=prompt_id,
                 proposal_index=index,
@@ -263,7 +229,6 @@ def _records_from_history(optimizer: Any, prompt_id: str) -> list[ProposalRecord
                     proposal.get("rejected_by") or "rejected"
                 ),
                 dna=segment_data.get("sequence") or "",
-                evo_score=_evo_score(generators),
                 energy=proposal.get("energy_score"),
                 constraint_data={
                     label: (entry_data or {}).get("data", {})
@@ -334,15 +299,6 @@ def run_prompt(
     program.run()
 
     records = _records_from_history(optimizer, prompt.prompt_id)
-    if records and all(record.evo_score is None for record in records):
-        # Evo 1 attaches per-sample metrics to each proposal; Evo 2 in this
-        # proto-tools build returns only (sequence, logits, kv_cache) and
-        # writes no generator metadata, so evo_score is empty for the whole
-        # run. Say so once rather than shipping a silently blank column.
-        print(
-            f"WARNING: prompt {prompt.prompt_id}: {settings.generator} reported no "
-            f"sampling scores, so evo_score is empty for every proposal."
-        )
     if not records:
         print(
             f"WARNING: prompt {prompt.prompt_id}: the optimizer recorded no proposal "
@@ -400,7 +356,6 @@ def _append_checkpoint(path: Path | None, records: list[ProposalRecord]) -> None
                     "outcome": record.outcome,
                     "accepted": record.accepted,
                     "energy": record.energy,
-                    "evo_score": record.evo_score,
                     "dna": record.dna,
                     "constraints": record.constraint_data,
                 }, default=str) + "\n")

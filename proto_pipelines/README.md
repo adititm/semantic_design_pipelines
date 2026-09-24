@@ -73,9 +73,8 @@ model_name: evo2_7b      # evo2_40b, evo2_1b_base, evo-1.5-8k-base, ...
 ```
 
 Evo 2 returns only `(sequence, logits, kv_cache)` in this proto-tools build
-and writes no generator metadata, so the `evo_score` column is empty under
-it; the run warns once per prompt. Evo 1.5 populates it. Nothing else
-differs between the two.
+and writes no generator metadata, while Evo 1.5 attaches per-sample metrics.
+Nothing downstream reads either, so nothing else differs between the two.
 
 ```yaml
 ```
@@ -108,92 +107,24 @@ tops out near 2:1 enrichment. The calibration behind every number is below.
 
 ## Anti-CRISPR calling (`acr.py`)
 
-> Full pipeline ordering, calibration tables and operating guidance:
-> **[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**
-
+> Pipeline ordering, what each caller contributes, and how to read
+> `acr_evidence.csv`: **[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**
 
 The paper called Acrs with PaCRISPR, a web server that cannot be run offline
-and is not part of the released code. It is replaced here by four independent
-callers combined by a logistic model calibrated on 316 labelled sequences.
+and is not part of the released code. It is replaced here by five callers
+that run locally -- a profile HMM over Acr/Aca families, AcRanker, AcrNET,
+Foldseek against known Acr chains, and AlphaFold 3 pLDDT -- combined by
+logistic models shipped in `data/models/acr/`.
 
-**Calibration set** (in the research tree): 64
-experimentally named Acrs spanning CRISPR types I, II, III, V and VI, against
-four negative classes — composition-matched shuffles, random-DNA ORFs,
-length-matched non-Acr **bacteriophage** proteins, and **Aca** proteins. All
-classes are caliper-matched on length (medians 106–109 aa), because the Type
-II TA calibration found an apparent effect that was length alone.
+Two things govern how the output should be read, both handled automatically
+and both explained in the pipeline doc: which model applies depends on
+whether the profile HMM hit, and AcrNET's score is only interpretable
+against the PSSM regime that produced it.
 
-| caller | what it adds | measured |
-|---|---|---|
-| profile HMM (16 families) | precision | 23% sensitivity, **0/191 false positives** |
-| AcRanker (raw + self-shuffle z) | composition/mechanism | 0.80 vs phage alone |
-| Foldseek vs 189 PDB Acr chains | fold, survives shuffling | **0.75 vs shuffles** — best single |
-| AlphaFold 3 pLDDT | foldability | 0.87 vs junk |
-
-**Scoring is two-tier, because the two regimes behave completely
-differently.** A profile-HMM hit is near-certain (0 false positives across 191
-negatives) and the full five-feature model reaches **0.98** AUROC on that
-subset. But **49 of 64 known Acrs have no Pfam hit at all**, and for those the
-full model *penalises* the missing feature and collapses to **0.64** -- it
-reads HMM absence as evidence against. The divergent tier drops the HMM term
-and uses `acranker_raw + best_tmscore`, reaching **0.775** vs phage. AlphaFold
-pLDDT is deliberately excluded from that tier: it helps against junk but
-*hurts* against real proteins (0.775 -> 0.740).
-
-| regime | n | model | AUROC vs phage |
-|---|---|---|---|
-| HMM hit (canonical) | 15 | 5-feature | **0.98** |
-| no HMM hit (divergent) | 49 | AcRanker + Foldseek | **0.775** |
-
-Cross-validated overall (5-fold, 5 seeds): Acr vs other phage proteins 0.836
--- but that figure is dominated by the canonical subset and should not be
-quoted for divergent candidates. On 19 held-out Acrs never used in any
-derivation: 0.905 vs all non-Acr negatives. Those held-out Acrs scored
-*higher* than the calibration positives (median 0.905 vs 0.623), i.e. that
-set is more canonical, so 0.905 is optimistic for divergent sequence.
-
-A fifth caller was tested and rejected: MMseqs2 against 67k predicted Acrs
-(`AcrDatabase.faa`) reached only 0.59-0.69 once close homologues were
-excluded, and made the Aca confusion worse (0.27).
-
-Three findings determine how to read the output.
-
-**Acr and Aca cannot be separated, and should not be.** Every caller confuses
-them — naive HMM expansion produced 82% Aca false positives, and Foldseek
-scores Aca *above* Acrs (0.373). The cause is real biology, not a bug:
-AcrIIA1, AcrIIA13, AcrIIA15 and AcrIF24 carry HTH domains and repress their
-own operons, and Aca proteins are HTH regulators. The Aca hits trace to
-AcrIIA6/AcrIIA15 reference structures. `acr_locus_score` therefore targets
-"protein from an Acr locus"; `hmm_profiles` says which side it looks like.
-Since an Acr-context prompt generates both, an Aca-like partner is a
-*positive* signal for the locus.
-
-**Much of the apparent signal is foldability.** pLDDT alone separates Acrs
-from shuffles/random at 0.87 — better than any Acr-specific caller. The
-Acr-specific question is the comparison against other *real* proteins
-(phage), where Foldseek and AcRanker lead and pLDDT contributes least.
-
-**Pfam under-covers Acrs.** Only 18/64 (28%) of known Acrs hit *any* Pfam
-family at E<0.01, so ~28% is the ceiling for any Pfam-based caller. The
-shipped set reaches 23%, and expanding further costs specificity.
-
-Gating is **off by default** (`acr_min_score: 0.0`): the callers are
-calibrated on natural Acrs, so gating on them selects for resemblance to
-known Acrs — the opposite of what the pipeline is for. Evidence is recorded
-to `acr_evidence.csv` with every caller's score side by side; raise the
-threshold only after inspecting your own run.
-
-**AlphaFold 3 sampling is not deterministic, and it propagates.** The same
-sequence folded in three runs gave pLDDT 67.6 / 62.2 / 68.4; Foldseek TM went
-0.40 / 0.42 / 0.00, moving `acr_locus_score` from 0.048 to 0.477. Rank within
-a run, never compare absolute scores across runs, and reuse the AlphaFold 3
-output directory so content-hashed folds are shared (which makes them
-deterministic as well as free). Measured at smoke settings (1 diffusion
-sample); the production config's 5 samples should damp this, unquantified.
-
-None of this proves a sequence is an anti-CRISPR. These are similarity and
-confidence measures — level-1 evidence throughout.
-
+The shipped configs set `acr_min_score: 0.0` -- record evidence, reject
+nothing. The callers were calibrated on natural Acrs, so gating on them
+would select for resemblance to known Acrs, which is the opposite of the
+point.
 
 ## Execution modes
 
@@ -293,9 +224,7 @@ check:
 * **A checkpoint file rather than a directory** raises before the tool
   environment is reached, where the error would otherwise be opaque.
 
-Leave it empty (the default) to use the released weights. Scoring uses the
-same checkpoint as sampling, so `evo_score` in the output is the custom
-model's likelihood, not the stock model's.
+Leave it empty (the default) to use the released weights.
 
 ## Calibration
 
@@ -491,11 +420,8 @@ These scripts work around two things absent from `proto-tools` `main`:
   carries no TM field. The Acr caller's model feature is a TM-score, so
   `acr.py` invokes the provisioned `foldseek` binary directly with
   `--format-output …,qtmscore,alntmscore`. Ranking on E-value instead is not
-  viable: as a feature it is worth nothing (CV AUROC 0.9115 vs 0.9106 for
-  dropping the structural term entirely, against 0.9237 with a real TM).
-* **Evo1 output shape.** proto-tools moved per-sequence scores from
-  `Evo1SampleOutput.scores` to `.results[i].metrics`. `runner._evo_score`
-  reads either, so both shapes work.
+  viable: measured as a model feature it was worth nothing over dropping the
+  structural term entirely, whereas a real TM-score contributes.
 
 ### Repository size
 

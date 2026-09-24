@@ -69,7 +69,6 @@ def write_proposal_table(
                 "outcome": record.outcome,
                 "accepted": record.accepted,
                 "energy": record.energy,
-                "evo_score": record.evo_score,
                 "dna_length": len(record.dna),
                 "orf_count": qc.get("orf_count"),
                 "qc_protein_count": qc.get("qc_protein_count"),
@@ -422,7 +421,6 @@ def write_raw_metadata(records: list[ProposalRecord], path: Path) -> int:
             "outcome": r.outcome,
             "accepted": r.accepted,
             "energy": r.energy,
-            "evo_score": r.evo_score,
             "dna": r.dna,
             "constraints": r.constraint_data,
         }

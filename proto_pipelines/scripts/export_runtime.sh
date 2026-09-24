@@ -97,6 +97,8 @@ acr = acr.replace("`calibration/score_acrnet.py` now exists",
 acr = acr.replace("calibration (`calibration/score_acrnet.py`; features cached in",
                   "calibration (regenerated in the research tree; features cached in")
 acr = re.sub(r"`calibration/[A-Za-z0-9_./-]+`", "the research tree", acr)
+acr = acr.replace("how they were derived is in `archive/ACR_CALIBRATION.md`.",
+                  "how they were derived is not part of this repository.")
 acr_doc.write_text(acr)
 
 
