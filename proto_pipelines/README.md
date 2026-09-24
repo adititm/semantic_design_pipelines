@@ -122,7 +122,9 @@ whether the profile HMM hit, and AcrNET's score is only interpretable
 against the PSSM regime that produced it.
 
 The shipped configs set `acr_min_score: 0.0` -- record evidence, reject
-nothing. The callers were calibrated on natural Acrs, so gating on them
+nothing, so `acr_evidence.csv` contains every folded ORF rather than a
+filtered set. Use `tools/rank_candidates.py` to turn that into a top-k with
+an expected yield at your own base rate; see the pipeline doc. The callers were calibrated on natural Acrs, so gating on them
 would select for resemblance to known Acrs, which is the opposite of the
 point.
 
@@ -276,6 +278,8 @@ proto_pipelines/
 │   ├── prompts/              bundled prompt CSVs
 │   ├── reference/            reference sequences for the identity pipelines
 │   └── models/               the fitted models and profiles the pipeline loads
+├── tools/
+│   └── rank_candidates.py    calibrated top-k selection from acr_evidence.csv
 ├── scripts/
 │   ├── run_pipeline.sh       run any pipeline: local, Slurm, or remote
 │   ├── run_smoke.sh          run every smoke config, in cost order

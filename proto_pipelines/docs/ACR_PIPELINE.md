@@ -96,6 +96,37 @@ content hash and the score cache sits beside the structures, so repeat folds
 become free *and* deterministic. This is the single biggest lever on score
 stability.
 
+## Choosing how many to test
+
+`acr_locus_score` is a logistic output, **not** P(Acr). It was fit at the
+calibration set's class balance, which is nothing like the fraction of real
+Acrs in a pool of generated sequence. Reading it as a probability, or
+thresholding it, will overstate.
+
+`tools/rank_candidates.py` does the conversion: isotonic calibration, then
+a prior-independent likelihood-ratio rescale to whatever base rate you
+actually expect.
+
+```bash
+python -m proto_pipelines.tools.rank_candidates \
+    --evidence outputs/.../acr_evidence.csv --prior 0.05 --out ranked.csv
+```
+
+It reports the **expected number of true Acrs in the top k**, which is the
+sum of calibrated probabilities over those k. Choose k by the yield you are
+willing to test, not by a score cutoff.
+
+This is also the answer to "does ranking let junk through?". Ranking alone
+always returns k things whether or not any are real. The expected-yield
+number is the stopping rule: on a run of four generated ORFs that all
+scored in the veto tier, it reports an expected yield of 0.0 at a 5% prior
+rather than handing back a top-4. **An expected yield near zero means test
+nothing, not test the best of a bad batch.**
+
+The prior is yours to supply and the output is only as good as it. If you
+do not know the Acr rate in your pool, treat the ordering as usable and the
+absolute numbers as not.
+
 ## Reading `acr_evidence.csv`
 
 One row per ORF with every caller side by side.
