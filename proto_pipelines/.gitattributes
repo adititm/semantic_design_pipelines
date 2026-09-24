@@ -1,0 +1,19 @@
+# Git LFS.
+#
+# Patterns, not paths: these files are regenerated wholesale by the scripts in
+# calibration/, and a regenerated asset written back under a new name would
+# otherwise silently land in git proper.
+#
+# Requires `git lfs install` once per clone. Without it the working tree gets
+# ~130-byte pointer files instead of the real data, and pyhmmer/torch fail on
+# a malformed file rather than a missing one -- so if a profile scan or the
+# AcrNET checkpoint load fails on a fresh clone, check this first:
+#     git lfs env && git lfs pull
+
+# Profile HMMs. ta_families.hmm alone is 12 MB and is needed at run time.
+*.hmm filter=lfs diff=lfs merge=lfs -text
+
+# Model checkpoints (AcrNET, 2.5 MB) — binary, and never diffed usefully.
+*.ckpt filter=lfs diff=lfs merge=lfs -text
+*.pt   filter=lfs diff=lfs merge=lfs -text
+*.pth  filter=lfs diff=lfs merge=lfs -text

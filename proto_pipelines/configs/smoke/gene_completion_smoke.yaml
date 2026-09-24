@@ -1,0 +1,28 @@
+# Smoke test: 2 truncated-gene prompts x 2 samples. No structure prediction —
+# this pipeline never used ESMFold, so there is nothing for AF3 to replace.
+input_prompts: ./proto_pipelines/configs/smoke/gene_completion_prompts_smoke.csv
+reference_seqs: ./proto_pipelines/data/reference/rpos_sequences.fasta
+output_dir: smoke/gene_completion
+
+# Evo 1.5: the generator family must be named, or the evo2 default is
+# paired with an Evo 1 checkpoint and the run fails at startup.
+generator: evo1
+model_name: evo-1.5-8k-base
+n_tokens: 1000
+temperature: 0.7
+top_k: 4
+batch_size: 2
+n_sample_per_prompt: 2
+seed: 0
+device: cuda
+verbose: true
+
+filter_min_length: 50
+filter_max_length: 1200
+filter_partial_bool: false
+segmasker_threshold: 0.1
+
+run_identity_analysis: true
+seq_identity_match_threshold: 30.0
+protein_label_column: Protein_Label
+mafft_threads: 4

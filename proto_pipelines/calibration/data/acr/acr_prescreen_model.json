@@ -1,0 +1,25 @@
+{
+ "features": [
+  "acranker_raw",
+  "acrnet_pctile"
+ ],
+ "mean": [
+  -4.681366534250001,
+  0.5882838283828382
+ ],
+ "scale": [
+  1.5191121556054195,
+  0.30172602876434246
+ ],
+ "coef": [
+  0.4692801532830311,
+  2.291339841620472
+ ],
+ "intercept": -2.690566262181549,
+ "cv_auroc": 0.9106,
+ "cv_auroc_std": 0.0526,
+ "n_pos": 49,
+ "n_neg": 191,
+ "trained_on": "HMM-invisible Acrs vs phage+shuffled+random (sequence-only prescreen)",
+ "acrnet_feature_note": "Uses acrnet_pctile (percentile within its PSSM regime), NOT the raw probability. Raw acrnet_score is inflated toward 1.0 whenever PSI-BLAST builds no PSSM, which in this set is 67% of negatives but only 2% of positives -- a has_pssm flag alone scores AUROC 0.825, so the raw feature was partly reading profilability, not Acr-likeness."
+}

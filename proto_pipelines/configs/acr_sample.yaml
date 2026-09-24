@@ -1,0 +1,149 @@
+# Anti-CRISPR sampling (proto-language + AlphaFold 3)
+#
+#   generate -> Prodigal + QC -> AlphaFold 3 monomer screen
+#
+# Like the published workflow, this stops at folding. The paper's Acr calls came from a
+# separate PaCRISPR analysis that is not in this repository; nothing here
+# labels a sequence as an anti-CRISPR.
+#
+# Outputs (all in output_dir):
+#   generated_sequences.csv, filter_summary.csv, proteins.csv, proteins.fasta,
+#   af3_monomers/
+
+input_prompts: ./proto_pipelines/data/prompts/acr_sample_prompts.csv
+output_dir: acr_sample
+
+# Generator family and checkpoint. 'evo2' is the default; the paper used
+# Evo 1.5, so reproducing its numbers needs BOTH lines switched to:
+#   generator: evo1
+#   model_name: evo-1.5-8k-base
+# Note: Evo 2 returns no per-sample scoring metrics in this proto-tools
+# build, so the evo_score column is empty under it. Evo 1.5 populates it.
+generator: evo2
+model_name: evo2_7b        # evo2_7b | evo2_40b | evo2_7b_base | evo2_1b_base | ...
+
+# Sample from a CUSTOM Evo 2 checkpoint (fine-tuned, watermarked, ablated)
+# instead of the HuggingFace download. Point it at the weights DIRECTORY, not
+# a checkpoint file. `model_name` above still selects the architecture the
+# weights load into, so it must name the variant the checkpoint derives from.
+# Evo 2 only -- Evo 1 has no such hook and setting both raises rather than
+# silently sampling the stock model. Empty means "use the released weights".
+model_local_path: ""
+n_tokens: 1000
+temperature: 0.8
+top_k: 4
+batch_size: 10
+n_sample_per_prompt: 5
+seed: null
+device: cuda
+verbose: false
+
+filter_min_length: 50
+filter_max_length: 200        # Acrs are short
+filter_partial_bool: true
+segmasker_threshold: 0.1
+
+# --- AlphaFold 3 monomer screen ---------------------------------------------
+# BASAL GATE, calibrated against real junk. Keeps 92% of Evo ORFs while
+# dropping 46% of spurious ones. Data: calibration/results/junk_vs_evo/.
+#
+# Measured on 24 Evo ORFs vs 24 ORFs called on random DNA, GC- and
+# length-matched (both median 156 aa, balance p=0.85):
+#   pTM   AUROC 0.854 [0.742-0.946]   <- the better discriminator
+#   pLDDT AUROC 0.731 [0.580-0.865]
+#
+# Why these values and not stricter: pLDDT>=40/pTM>=0.25 drops 83% of junk but
+# keeps only 58% of real ORFs; pLDDT>=45/pTM>=0.30 drops 92% but keeps 38%.
+# The monomer fold is cheap and the cofold is expensive, but the cofold gate
+# already rejects ~1/3 of confirmed-functional pairs, so losses here compound.
+# This setting is deliberately high-sensitivity.
+#
+# Sanity check against knowns: all five validated designs pass comfortably
+# (EvoAT1 67.7/0.46 ... EvoAT4 54.2/0.35), as do the natural E. coli toxins
+# MazF (38.9/0.35) and YoeB (41.5/0.31) whose pairs rescued experimentally.
+#
+# What this gate is NOT doing: judging fold specificity. AlphaFold 3 cannot
+# separate an Evo design from a composition-matched scramble of itself
+# (pLDDT AUROC 0.475 - chance; calibration/results/denovo_monomer_calib/).
+# It separates real ORFs from random-DNA ORFs because their composition
+# differs, not because it recognises a specific fold. Treat it as a
+# protein-likeness floor, not a quality score.
+run_af3: true
+# Basal gate only, from the monomer calibration: Evo ORFs vs random-DNA ORFs
+# gave pTM AUROC 0.854, so these remove junk without selecting for
+# resemblance to known folds. Everything clearing them is scored and ranked.
+af3_plddt_threshold: 30.0
+af3_ptm_threshold: 0.20
+
+af3_max_proteins_per_proposal: 0   # 0 = fold every QC-surviving ORF
+af3_use_msa: true            # MSA on: Foldseek ranks on these folds, so quality matters
+af3_msa_device: cuda
+af3_num_recycles: 10
+af3_num_diffusion_samples: 5
+af3_seeds: [0]
+af3_save_structures: true
+
+# --- anti-CRISPR evidence -----------------------------------------------
+# Four independent callers combined by a logistic model calibrated on 316
+# labelled sequences. Cross-validated: Acr vs other phage proteins 0.836.
+#
+# min_score 0.0 = record evidence, reject nothing. The callers are calibrated
+# on natural Acrs; their behaviour on generated sequence is uncharacterised,
+# so gating on them would select for resemblance to known Acrs -- the
+# opposite of what this pipeline is for. Raise it only after inspecting
+# acr_evidence.csv from your own run.
+run_acr_evidence: true
+acr_hmm_path: ./proto_pipelines/calibration/data/acr/acr_families_default.hmm
+aca_hmm_path: ./proto_pipelines/calibration/data/acr/aca_families.hmm
+acr_hmm_evalue: 1.0
+acr_acranker_model: ./proto_pipelines/calibration/data/acr/acranker_booster.json
+acr_acranker_shuffles: 20
+acr_foldseek_ref_dir: ./proto_pipelines/calibration/data/acr/ref_db_ext/acr_ref_ext
+acr_combined_model: ./proto_pipelines/calibration/data/acr/acr_combined_model.json
+acr_divergent_model: ./proto_pipelines/calibration/data/acr/acr_divergent_model.json
+acr_min_score: 0.0
+acr_min_qualifying_proteins: 1
+
+# --- AcrNET (optional 5th caller) ---------------------------------------
+# Raises divergent-Acr AUROC from 0.775 to 0.905 (5-fold CV), the single
+# largest gain of any caller. Needs RaptorX Predict_Property (no database)
+# and, optionally, psiblast + a BLAST DB for the PSSM block: with the PSSM
+# AcrNET reproduces its published 1.00 on its own test set, without it 0.90.
+# Leave acrnet_home empty to disable.
+acrnet_home: ./proto_pipelines/calibration/data/acr/acrnet
+acrnet_predict_property: ./.scratch_acr/Predict_Property
+acrnet_psiblast: ./.scratch_acr/blast/ncbi-blast-2.17.0+/bin/psiblast
+acrnet_blast_db: ./.scratch_acr/blast/db/uniref30
+acrnet_workers: 8
+acrnet_device: cuda
+# Per-PSSM-regime tier bounds for the AcrNET probability. A missing
+# PSI-BLAST PSSM inflates the score toward 1.0 on its own -- zeroing the PSSM
+# on the same phage proteins moved them from 19% to 78% above 0.99 -- so a
+# score is only readable against the regime that produced it. Emits
+# acrnet_regime / acrnet_tier / acrnet_pctile per protein.
+acrnet_operating_points: ./proto_pipelines/calibration/data/acr/acrnet_operating_points.json
+
+# --- sequence-only prescreen (optional speed-up) -------------------------
+# HMM, AcRanker and AcrNET all take sequence only (~5 s/protein) while
+# AlphaFold 3 with an MSA costs minutes. Running them first and folding the
+# ORFs in that order lets acr_fold_fraction skip the least Acr-like tail:
+# folding the top 50% retains 94% of known Acrs. Sequence-only AUROC is
+# 0.911 vs 0.924 with Foldseek, so the ordering is reliable enough to cut on.
+# Off by default; set fold_fraction below 1.0 to actually save folds.
+run_acr_prescreen: true
+acr_prescreen_model: ./proto_pipelines/calibration/data/acr/acr_prescreen_model.json
+acr_fold_fraction: 1.0
+# On the REFIT prescreen model (acranker_raw + acrnet_pctile): 0.15 keeps 95%
+# of known Acrs and folds 28% of negatives, vs 92%/23% at 0.20. 0.15 is
+# chosen to hold the ~94% Acr-retention target the pipeline is designed
+# around, and it beats the superseded model's 94%/35% on both axes.
+# Verified NOT to bias toward known-Acr similarity, re-derived on the refit
+# model over the 300-sequence diverse panel (the only set here with a real
+# gradient -- all 64 calibration Acrs are AcrDB entries and hit it at 50%
+# identity). Spearman(identity, prescreen score) = +0.012 (p=0.84), and
+# -0.099 (p=0.14) excluding the no-alignment bin. At 0.15, sequences <30%
+# identical to a known Acr pass at 67% vs 65% for >=50% -- a 2 pt gap
+# favouring the MORE divergent. Pass rate by bin is non-monotone in
+# identity: none 59%, lt30 76%, 30_50 64%, ge50 65%.
+# HMM hits always fold regardless.
+acr_prescreen_min_score: 0.15

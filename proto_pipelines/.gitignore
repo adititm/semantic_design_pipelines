@@ -1,0 +1,30 @@
+# Run outputs. The default output root; override with
+# PROTO_PIPELINES_OUTPUT_ROOT or `output_root` in a config.
+outputs/
+outputs_*/
+
+# Calibration intermediates: AlphaFold 3 structures, per-caller score tables
+# and cached features, ~1.6 GB. These are REPRODUCIBLE from the scripts in
+# calibration/ and are deliberately not shipped -- see docs/CALIBRATION.md.
+# The fitted models the pipeline actually loads live in calibration/data/
+# and ARE tracked.
+calibration/results/
+
+# Reference structures used to BUILD the Foldseek database (~175 MB). The
+# built database (calibration/data/acr/ref_db_ext) is tracked instead.
+calibration/data/acr/ref_structures/
+calibration/data/acr/ref_acr_chains/
+
+# Pfam-A, ~55 MB, downloaded during family discovery. Not needed at runtime:
+# the derived family subsets are tracked.
+calibration/data/pfam/
+
+# Third-party model checkouts fetched by setup.
+.scratch_acr/
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/

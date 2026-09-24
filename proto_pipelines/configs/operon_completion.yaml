@@ -1,0 +1,50 @@
+# Operon-completion evaluation (proto-language)
+#
+#   generate -> Prodigal + QC -> MAFFT identity against the expected operon gene
+#
+# The prompt is NOT prepended here (matching the published workflow's make_fasta): the
+# prompt holds the upstream gene, and the question is whether Evo produces the
+# downstream ones. Never used ESMFold, so no structure prediction happens.
+#
+# Outputs (all in output_dir):
+#   generated_sequences.csv, filter_summary.csv, proteins.fasta,
+#   identity_results.csv, summary_statistics.csv
+
+input_prompts: ./proto_pipelines/data/prompts/operon_completion_prompts.csv
+reference_seqs: ./proto_pipelines/data/reference/modabc_operon_sequences.fasta
+output_dir: operon_completion
+
+# Generator family and checkpoint. 'evo2' is the default; the paper used
+# Evo 1.5, so reproducing its numbers needs BOTH lines switched to:
+#   generator: evo1
+#   model_name: evo-1.5-8k-base
+# Note: Evo 2 returns no per-sample scoring metrics in this proto-tools
+# build, so the evo_score column is empty under it. Evo 1.5 populates it.
+generator: evo2
+model_name: evo2_7b        # evo2_7b | evo2_40b | evo2_7b_base | evo2_1b_base | ...
+
+# Sample from a CUSTOM Evo 2 checkpoint (fine-tuned, watermarked, ablated)
+# instead of the HuggingFace download. Point it at the weights DIRECTORY, not
+# a checkpoint file. `model_name` above still selects the architecture the
+# weights load into, so it must name the variant the checkpoint derives from.
+# Evo 2 only -- Evo 1 has no such hook and setting both raises rather than
+# silently sampling the stock model. Empty means "use the released weights".
+model_local_path: ""
+n_tokens: 1500
+temperature: 0.7
+top_k: 4
+batch_size: 2
+n_sample_per_prompt: 1
+seed: null
+device: cuda
+verbose: false
+
+filter_min_length: 50
+filter_max_length: 1200
+filter_partial_bool: false
+segmasker_threshold: 0.1
+
+run_identity_analysis: true
+seq_identity_match_threshold: 30.0
+expected_response_column: Expected_Response   # must match a reference FASTA record ID
+mafft_threads: 1

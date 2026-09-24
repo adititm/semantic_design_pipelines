@@ -1,0 +1,10151 @@
+{
+ "evalue": 0.01,
+ "n_queries": 767,
+ "by_source": {
+  "natural_toxin": 363,
+  "natural_antitoxin": 395,
+  "design": 9
+ },
+ "per_query": {
+  "natural_toxin::T28": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 4.570950695343269e-30
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.3256812120267223e-06
+   }
+  ],
+  "natural_toxin::T73": [],
+  "natural_toxin::T74": [
+   {
+    "profile": "PIN",
+    "evalue": 1.2842493724404797e-14
+   }
+  ],
+  "natural_toxin::T75": [
+   {
+    "profile": "PIN",
+    "evalue": 2.2067261108306287e-14
+   }
+  ],
+  "natural_toxin::T76": [
+   {
+    "profile": "PIN",
+    "evalue": 2.7550109773520357e-12
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.0032097048350398184
+   }
+  ],
+  "natural_toxin::T77": [
+   {
+    "profile": "PIN",
+    "evalue": 1.1917157714378448e-17
+   },
+   {
+    "profile": "DUF5615",
+    "evalue": 0.00408380572905125
+   }
+  ],
+  "natural_toxin::T78": [
+   {
+    "profile": "PIN",
+    "evalue": 3.675373997737037e-15
+   }
+  ],
+  "natural_toxin::T79": [
+   {
+    "profile": "PIN",
+    "evalue": 1.0115478712556552e-18
+   }
+  ],
+  "natural_toxin::T80": [
+   {
+    "profile": "PIN",
+    "evalue": 1.7513518153293837e-14
+   }
+  ],
+  "natural_toxin::T81": [
+   {
+    "profile": "PIN",
+    "evalue": 2.474364108846696e-18
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.0068903371843301656
+   }
+  ],
+  "natural_toxin::T82": [
+   {
+    "profile": "PIN",
+    "evalue": 3.2928317486875475e-18
+   },
+   {
+    "profile": "DUF5615",
+    "evalue": 0.009591484389914775
+   }
+  ],
+  "natural_toxin::T83": [],
+  "natural_toxin::T84": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.0806212825817638e-12
+   }
+  ],
+  "natural_toxin::T85": [
+   {
+    "profile": "PIN",
+    "evalue": 4.897649650163098e-15
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.001107772230396053
+   }
+  ],
+  "natural_toxin::T86": [
+   {
+    "profile": "PIN",
+    "evalue": 1.5797471142867678e-06
+   }
+  ],
+  "natural_toxin::T87": [
+   {
+    "profile": "PIN",
+    "evalue": 2.445904063288655e-17
+   },
+   {
+    "profile": "DUF5615",
+    "evalue": 0.016790741003324214
+   }
+  ],
+  "natural_toxin::T88": [
+   {
+    "profile": "Polyketide_cyc2",
+    "evalue": 1.4826966490165191e-25
+   }
+  ],
+  "natural_toxin::T90": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.4922542381683353e-10
+   }
+  ],
+  "natural_toxin::T91": [
+   {
+    "profile": "PIN",
+    "evalue": 2.962304299694733e-11
+   }
+  ],
+  "natural_toxin::T92": [
+   {
+    "profile": "PIN",
+    "evalue": 2.278889117159616e-06
+   }
+  ],
+  "natural_toxin::T93": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.1501750013491013e-10
+   }
+  ],
+  "natural_toxin::T94": [
+   {
+    "profile": "PIN",
+    "evalue": 5.649147200240732e-13
+   }
+  ],
+  "natural_toxin::T95": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.2921530195427249e-14
+   }
+  ],
+  "natural_toxin::T97": [
+   {
+    "profile": "PIN",
+    "evalue": 1.484681586672672e-18
+   }
+  ],
+  "natural_toxin::T98": [
+   {
+    "profile": "PIN",
+    "evalue": 5.768221814634723e-08
+   }
+  ],
+  "natural_toxin::T101": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9070597784114037e-14
+   }
+  ],
+  "natural_toxin::T103": [
+   {
+    "profile": "Gp49",
+    "evalue": 6.134845043964574e-18
+   }
+  ],
+  "natural_toxin::T105": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.3663235926821216e-24
+   }
+  ],
+  "natural_toxin::T106": [
+   {
+    "profile": "RES",
+    "evalue": 3.932708617576695e-18
+   }
+  ],
+  "natural_toxin::T107": [
+   {
+    "profile": "PIN",
+    "evalue": 6.055755344410342e-17
+   },
+   {
+    "profile": "PIN_4",
+    "evalue": 0.0013213471888028387
+   },
+   {
+    "profile": "PIN_12",
+    "evalue": 0.009736664314393595
+   }
+  ],
+  "natural_toxin::T111": [
+   {
+    "profile": "PIN",
+    "evalue": 1.512440570757831e-15
+   },
+   {
+    "profile": "DUF5615",
+    "evalue": 0.010193980929617734
+   }
+  ],
+  "natural_toxin::T112": [
+   {
+    "profile": "PIN",
+    "evalue": 6.637456323098263e-10
+   }
+  ],
+  "natural_toxin::T114": [
+   {
+    "profile": "PIN",
+    "evalue": 4.916700836959422e-10
+   }
+  ],
+  "natural_toxin::T116": [
+   {
+    "profile": "PIN",
+    "evalue": 1.2411737670205184e-12
+   }
+  ],
+  "natural_toxin::T117": [
+   {
+    "profile": "PIN",
+    "evalue": 6.279407751154888e-19
+   }
+  ],
+  "natural_toxin::T119": [
+   {
+    "profile": "PIN",
+    "evalue": 5.303642550137821e-15
+   }
+  ],
+  "natural_toxin::T120": [
+   {
+    "profile": "LPD22",
+    "evalue": 0.0058672489412670515
+   }
+  ],
+  "natural_toxin::T121": [
+   {
+    "profile": "PIN",
+    "evalue": 3.045910327860332e-14
+   }
+  ],
+  "natural_toxin::T123": [
+   {
+    "profile": "PIN",
+    "evalue": 5.836267228881677e-21
+   }
+  ],
+  "natural_toxin::T124": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 7.285610215439318e-13
+   },
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 0.0011339077951535935
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.005164927116594242
+   }
+  ],
+  "natural_toxin::T125": [
+   {
+    "profile": "PIN",
+    "evalue": 4.2782485332455e-17
+   }
+  ],
+  "natural_toxin::T127": [
+   {
+    "profile": "Gp49",
+    "evalue": 2.452367636002996e-22
+   }
+  ],
+  "natural_toxin::T129": [
+   {
+    "profile": "PIN",
+    "evalue": 4.79145098993541e-12
+   }
+  ],
+  "natural_toxin::T130": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 6.991044434498048e-40
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.007188028008047777
+   }
+  ],
+  "natural_toxin::T131": [
+   {
+    "profile": "PIN",
+    "evalue": 4.0992211258592704e-14
+   },
+   {
+    "profile": "ALF",
+    "evalue": 0.03649355145146455
+   }
+  ],
+  "natural_toxin::T132": [
+   {
+    "profile": "PIN",
+    "evalue": 2.6058318125544636e-11
+   }
+  ],
+  "natural_toxin::T134": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 5.401513972326984e-38
+   }
+  ],
+  "natural_toxin::T137": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9320527569186356e-24
+   },
+   {
+    "profile": "Glutaminase",
+    "evalue": 0.007733368236430035
+   }
+  ],
+  "natural_toxin::T162": [
+   {
+    "profile": "MqsR_toxin",
+    "evalue": 2.4880346516795396e-36
+   }
+  ],
+  "natural_toxin::T164": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 7.102312152743256e-15
+   }
+  ],
+  "natural_toxin::T165": [
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 2.112020402462208e-09
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 3.2691988771579214e-09
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 6.073470502120364e-08
+   },
+   {
+    "profile": "FR47",
+    "evalue": 9.911245579644975e-06
+   },
+   {
+    "profile": "DUF5105",
+    "evalue": 9.256189418572274e-05
+   },
+   {
+    "profile": "Acetyltransf_4",
+    "evalue": 0.024087444426706545
+   }
+  ],
+  "natural_toxin::T166": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.9440126801027997e-31
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.1898560862888594e-07
+   }
+  ],
+  "natural_toxin::T167": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 5.2344166240448005e-25
+   }
+  ],
+  "natural_toxin::T168": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.669137602679863e-12
+   }
+  ],
+  "natural_toxin::T169": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 5.787047780837867e-21
+   }
+  ],
+  "natural_toxin::T170": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 7.102312152743256e-15
+   }
+  ],
+  "natural_toxin::T171": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 1.4157351238767599e-39
+   }
+  ],
+  "natural_toxin::T172": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 5.536046113219865e-16
+   }
+  ],
+  "natural_toxin::T173": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 9.193793752420137e-16
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 4.830172190571248e-06
+   }
+  ],
+  "natural_toxin::T174": [
+   {
+    "profile": "RelE",
+    "evalue": 2.397789500414649e-08
+   }
+  ],
+  "natural_toxin::T175": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.209996316250278e-15
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 3.2992942189184926e-08
+   }
+  ],
+  "natural_toxin::T176": [
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 2.112020402462208e-09
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 3.2691988771579214e-09
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 6.073470502120364e-08
+   },
+   {
+    "profile": "FR47",
+    "evalue": 9.911245579644975e-06
+   },
+   {
+    "profile": "DUF5105",
+    "evalue": 9.256189418572274e-05
+   },
+   {
+    "profile": "Acetyltransf_4",
+    "evalue": 0.024087444426706545
+   }
+  ],
+  "natural_toxin::T177": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 5.057295761929895e-07
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 2.093861401591864e-06
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 3.635856034723189e-06
+   },
+   {
+    "profile": "FR47",
+    "evalue": 0.002353951873612127
+   }
+  ],
+  "natural_toxin::T178": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.368172360941096e-20
+   }
+  ],
+  "natural_toxin::T179": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.669137602679863e-12
+   }
+  ],
+  "natural_toxin::T180": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.1651717758135025e-09
+   }
+  ],
+  "natural_toxin::T182": [
+   {
+    "profile": "HD_3",
+    "evalue": 1.523673918935208e-44
+   },
+   {
+    "profile": "YfbR-like",
+    "evalue": 3.306352113088499e-09
+   },
+   {
+    "profile": "HD",
+    "evalue": 1.1010351332023464e-06
+   }
+  ],
+  "natural_toxin::T183": [
+   {
+    "profile": "Acetyltransf_3",
+    "evalue": 3.749123148192536e-13
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 2.6171329969792637e-05
+   }
+  ],
+  "natural_toxin::T190": [
+   {
+    "profile": "CcdB",
+    "evalue": 2.8058408676709998e-30
+   }
+  ],
+  "natural_toxin::T199": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 4.7487534564913305e-05
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 0.00011595502920590513
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 0.0005753469609133087
+   }
+  ],
+  "natural_toxin::T200": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 2.327346093131149e-07
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 1.7027447869909638e-06
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 6.394196509617626e-05
+   },
+   {
+    "profile": "FR47",
+    "evalue": 0.0027180336825803264
+   },
+   {
+    "profile": "Acetyltransf_CG",
+    "evalue": 0.013516360982830086
+   },
+   {
+    "profile": "ALC",
+    "evalue": 0.2224896108705672
+   }
+  ],
+  "natural_toxin::T226": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.1862361125242007e-12
+   }
+  ],
+  "natural_toxin::T228": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 5.719899948120623e-23
+   }
+  ],
+  "natural_toxin::T229": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.2933097590613308e-19
+   }
+  ],
+  "natural_toxin::T233": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 7.435471411688929e-19
+   }
+  ],
+  "natural_toxin::T301": [
+   {
+    "profile": "HigB_toxin",
+    "evalue": 1.0396164186406266e-13
+   }
+  ],
+  "natural_toxin::T303": [
+   {
+    "profile": "RelE",
+    "evalue": 0.0005078630090051269
+   }
+  ],
+  "natural_toxin::T307": [
+   {
+    "profile": "RES",
+    "evalue": 9.52099755328972e-28
+   }
+  ],
+  "natural_toxin::T309": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.4713755833788745e-14
+   }
+  ],
+  "natural_toxin::T310": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 1.0898875758704195e-39
+   }
+  ],
+  "natural_toxin::T313": [
+   {
+    "profile": "PIN_3",
+    "evalue": 5.2369133314176275e-14
+   },
+   {
+    "profile": "DUF5615",
+    "evalue": 0.01922579600988787
+   }
+  ],
+  "natural_toxin::T314": [
+   {
+    "profile": "MqsR_toxin",
+    "evalue": 5.535042669605443e-32
+   }
+  ],
+  "natural_toxin::T325": [
+   {
+    "profile": "Gp49",
+    "evalue": 9.490403813970118e-18
+   }
+  ],
+  "natural_toxin::T326": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 9.011299115451712e-15
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0007174848259257079
+   }
+  ],
+  "natural_toxin::T439": [
+   {
+    "profile": "PIN",
+    "evalue": 5.636083249074434e-20
+   }
+  ],
+  "natural_toxin::T443": [
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 2.0787406011498795e-09
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 3.326896451698565e-09
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 3.586654093628858e-05
+   }
+  ],
+  "natural_toxin::T516": [
+   {
+    "profile": "PIN",
+    "evalue": 8.018375714495027e-14
+   },
+   {
+    "profile": "PIN_2",
+    "evalue": 0.0018565323310468168
+   },
+   {
+    "profile": "Arg_decarb_HB",
+    "evalue": 0.011937717068936357
+   }
+  ],
+  "natural_toxin::T535": [
+   {
+    "profile": "PIN",
+    "evalue": 8.822346080148228e-10
+   }
+  ],
+  "natural_toxin::T611": [
+   {
+    "profile": "Peptidase_M78",
+    "evalue": 0.0008515578103038783
+   }
+  ],
+  "natural_toxin::T612": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.647917358673058e-38
+   }
+  ],
+  "natural_toxin::T613": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.2362079574750436e-38
+   },
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 4.180992684028486e-05
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.00018432863528986416
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.0017733519705749675
+   }
+  ],
+  "natural_toxin::T614": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 1.1500681810795395e-09
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.242644531242587e-07
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.0009116557370766752
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0015219024247791104
+   },
+   {
+    "profile": "TINF2_N",
+    "evalue": 0.005108471617918014
+   }
+  ],
+  "natural_toxin::T652": [
+   {
+    "profile": "PIN",
+    "evalue": 2.162690548455246e-17
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 0.010340920574397967
+   }
+  ],
+  "natural_toxin::T655": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.7524608399243244e-27
+   }
+  ],
+  "natural_toxin::T659": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.3365874068301633e-15
+   }
+  ],
+  "natural_toxin::T663": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.3059205043499028e-21
+   }
+  ],
+  "natural_toxin::T665": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 8.201642358157654e-29
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.0972963089291936e-09
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0012574536732391133
+   }
+  ],
+  "natural_toxin::T705": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.553060521849577e-11
+   }
+  ],
+  "natural_toxin::T727": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 9.011299115451712e-15
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0007174848259257079
+   }
+  ],
+  "natural_toxin::T728": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.445439014478137e-41
+   }
+  ],
+  "natural_toxin::T843": [
+   {
+    "profile": "PIN",
+    "evalue": 5.46226261876359e-17
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 0.0024443131288159436
+   }
+  ],
+  "natural_toxin::T875": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 1.290939142914193e-23
+   }
+  ],
+  "natural_toxin::T877": [
+   {
+    "profile": "PIN",
+    "evalue": 7.34911183233862e-21
+   }
+  ],
+  "natural_toxin::T911": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 6.337897230035867e-28
+   },
+   {
+    "profile": "CcdB",
+    "evalue": 0.00021340159500618717
+   }
+  ],
+  "natural_toxin::T945": [
+   {
+    "profile": "PIN",
+    "evalue": 8.81787964705013e-12
+   }
+  ],
+  "natural_toxin::T947": [
+   {
+    "profile": "PIN",
+    "evalue": 2.2173273378097476e-19
+   }
+  ],
+  "natural_toxin::T950": [
+   {
+    "profile": "HTH_10",
+    "evalue": 1.1852939763122059e-24
+   },
+   {
+    "profile": "Sigma70_r4",
+    "evalue": 2.9212531523658794e-08
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.00030631499673523533
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0022182564010867203
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.009105305446780987
+   }
+  ],
+  "natural_toxin::T951": [
+   {
+    "profile": "PIN",
+    "evalue": 2.9014749644507166e-20
+   }
+  ],
+  "natural_toxin::T956": [
+   {
+    "profile": "PIN",
+    "evalue": 1.1663656757037728e-22
+   },
+   {
+    "profile": "PIN_4",
+    "evalue": 0.009156309055594685
+   }
+  ],
+  "natural_toxin::T957": [
+   {
+    "profile": "PIN",
+    "evalue": 1.4667181521867687e-19
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 1.1077126182918868e-05
+   }
+  ],
+  "natural_toxin::T962": [
+   {
+    "profile": "PIN",
+    "evalue": 5.5964856435844145e-11
+   },
+   {
+    "profile": "Carm_PH",
+    "evalue": 0.08725275592627549
+   }
+  ],
+  "natural_toxin::T964": [
+   {
+    "profile": "DUF5615",
+    "evalue": 1.615147299013079e-24
+   },
+   {
+    "profile": "PIN_10",
+    "evalue": 8.092012814316856e-06
+   }
+  ],
+  "natural_toxin::T970": [
+   {
+    "profile": "PIN_3",
+    "evalue": 1.0060391810097389e-18
+   },
+   {
+    "profile": "PIN",
+    "evalue": 0.00010251972072407776
+   },
+   {
+    "profile": "PIN_2",
+    "evalue": 0.011912731537265376
+   }
+  ],
+  "natural_toxin::T972": [
+   {
+    "profile": "PIN",
+    "evalue": 9.927314318938369e-18
+   }
+  ],
+  "natural_toxin::T977": [
+   {
+    "profile": "PIN",
+    "evalue": 3.616217931973603e-17
+   }
+  ],
+  "natural_toxin::T978": [
+   {
+    "profile": "RelE",
+    "evalue": 2.93841436991346e-06
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.001100382100709923
+   }
+  ],
+  "natural_toxin::T1005": [
+   {
+    "profile": "RelE",
+    "evalue": 6.094826158795582e-33
+   }
+  ],
+  "natural_toxin::T1006": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.400516632159341e-17
+   }
+  ],
+  "natural_toxin::T1008": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.575414865800132e-16
+   }
+  ],
+  "natural_toxin::T1038": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.535512055112457e-32
+   }
+  ],
+  "natural_toxin::T1039": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 2.7865961097307976e-07
+   }
+  ],
+  "natural_toxin::T1041": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.8724585013365148e-13
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 1.1999953739022597e-05
+   }
+  ],
+  "natural_toxin::T1043": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.3745476999717013e-43
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.1228387312741372e-05
+   }
+  ],
+  "natural_toxin::T1044": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.7833232679197174e-24
+   }
+  ],
+  "natural_toxin::T1045": [
+   {
+    "profile": "MqsR_toxin",
+    "evalue": 2.689310156401146e-34
+   }
+  ],
+  "natural_toxin::T1046": [
+   {
+    "profile": "HigB_toxin",
+    "evalue": 3.4344480304880426e-22
+   }
+  ],
+  "natural_toxin::T1047": [
+   {
+    "profile": "Toxin_YhaV",
+    "evalue": 4.64743647434887e-54
+   },
+   {
+    "profile": "Flexi_CP",
+    "evalue": 0.011486452352092459
+   }
+  ],
+  "natural_toxin::T1049": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.4314897535118381e-25
+   }
+  ],
+  "natural_toxin::T1066": [
+   {
+    "profile": "PIN",
+    "evalue": 4.2667726071928965e-19
+   }
+  ],
+  "natural_toxin::T1067": [
+   {
+    "profile": "Gp49",
+    "evalue": 1.5560673169811306e-18
+   },
+   {
+    "profile": "Med9",
+    "evalue": 0.006441097594455181
+   },
+   {
+    "profile": "DUF6680",
+    "evalue": 0.01166319479954376
+   }
+  ],
+  "natural_toxin::T1070": [
+   {
+    "profile": "PIN",
+    "evalue": 4.451257353287919e-23
+   }
+  ],
+  "natural_toxin::T1073": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.647917358673058e-38
+   }
+  ],
+  "natural_toxin::T1074": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 6.80402702191444e-38
+   },
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 3.541841631006816e-05
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.00016056406238566497
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.001509428959813861
+   }
+  ],
+  "natural_toxin::T1075": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 1.2163209359643705e-09
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.0427928887489173e-06
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.0010035208922838815
+   },
+   {
+    "profile": "TINF2_N",
+    "evalue": 0.005329769183899616
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.006039701970934386
+   }
+  ],
+  "natural_toxin::T1222": [
+   {
+    "profile": "RES",
+    "evalue": 1.143891576827675e-30
+   }
+  ],
+  "natural_toxin::T1325": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 2.0026522934409603e-18
+   }
+  ],
+  "natural_toxin::T1499": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 4.56625385168363e-37
+   }
+  ],
+  "natural_toxin::T1547": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 3.237689975160767e-14
+   }
+  ],
+  "natural_toxin::T1729": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.8573093517652687e-17
+   }
+  ],
+  "natural_toxin::T1818": [
+   {
+    "profile": "PIN_3",
+    "evalue": 8.779569491716125e-22
+   },
+   {
+    "profile": "PIN",
+    "evalue": 1.2900680261592968e-08
+   }
+  ],
+  "natural_toxin::T1852": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.230126642255276e-20
+   }
+  ],
+  "natural_toxin::T6090": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.2285147220350081e-36
+   }
+  ],
+  "natural_toxin::T2224": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 1.9256355075681512e-14
+   }
+  ],
+  "natural_toxin::T2427": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.2362079574750436e-38
+   },
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 4.180992684028486e-05
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.00018432863528986416
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.0017733519705749675
+   }
+  ],
+  "natural_toxin::T3011": [
+   {
+    "profile": "RES",
+    "evalue": 9.181822951681951e-26
+   }
+  ],
+  "natural_toxin::T3165": [
+   {
+    "profile": "PIN",
+    "evalue": 1.4481407560656772e-18
+   }
+  ],
+  "natural_toxin::T3306": [
+   {
+    "profile": "PIN",
+    "evalue": 4.0991754130092207e-16
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.006308067276937429
+   }
+  ],
+  "natural_toxin::T3484": [
+   {
+    "profile": "RES",
+    "evalue": 1.246055341035545e-32
+   }
+  ],
+  "natural_toxin::T3593": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 1.2048870219710405e-23
+   }
+  ],
+  "natural_toxin::T3856": [
+   {
+    "profile": "PIN",
+    "evalue": 2.6139772978181803e-22
+   }
+  ],
+  "natural_toxin::T3858": [
+   {
+    "profile": "PIN",
+    "evalue": 2.6139772978181803e-22
+   }
+  ],
+  "natural_toxin::T4244": [
+   {
+    "profile": "Peptidase_M78",
+    "evalue": 0.00014267487218399045
+   },
+   {
+    "profile": "DUF4116",
+    "evalue": 0.024411860104550858
+   }
+  ],
+  "natural_toxin::T4250": [
+   {
+    "profile": "PIN",
+    "evalue": 6.886294055773156e-20
+   }
+  ],
+  "natural_toxin::T4502": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 7.910170880224799e-08
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 2.834225135470926e-07
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 7.061550187583233e-06
+   },
+   {
+    "profile": "FR47",
+    "evalue": 0.005302636724226659
+   },
+   {
+    "profile": "Acetyltransf_15",
+    "evalue": 0.17530413163793532
+   }
+  ],
+  "natural_toxin::T4914": [
+   {
+    "profile": "PIN",
+    "evalue": 8.015811343982467e-15
+   }
+  ],
+  "natural_toxin::T4918": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 5.52720623804333e-40
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.00017252540476503223
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.0013750140041207482
+   }
+  ],
+  "natural_toxin::T4922": [
+   {
+    "profile": "PIN",
+    "evalue": 3.399693195528644e-20
+   }
+  ],
+  "natural_toxin::T4923": [
+   {
+    "profile": "PIN",
+    "evalue": 9.394616455169622e-12
+   },
+   {
+    "profile": "DUF5615",
+    "evalue": 0.014431329140387915
+   }
+  ],
+  "natural_toxin::T6022": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.1019832242815358e-35
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0018530786042633017
+   }
+  ],
+  "natural_toxin::T6023": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 5.4357984466557396e-05
+   }
+  ],
+  "natural_toxin::T6024": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 7.144603627116634e-46
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 4.504902946192498e-06
+   },
+   {
+    "profile": "RuvB_N",
+    "evalue": 0.0007907023644363689
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.0008997683872573572
+   },
+   {
+    "profile": "cobW",
+    "evalue": 0.0017145112671638444
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.0025350438744874302
+   },
+   {
+    "profile": "Gtr1_RagA",
+    "evalue": 0.005903252226639595
+   },
+   {
+    "profile": "KAP_NTPase",
+    "evalue": 0.006182202268296542
+   },
+   {
+    "profile": "EndoS_Ig-like",
+    "evalue": 0.01773942746792002
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.04607400852736021
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.0476091329118115
+   },
+   {
+    "profile": "AAA_11",
+    "evalue": 0.07629557323543809
+   },
+   {
+    "profile": "AAA_19",
+    "evalue": 0.078708981313766
+   }
+  ],
+  "natural_toxin::T1076": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.354852404596122e-29
+   }
+  ],
+  "natural_toxin::T6135": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9374570808111252e-36
+   }
+  ],
+  "natural_toxin::T6136": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9374570808111252e-36
+   }
+  ],
+  "natural_toxin::T6137": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.7451880815288053e-22
+   }
+  ],
+  "natural_toxin::T6138": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 7.380072701862856e-36
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.004599912663890772
+   }
+  ],
+  "natural_toxin::T6139": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 5.384759190087582e-12
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0011939742078915245
+   }
+  ],
+  "natural_toxin::T6140": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9374570808111252e-36
+   }
+  ],
+  "natural_toxin::T6141": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9374570808111252e-36
+   }
+  ],
+  "natural_toxin::T6142": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.7451880815288053e-22
+   }
+  ],
+  "natural_toxin::T6143": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 7.380072701862856e-36
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.004599912663890772
+   }
+  ],
+  "natural_toxin::T6144": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 5.384759190087582e-12
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0011939742078915245
+   }
+  ],
+  "natural_toxin::T6029": [
+   {
+    "profile": "SpoIISA_toxin",
+    "evalue": 4.919864623139842e-103
+   }
+  ],
+  "natural_toxin::T6038": [
+   {
+    "profile": "Gp49",
+    "evalue": 3.2311551929139305e-23
+   }
+  ],
+  "natural_toxin::T6079": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 7.144603627116634e-46
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 4.504902946192498e-06
+   },
+   {
+    "profile": "RuvB_N",
+    "evalue": 0.0007907023644363689
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.0008997683872573572
+   },
+   {
+    "profile": "cobW",
+    "evalue": 0.0017145112671638444
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.0025350438744874302
+   },
+   {
+    "profile": "Gtr1_RagA",
+    "evalue": 0.005903252226639595
+   },
+   {
+    "profile": "KAP_NTPase",
+    "evalue": 0.006182202268296542
+   },
+   {
+    "profile": "EndoS_Ig-like",
+    "evalue": 0.01773942746792002
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.04607400852736021
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.0476091329118115
+   },
+   {
+    "profile": "AAA_11",
+    "evalue": 0.07629557323543809
+   },
+   {
+    "profile": "AAA_19",
+    "evalue": 0.078708981313766
+   }
+  ],
+  "natural_toxin::T6080": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 4.442617489567788e-63
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 3.2476273446078144e-05
+   },
+   {
+    "profile": "APS_kinase",
+    "evalue": 0.0012675513929709574
+   },
+   {
+    "profile": "AAA_17",
+    "evalue": 0.0035591323619643188
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.0036045766586139316
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.011487194880182624
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.032267353267873014
+   },
+   {
+    "profile": "CPT",
+    "evalue": 0.04407040988726261
+   },
+   {
+    "profile": "AAA_24",
+    "evalue": 0.09277323605736637
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.11227808995383616
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.13215380295818613
+   }
+  ],
+  "natural_toxin::T6086": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 2.107352063107097e-24
+   }
+  ],
+  "natural_toxin::T6087": [
+   {
+    "profile": "HigB_toxin",
+    "evalue": 2.5909901830172845e-22
+   }
+  ],
+  "natural_toxin::T6088": [
+   {
+    "profile": "RelE",
+    "evalue": 0.00028632915913465195
+   }
+  ],
+  "natural_toxin::T6091": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.6476444781164598e-19
+   }
+  ],
+  "natural_toxin::T6093": [
+   {
+    "profile": "Fic",
+    "evalue": 3.2932476489889177e-16
+   }
+  ],
+  "natural_toxin::T6097": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 8.187334124971771e-19
+   }
+  ],
+  "natural_toxin::T6098": [
+   {
+    "profile": "RES",
+    "evalue": 2.05335928478866e-28
+   }
+  ],
+  "natural_toxin::T6100": [
+   {
+    "profile": "MqsR_toxin",
+    "evalue": 2.689310156401146e-34
+   }
+  ],
+  "natural_toxin::T6107": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 6.116424288784126e-24
+   },
+   {
+    "profile": "DUF2812",
+    "evalue": 0.03167211602212429
+   }
+  ],
+  "natural_toxin::T6113": [
+   {
+    "profile": "PIN",
+    "evalue": 3.568314661045967e-11
+   }
+  ],
+  "natural_toxin::T6106": [
+   {
+    "profile": "Gp49",
+    "evalue": 1.8037195419841046e-05
+   }
+  ],
+  "natural_toxin::T6034": [
+   {
+    "profile": "DarT",
+    "evalue": 4.0790915336859865e-60
+   }
+  ],
+  "natural_toxin::T6035": [
+   {
+    "profile": "AbiEii",
+    "evalue": 1.3249676118216717e-48
+   }
+  ],
+  "natural_toxin::T6109": [
+   {
+    "profile": "CcdB",
+    "evalue": 1.4888037245523684e-30
+   }
+  ],
+  "natural_toxin::T6111": [
+   {
+    "profile": "PIN",
+    "evalue": 4.985888148448907e-13
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.0004152385087071054
+   }
+  ],
+  "natural_toxin::T6112": [
+   {
+    "profile": "PIN",
+    "evalue": 7.473077307105635e-15
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.002495739290031385
+   }
+  ],
+  "natural_toxin::T6105": [
+   {
+    "profile": "Gp49",
+    "evalue": 4.014491681265975e-05
+   }
+  ],
+  "natural_toxin::T6115": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.1019832242815358e-35
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0018530786042633017
+   }
+  ],
+  "natural_toxin::T6120": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 4.773698584234362e-25
+   }
+  ],
+  "natural_toxin::T6121": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 1.9256355075681512e-14
+   }
+  ],
+  "natural_toxin::T6124": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 5.1965618683790965e-40
+   }
+  ],
+  "natural_toxin::T6127": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 1.2006910726561284e-30
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 7.03483321929981e-09
+   }
+  ],
+  "natural_toxin::T6128": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.615792703409449e-12
+   }
+  ],
+  "natural_toxin::T6129": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.615792703409449e-12
+   }
+  ],
+  "natural_toxin::T6131": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.0891533718617409e-14
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 2.2586052051960517e-05
+   },
+   {
+    "profile": "Gp49",
+    "evalue": 0.013325815001721066
+   },
+   {
+    "profile": "BAF",
+    "evalue": 0.08433631082424553
+   }
+  ],
+  "natural_toxin::T6132": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.0891533718617409e-14
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 2.2586052051960517e-05
+   },
+   {
+    "profile": "Gp49",
+    "evalue": 0.013325815001721066
+   },
+   {
+    "profile": "BAF",
+    "evalue": 0.08433631082424553
+   }
+  ],
+  "natural_toxin::T6134": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.6727947980070902e-17
+   }
+  ],
+  "natural_toxin::T6130": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.980717382703025e-13
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0005541361985902508
+   }
+  ],
+  "natural_toxin::T6122": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 5.655701688762302e-42
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.764704254475607e-05
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0025764446011882214
+   }
+  ],
+  "natural_toxin::T6104": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 2.1465050346187856e-46
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 1.1030015002191963e-06
+   },
+   {
+    "profile": "cobW",
+    "evalue": 0.0005296887118131599
+   },
+   {
+    "profile": "RuvB_N",
+    "evalue": 0.001093822112234125
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.0013915583047374837
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.0024127321034548227
+   },
+   {
+    "profile": "DUF815",
+    "evalue": 0.010716066140310714
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.01303715825165901
+   },
+   {
+    "profile": "EndoS_Ig-like",
+    "evalue": 0.014403485075687601
+   },
+   {
+    "profile": "CPT",
+    "evalue": 0.053178067570113785
+   },
+   {
+    "profile": "AAA_19",
+    "evalue": 0.05474365820273495
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.06664563665469175
+   },
+   {
+    "profile": "AAA_11",
+    "evalue": 0.07098334183732279
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.07827336821176707
+   }
+  ],
+  "natural_toxin::T6083": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 2.5425347805362556e-19
+   }
+  ],
+  "natural_toxin::T6037": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 1.2394818416645354e-55
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 5.6743166070150296e-05
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.0033112401978283926
+   },
+   {
+    "profile": "APS_kinase",
+    "evalue": 0.01644659568256739
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.016548872368897634
+   },
+   {
+    "profile": "CPT",
+    "evalue": 0.03586161455327411
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.04279143462706727
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.04895796857585157
+   },
+   {
+    "profile": "AAA_29",
+    "evalue": 0.06670413169292339
+   },
+   {
+    "profile": "AAA_14",
+    "evalue": 0.07528131354311136
+   }
+  ],
+  "natural_toxin::T6025": [
+   {
+    "profile": "Gp49",
+    "evalue": 9.268940112982414e-24
+   }
+  ],
+  "natural_toxin::T6081": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 5.782704524844933e-26
+   }
+  ],
+  "natural_toxin::T6082": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 5.782704524844933e-26
+   }
+  ],
+  "natural_toxin::T6114": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.7225138713788946e-13
+   }
+  ],
+  "natural_toxin::T6157": [
+   {
+    "profile": "YafO_toxin",
+    "evalue": 8.56906460405837e-40
+   }
+  ],
+  "natural_toxin::T6240": [
+   {
+    "profile": "DarT",
+    "evalue": 3.036285848623826e-59
+   }
+  ],
+  "natural_toxin::T6241": [
+   {
+    "profile": "PIN",
+    "evalue": 2.527243578422184e-07
+   },
+   {
+    "profile": "PIN_2",
+    "evalue": 0.004362626638992714
+   }
+  ],
+  "natural_toxin::T6245": [
+   {
+    "profile": "PIN",
+    "evalue": 4.061232948320674e-15
+   }
+  ],
+  "natural_toxin::T6246": [
+   {
+    "profile": "PIN",
+    "evalue": 1.3302630928322335e-18
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.003082823999129494
+   }
+  ],
+  "natural_toxin::T6247": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 9.981256881593897e-28
+   }
+  ],
+  "natural_toxin::T6248": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 2.536978863933228e-21
+   }
+  ],
+  "natural_toxin::T6249": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.207995573574803e-07
+   }
+  ],
+  "natural_toxin::T6092": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 7.144603627116634e-46
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 4.504902946192498e-06
+   },
+   {
+    "profile": "RuvB_N",
+    "evalue": 0.0007907023644363689
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.0008997683872573572
+   },
+   {
+    "profile": "cobW",
+    "evalue": 0.0017145112671638444
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.0025350438744874302
+   },
+   {
+    "profile": "Gtr1_RagA",
+    "evalue": 0.005903252226639595
+   },
+   {
+    "profile": "KAP_NTPase",
+    "evalue": 0.006182202268296542
+   },
+   {
+    "profile": "EndoS_Ig-like",
+    "evalue": 0.01773942746792002
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.04607400852736021
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.0476091329118115
+   },
+   {
+    "profile": "AAA_11",
+    "evalue": 0.07629557323543809
+   },
+   {
+    "profile": "AAA_19",
+    "evalue": 0.078708981313766
+   }
+  ],
+  "natural_toxin::T6252": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 2.612801402012487e-29
+   }
+  ],
+  "natural_toxin::T6145": [
+   {
+    "profile": "CcdB",
+    "evalue": 1.4888037245523684e-30
+   }
+  ],
+  "natural_toxin::T6146": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 7.81055377859704e-21
+   }
+  ],
+  "natural_toxin::T6237": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 7.380072701862856e-36
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.004599912663890772
+   }
+  ],
+  "natural_toxin::T6238": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.7451880815288053e-22
+   }
+  ],
+  "natural_toxin::T6239": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 5.384759190087582e-12
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0011939742078915245
+   }
+  ],
+  "natural_toxin::T6256": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 3.79811854584136e-31
+   }
+  ],
+  "natural_toxin::T6257": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.8310848060687355e-22
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.001412863843976594
+   }
+  ],
+  "natural_toxin::T6258": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 6.2643390585496e-07
+   }
+  ],
+  "natural_toxin::T6259": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9515640949826548e-08
+   }
+  ],
+  "natural_toxin::T6260": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.576026832362046e-20
+   },
+   {
+    "profile": "CcdB",
+    "evalue": 0.009166392077358624
+   }
+  ],
+  "natural_toxin::T6261": [
+   {
+    "profile": "PIN_3",
+    "evalue": 4.4199733624351647e-16
+   },
+   {
+    "profile": "PIN",
+    "evalue": 3.1206332915618855e-09
+   }
+  ],
+  "natural_toxin::T6279": [
+   {
+    "profile": "YjhX_toxin",
+    "evalue": 1.225052032503561e-37
+   }
+  ],
+  "natural_toxin::T6280": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 5.078477145996166e-57
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 1.2161033827108111e-05
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.002128744933602509
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.013867922472666133
+   },
+   {
+    "profile": "APS_kinase",
+    "evalue": 0.017250893635434545
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.031371335627893196
+   },
+   {
+    "profile": "CPT",
+    "evalue": 0.033743228525963634
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.035103123147017995
+   },
+   {
+    "profile": "AAA_29",
+    "evalue": 0.05836488791263859
+   },
+   {
+    "profile": "AAA_14",
+    "evalue": 0.08783194671778317
+   }
+  ],
+  "natural_toxin::T6281": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 5.77944666236288e-38
+   }
+  ],
+  "natural_toxin::T6282": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 1.656905442691752e-63
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 1.3101614537779312e-05
+   },
+   {
+    "profile": "APS_kinase",
+    "evalue": 0.0013117901622507143
+   },
+   {
+    "profile": "AAA_17",
+    "evalue": 0.007088016959184168
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.011675496190842658
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.014794258690613658
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.019048160712883344
+   },
+   {
+    "profile": "CPT",
+    "evalue": 0.02418397644426644
+   },
+   {
+    "profile": "AAA_24",
+    "evalue": 0.09988235822575357
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.11435468822761768
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.1471014087164322
+   }
+  ],
+  "natural_toxin::T6283": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 8.236241317091707e-12
+   }
+  ],
+  "natural_toxin::T6285": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 8.259641833338314e-14
+   }
+  ],
+  "natural_toxin::T6286": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 6.320191937963124e-30
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.3513059173518015e-07
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.00010270832313022656
+   },
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 0.000377356456734152
+   },
+   {
+    "profile": "Ribosomal_S2",
+    "evalue": 0.011675327027890332
+   }
+  ],
+  "natural_toxin::T6289": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.8310848060687355e-22
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.001412863843976594
+   }
+  ],
+  "natural_toxin::T6290": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.535512055112457e-32
+   }
+  ],
+  "natural_toxin::T6297": [
+   {
+    "profile": "SpoIISA_toxin",
+    "evalue": 4.0514830059302184e-72
+   },
+   {
+    "profile": "GpcrRhopsn4",
+    "evalue": 0.0017479148626568738
+   }
+  ],
+  "natural_toxin::T10003": [
+   {
+    "profile": "RelA_SpoT",
+    "evalue": 6.446362825758489e-08
+   }
+  ],
+  "natural_toxin::T10004": [
+   {
+    "profile": "RelA_SpoT",
+    "evalue": 3.1248868371311603e-07
+   },
+   {
+    "profile": "CPG4",
+    "evalue": 0.04549988862195848
+   }
+  ],
+  "natural_toxin::T10005": [
+   {
+    "profile": "RelA_SpoT",
+    "evalue": 5.107002617988296e-18
+   }
+  ],
+  "natural_toxin::T10006": [
+   {
+    "profile": "RelA_SpoT",
+    "evalue": 2.0748254045184205e-12
+   }
+  ],
+  "natural_toxin::T10007": [
+   {
+    "profile": "DUF6463",
+    "evalue": 0.005338827197994291
+   },
+   {
+    "profile": "DUF2207_C",
+    "evalue": 0.006418044081573087
+   },
+   {
+    "profile": "7tm_6",
+    "evalue": 0.016397806919038773
+   },
+   {
+    "profile": "DUF2975",
+    "evalue": 0.021197763453687714
+   }
+  ],
+  "natural_toxin::T10008": [
+   {
+    "profile": "Vma12",
+    "evalue": 0.00033266946226202836
+   },
+   {
+    "profile": "DUF2207_C",
+    "evalue": 0.0024011966741848204
+   },
+   {
+    "profile": "TMPIT",
+    "evalue": 0.004289027116578021
+   },
+   {
+    "profile": "Rootletin",
+    "evalue": 0.0063021864981404226
+   },
+   {
+    "profile": "DUF3450",
+    "evalue": 0.009425165938777359
+   },
+   {
+    "profile": "CENP-F_leu_zip",
+    "evalue": 0.015524914266770808
+   },
+   {
+    "profile": "FPP",
+    "evalue": 0.01697393395410444
+   }
+  ],
+  "natural_toxin::T10009": [],
+  "natural_toxin::T10011": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.7105109444355246e-06
+   }
+  ],
+  "natural_toxin::T10012": [],
+  "natural_toxin::T10014": [
+   {
+    "profile": "RelA_SpoT",
+    "evalue": 1.2363745624121885e-05
+   }
+  ],
+  "natural_toxin::T10015": [
+   {
+    "profile": "Fic",
+    "evalue": 5.6861976265195224e-11
+   },
+   {
+    "profile": "AAA_lid_2",
+    "evalue": 0.029190704420098926
+   }
+  ],
+  "natural_toxin::T10002": [
+   {
+    "profile": "RelA_SpoT",
+    "evalue": 0.0006660378639979615
+   },
+   {
+    "profile": "CSS-motif",
+    "evalue": 0.026400700150092896
+   }
+  ],
+  "natural_toxin::T10018": [
+   {
+    "profile": "CcdB",
+    "evalue": 2.8058408676709998e-30
+   }
+  ],
+  "natural_toxin::T10019": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 2.139314808743953e-63
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 2.306535903188441e-05
+   },
+   {
+    "profile": "APS_kinase",
+    "evalue": 0.001281617707541495
+   },
+   {
+    "profile": "AAA_17",
+    "evalue": 0.0034981948282566183
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.011119644079456988
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.01176210727807099
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.031658771276631054
+   },
+   {
+    "profile": "CPT",
+    "evalue": 0.036398215648008235
+   },
+   {
+    "profile": "AAA_24",
+    "evalue": 0.07245523927188693
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.10321286110051517
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.128698996213814
+   }
+  ],
+  "natural_toxin::T10020": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 7.380072701862856e-36
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.004599912663890772
+   }
+  ],
+  "natural_toxin::T10021": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 7.380072701862856e-36
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.004599912663890772
+   }
+  ],
+  "natural_toxin::T10030": [
+   {
+    "profile": "Fic",
+    "evalue": 3.0412396135855456e-06
+   }
+  ],
+  "natural_toxin::T10032": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 4.970509909210576e-17
+   }
+  ],
+  "natural_toxin::T10033": [
+   {
+    "profile": "PIN",
+    "evalue": 1.513549094039398e-20
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 0.011344482469290587
+   }
+  ],
+  "natural_toxin::T10034": [
+   {
+    "profile": "PIN",
+    "evalue": 8.094252899137926e-19
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 0.024494302755521592
+   },
+   {
+    "profile": "DUF1206",
+    "evalue": 0.05053177803009006
+   }
+  ],
+  "natural_toxin::T10035": [
+   {
+    "profile": "DUF4160",
+    "evalue": 8.644074815961479e-20
+   }
+  ],
+  "natural_toxin::T10037": [
+   {
+    "profile": "Gp49",
+    "evalue": 2.7990211514058246e-28
+   }
+  ],
+  "natural_toxin::T10040": [],
+  "natural_toxin::T10041": [
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 4.0732284614419174e-10
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 4.676167593154489e-10
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 8.951703114374938e-09
+   }
+  ],
+  "natural_toxin::T10042": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 4.563069686817627e-32
+   }
+  ],
+  "natural_toxin::T10043": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 1.1500681810795395e-09
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.242644531242587e-07
+   },
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.0009116557370766752
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0015219024247791104
+   },
+   {
+    "profile": "TINF2_N",
+    "evalue": 0.005108471617918014
+   }
+  ],
+  "natural_toxin::T10044": [
+   {
+    "profile": "RES",
+    "evalue": 1.9426228100919455e-25
+   }
+  ],
+  "natural_toxin::T10048": [
+   {
+    "profile": "Fic",
+    "evalue": 1.1419244249890593e-10
+   }
+  ],
+  "natural_toxin::T10050": [
+   {
+    "profile": "Gp49",
+    "evalue": 5.797873827865404e-21
+   }
+  ],
+  "natural_toxin::T10051": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 1.4496010876323468e-08
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 7.8627128897488e-08
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 5.64130425695588e-06
+   },
+   {
+    "profile": "Acetyltransf_CG",
+    "evalue": 0.017916148135342105
+   }
+  ],
+  "natural_toxin::T10052": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 5.4923389106838536e-06
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 2.0256075143539676e-05
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 6.995036661878338e-05
+   }
+  ],
+  "natural_toxin::T10053": [
+   {
+    "profile": "NTP_transf_2",
+    "evalue": 4.890974448474503e-12
+   },
+   {
+    "profile": "Polbeta",
+    "evalue": 2.4586941499123677e-09
+   },
+   {
+    "profile": "YpoC",
+    "evalue": 0.005952593763644951
+   }
+  ],
+  "natural_toxin::T10054": [
+   {
+    "profile": "PIN",
+    "evalue": 3.411328024626235e-19
+   }
+  ],
+  "natural_toxin::T10056": [
+   {
+    "profile": "DarT",
+    "evalue": 1.0747700538105569e-60
+   }
+  ],
+  "natural_toxin::T10063": [
+   {
+    "profile": "Gp49",
+    "evalue": 7.608422861298547e-24
+   }
+  ],
+  "natural_toxin::T10064": [
+   {
+    "profile": "CcdB",
+    "evalue": 5.6707880758439906e-36
+   }
+  ],
+  "natural_toxin::T10065": [
+   {
+    "profile": "Fic",
+    "evalue": 5.3619572228083974e-12
+   }
+  ],
+  "natural_toxin::T10066": [
+   {
+    "profile": "DUF4160",
+    "evalue": 2.4213065779328538e-17
+   }
+  ],
+  "natural_toxin::T10067": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.7165157230362355e-23
+   }
+  ],
+  "natural_toxin::T10069": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 5.743616639107495e-29
+   }
+  ],
+  "natural_toxin::T10070": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.956776235421262e-25
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.000652385129419053
+   }
+  ],
+  "natural_toxin::T10072": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.301579879264472e-27
+   }
+  ],
+  "natural_toxin::T10073": [
+   {
+    "profile": "PIN",
+    "evalue": 5.279958211789133e-11
+   }
+  ],
+  "natural_toxin::T10074": [
+   {
+    "profile": "HHA",
+    "evalue": 6.899891505272104e-40
+   }
+  ],
+  "natural_toxin::T10077": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 4.599713392602564e-38
+   }
+  ],
+  "natural_toxin::T10078": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.647917358673058e-38
+   }
+  ],
+  "natural_toxin::T10079": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 9.182656682679638e-17
+   },
+   {
+    "profile": "AAR2_1st",
+    "evalue": 0.23005455887881102
+   }
+  ],
+  "natural_toxin::T10088": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 4.831484398065336e-26
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.244661278061582e-05
+   }
+  ],
+  "natural_toxin::T10089": [
+   {
+    "profile": "CRISPR_Cas2",
+    "evalue": 3.47220092968228e-05
+   },
+   {
+    "profile": "M3K_C",
+    "evalue": 0.01429766211308513
+   },
+   {
+    "profile": "DLH",
+    "evalue": 0.05521382947344878
+   }
+  ],
+  "natural_toxin::T10090": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.129202869898259e-26
+   }
+  ],
+  "natural_toxin::T10091": [
+   {
+    "profile": "Peptidase_M78",
+    "evalue": 1.9714460474026874e-05
+   },
+   {
+    "profile": "DUF6782",
+    "evalue": 0.0001368418701091419
+   },
+   {
+    "profile": "DUF3920",
+    "evalue": 0.011307961722937392
+   }
+  ],
+  "natural_toxin::T10092": [
+   {
+    "profile": "Peptidase_M78",
+    "evalue": 6.253890804847409e-05
+   },
+   {
+    "profile": "ANAPC5",
+    "evalue": 0.021874177882504304
+   }
+  ],
+  "natural_toxin::T10094": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.647917358673058e-38
+   }
+  ],
+  "natural_toxin::T10095": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 3.586640971095943e-39
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 9.873372371510667e-09
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.003515857857544933
+   }
+  ],
+  "natural_toxin::T10096": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.7881359814493905e-37
+   }
+  ],
+  "natural_toxin::T10097": [
+   {
+    "profile": "Gp49",
+    "evalue": 8.615396691050456e-06
+   }
+  ],
+  "natural_toxin::T10099": [
+   {
+    "profile": "CcdB",
+    "evalue": 1.3220122268473545e-30
+   }
+  ],
+  "natural_toxin::T10100": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 6.389910624066445e-09
+   }
+  ],
+  "natural_toxin::T10101": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.4133951217232874e-30
+   }
+  ],
+  "natural_toxin::T10102": [
+   {
+    "profile": "RES",
+    "evalue": 1.813869144989255e-22
+   }
+  ],
+  "natural_toxin::T10108": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 8.476473320800849e-14
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.000514564883565471
+   }
+  ],
+  "natural_toxin::T10109": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 1.9884934375305442e-22
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.00014968962354867962
+   }
+  ],
+  "natural_toxin::T10110": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 5.384759190087582e-12
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0011939742078915245
+   }
+  ],
+  "natural_toxin::T10111": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 9.540180991763595e-26
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.1421081444751622e-07
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0014361829996439785
+   }
+  ],
+  "natural_toxin::T10112": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.4662701711498714e-24
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.987112814331848e-07
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.001963292661839698
+   }
+  ],
+  "natural_toxin::T10114": [
+   {
+    "profile": "MRAP",
+    "evalue": 0.007244791203696337
+   },
+   {
+    "profile": "BRI3BP",
+    "evalue": 0.007802280131315244
+   }
+  ],
+  "natural_toxin::T10115": [],
+  "natural_toxin::T10116": [
+   {
+    "profile": "DUF1474",
+    "evalue": 1.919185881346107e-22
+   }
+  ],
+  "natural_toxin::T10117": [
+   {
+    "profile": "HMA",
+    "evalue": 2.944088348868607e-06
+   },
+   {
+    "profile": "HMA_2",
+    "evalue": 0.005716526758144535
+   },
+   {
+    "profile": "Big_3_2",
+    "evalue": 0.020659870596473482
+   }
+  ],
+  "natural_toxin::T10119": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.4296649762315467e-17
+   }
+  ],
+  "natural_toxin::T10120": [
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 3.9845835149785735e-08
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 6.49338695391191e-07
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 1.3155022217650098e-05
+   },
+   {
+    "profile": "FR47",
+    "evalue": 3.000598459946943e-05
+   },
+   {
+    "profile": "Acetyltransf_CG",
+    "evalue": 0.12889347726536873
+   }
+  ],
+  "natural_toxin::T10122": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 6.257206518266119e-23
+   }
+  ],
+  "natural_toxin::T10123": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.8243648212420517e-06
+   }
+  ],
+  "natural_toxin::T10125": [
+   {
+    "profile": "HigB_toxin",
+    "evalue": 3.4344480304880426e-22
+   }
+  ],
+  "natural_toxin::T10129": [
+   {
+    "profile": "PIN",
+    "evalue": 8.017365684354136e-20
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 0.022178332499940355
+   }
+  ],
+  "natural_toxin::T10130": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.7833232679197174e-24
+   }
+  ],
+  "natural_toxin::T10131": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 1.9630942153110882e-27
+   },
+   {
+    "profile": "CcdB",
+    "evalue": 0.0029003864430429964
+   }
+  ],
+  "natural_toxin::T10132": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 1.1090974933324253e-09
+   }
+  ],
+  "natural_toxin::T10133": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 0.00025746440807090183
+   }
+  ],
+  "natural_toxin::T10134": [],
+  "natural_toxin::T10135": [
+   {
+    "profile": "HigB_toxin",
+    "evalue": 3.4344480304880426e-22
+   }
+  ],
+  "natural_toxin::T10136": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 5.868574834898453e-29
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.411198390968423e-06
+   }
+  ],
+  "natural_toxin::T10137": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.4742555149581313e-19
+   }
+  ],
+  "natural_toxin::T10138": [
+   {
+    "profile": "PIN",
+    "evalue": 2.3444822184769937e-20
+   },
+   {
+    "profile": "DUF4411",
+    "evalue": 0.0005248179025064474
+   }
+  ],
+  "natural_toxin::T10139": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 6.150045505632673e-19
+   }
+  ],
+  "natural_toxin::T10140": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 6.806453860712971e-21
+   },
+   {
+    "profile": "Tox-ODYAM1",
+    "evalue": 0.007829783805041044
+   }
+  ],
+  "natural_toxin::T10141": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 8.394666407244866e-15
+   }
+  ],
+  "natural_toxin::T10142": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.0166593556266813e-13
+   }
+  ],
+  "natural_toxin::T10143": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.953228703307264e-18
+   }
+  ],
+  "natural_toxin::T10144": [
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 1.247333979491799e-14
+   },
+   {
+    "profile": "AAA_33",
+    "evalue": 3.69745635756161e-14
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.007589927995435515
+   },
+   {
+    "profile": "AAA_29",
+    "evalue": 0.013179962937162904
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.04742514801684021
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.049509881993811136
+   },
+   {
+    "profile": "AAA_27",
+    "evalue": 0.06240259332311515
+   },
+   {
+    "profile": "AAA_14",
+    "evalue": 0.06909060094998092
+   },
+   {
+    "profile": "AAA_23",
+    "evalue": 0.21977553976036723
+   },
+   {
+    "profile": "AAA_24",
+    "evalue": 0.2387283067933858
+   }
+  ],
+  "natural_toxin::T10145": [
+   {
+    "profile": "RES",
+    "evalue": 9.319170191793127e-31
+   }
+  ],
+  "natural_toxin::T10150": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 5.417050063482202e-12
+   }
+  ],
+  "natural_toxin::T10151": [],
+  "natural_toxin::T10152": [
+   {
+    "profile": "HHA",
+    "evalue": 6.899891505272104e-40
+   }
+  ],
+  "natural_toxin::T10153": [
+   {
+    "profile": "DUF1024",
+    "evalue": 4.415037358855522e-53
+   }
+  ],
+  "natural_toxin::T10157": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.0905362697841864e-14
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.011885218676278122
+   },
+   {
+    "profile": "AA_synth",
+    "evalue": 0.07624422026991072
+   }
+  ],
+  "natural_toxin::T10158": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.1857012665149295e-14
+   },
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 0.004616822327053461
+   }
+  ],
+  "natural_toxin::T10159": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.3449805823440648e-07
+   }
+  ],
+  "natural_toxin::T10160": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 2.2482163196882675e-16
+   }
+  ],
+  "natural_toxin::T10161": [
+   {
+    "profile": "HigB-like_toxin",
+    "evalue": 4.970509909210576e-17
+   }
+  ],
+  "natural_toxin::T10162": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 2.8581957210723817e-12
+   }
+  ],
+  "natural_toxin::T10163": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.13911699164482e-15
+   }
+  ],
+  "natural_toxin::T10164": [
+   {
+    "profile": "DUF6773",
+    "evalue": 0.0005991660620961641
+   },
+   {
+    "profile": "DUF2663",
+    "evalue": 0.0020130037317132817
+   },
+   {
+    "profile": "FeoB_associated",
+    "evalue": 0.011024381724041861
+   }
+  ],
+  "natural_toxin::T10166": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 5.271432740143385e-14
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 0.0006352449206687385
+   }
+  ],
+  "natural_toxin::T10167": [
+   {
+    "profile": "NYN",
+    "evalue": 2.951575898060342e-12
+   }
+  ],
+  "natural_toxin::T10168": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 1.455181055575251e-13
+   }
+  ],
+  "natural_toxin::T10169": [
+   {
+    "profile": "Gp49",
+    "evalue": 1.7348550166035155e-24
+   }
+  ],
+  "natural_toxin::T10177": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.2366126867412928e-37
+   }
+  ],
+  "natural_toxin::T10178": [
+   {
+    "profile": "5_3_exonuc_N",
+    "evalue": 4.0463400502352915e-52
+   },
+   {
+    "profile": "5_3_exonuc",
+    "evalue": 1.3795594221618174e-25
+   },
+   {
+    "profile": "GA",
+    "evalue": 0.017025420836422594
+   },
+   {
+    "profile": "DNA_pol_lambd_f",
+    "evalue": 0.019593979539448244
+   }
+  ],
+  "natural_toxin::T10179": [
+   {
+    "profile": "Fic",
+    "evalue": 2.880946995500323e-11
+   }
+  ],
+  "natural_toxin::T10181": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.4485287238070607e-27
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 5.922463934662428e-07
+   }
+  ],
+  "natural_toxin::T10182": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.9692766852173655e-41
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 0.0002624201963017799
+   }
+  ],
+  "natural_toxin::T10183": [
+   {
+    "profile": "AAA_33",
+    "evalue": 2.2788955362306536e-17
+   },
+   {
+    "profile": "Zeta_toxin",
+    "evalue": 4.628444981539286e-15
+   },
+   {
+    "profile": "AAA_14",
+    "evalue": 0.00019670538269269061
+   },
+   {
+    "profile": "AAA_16",
+    "evalue": 0.004329189965359117
+   },
+   {
+    "profile": "AAA_23",
+    "evalue": 0.004581092547920191
+   },
+   {
+    "profile": "AAA_18",
+    "evalue": 0.005048853949670668
+   },
+   {
+    "profile": "AAA_24",
+    "evalue": 0.0059476360252928
+   },
+   {
+    "profile": "SRP54",
+    "evalue": 0.006345822703519213
+   },
+   {
+    "profile": "AAA_29",
+    "evalue": 0.011249163721727977
+   },
+   {
+    "profile": "ABC_tran",
+    "evalue": 0.015792823349963733
+   },
+   {
+    "profile": "ATPase",
+    "evalue": 0.017534458940455685
+   },
+   {
+    "profile": "AAA_22",
+    "evalue": 0.0293544137833617
+   },
+   {
+    "profile": "CoaE",
+    "evalue": 0.03013245128764051
+   },
+   {
+    "profile": "ATP_bind_1",
+    "evalue": 0.03129212794778724
+   },
+   {
+    "profile": "AAA_21",
+    "evalue": 0.03849943336261404
+   },
+   {
+    "profile": "AAA_17",
+    "evalue": 0.0940985906719596
+   },
+   {
+    "profile": "AAA_28",
+    "evalue": 0.10346694346770986
+   },
+   {
+    "profile": "AAA_15",
+    "evalue": 0.12725007848625425
+   },
+   {
+    "profile": "AAA",
+    "evalue": 0.15675967140128846
+   },
+   {
+    "profile": "AAA_7",
+    "evalue": 0.19006588140051003
+   },
+   {
+    "profile": "AAA_11",
+    "evalue": 0.2609113610031896
+   },
+   {
+    "profile": "AAA_13",
+    "evalue": 0.33185016899153785
+   }
+  ],
+  "natural_toxin::T10184": [
+   {
+    "profile": "Fic",
+    "evalue": 1.2936498661469265e-16
+   },
+   {
+    "profile": "DUF3213",
+    "evalue": 0.014927090481615266
+   }
+  ],
+  "natural_toxin::T10187": [
+   {
+    "profile": "PIN",
+    "evalue": 2.390103407400849e-21
+   }
+  ],
+  "natural_toxin::T10188": [
+   {
+    "profile": "BrnT_toxin",
+    "evalue": 5.218274043263154e-26
+   }
+  ],
+  "natural_toxin::T10189": [
+   {
+    "profile": "HicA_toxin",
+    "evalue": 2.7865961097307976e-07
+   }
+  ],
+  "natural_toxin::T10190": [
+   {
+    "profile": "YafQ_toxin",
+    "evalue": 2.171485394268698e-27
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.870688584767348e-06
+   }
+  ],
+  "natural_toxin::T10191": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 3.6314586207096075e-13
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 2.0850990421969246e-05
+   }
+  ],
+  "natural_toxin::T10197": [
+   {
+    "profile": "PIN",
+    "evalue": 3.4043657565745673e-15
+   },
+   {
+    "profile": "PIN_3",
+    "evalue": 0.0003560548951679037
+   }
+  ],
+  "natural_antitoxin::AT28": [
+   {
+    "profile": "FPP",
+    "evalue": 0.0019519828424326873
+   },
+   {
+    "profile": "BAR_4",
+    "evalue": 0.005803041492474565
+   },
+   {
+    "profile": "CTD9",
+    "evalue": 0.043395275448171566
+   },
+   {
+    "profile": "Baculo_PEP_C",
+    "evalue": 0.05790658882952789
+   }
+  ],
+  "natural_antitoxin::AT73": [
+   {
+    "profile": "RHH_1",
+    "evalue": 1.9497631402995825e-11
+   },
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 0.0005845347659852922
+   },
+   {
+    "profile": "CcdA",
+    "evalue": 0.0006904813855474045
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.023490268204595318
+   },
+   {
+    "profile": "AvrPtoB_bdg",
+    "evalue": 0.10141604815165642
+   }
+  ],
+  "natural_antitoxin::AT74": [
+   {
+    "profile": "RHH_1",
+    "evalue": 7.312188452626591e-06
+   },
+   {
+    "profile": "Pcc1",
+    "evalue": 0.005680696214395514
+   }
+  ],
+  "natural_antitoxin::AT75": [
+   {
+    "profile": "CcdA",
+    "evalue": 3.267313553730624e-06
+   }
+  ],
+  "natural_antitoxin::AT76": [
+   {
+    "profile": "RHH_1",
+    "evalue": 3.0876111815626365e-08
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 0.0013879002939311562
+   }
+  ],
+  "natural_antitoxin::AT77": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.038580109436743e-09
+   }
+  ],
+  "natural_antitoxin::AT78": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 4.765428122541845e-09
+   },
+   {
+    "profile": "MraZ",
+    "evalue": 0.000962050875130604
+   },
+   {
+    "profile": "AbrB-like",
+    "evalue": 0.08694609686962937
+   }
+  ],
+  "natural_antitoxin::AT79": [
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 7.383392009283417e-25
+   }
+  ],
+  "natural_antitoxin::AT80": [
+   {
+    "profile": "DUF6364",
+    "evalue": 0.004290356475155133
+   }
+  ],
+  "natural_antitoxin::AT81": [
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 8.966008049187448e-29
+   }
+  ],
+  "natural_antitoxin::AT82": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 4.1506171599630094e-08
+   }
+  ],
+  "natural_antitoxin::AT83": [
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 1.9188017087069674e-17
+   }
+  ],
+  "natural_antitoxin::AT84": [
+   {
+    "profile": "RHH_1",
+    "evalue": 3.2261156414590544e-05
+   }
+  ],
+  "natural_antitoxin::AT85": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.0016798529503461845
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 0.06612508144058486
+   }
+  ],
+  "natural_antitoxin::AT86": [],
+  "natural_antitoxin::AT87": [
+   {
+    "profile": "RHH_1",
+    "evalue": 8.560994871732204e-06
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.00027317362979720124
+   }
+  ],
+  "natural_antitoxin::AT88": [
+   {
+    "profile": "MT0933_antitox",
+    "evalue": 5.473453008093815e-19
+   }
+  ],
+  "natural_antitoxin::AT90": [],
+  "natural_antitoxin::AT91": [
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 1.4632121811587264e-12
+   }
+  ],
+  "natural_antitoxin::AT92": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.005771752806408266
+   }
+  ],
+  "natural_antitoxin::AT93": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 6.409883021591402e-23
+   }
+  ],
+  "natural_antitoxin::AT94": [
+   {
+    "profile": "RHH_1",
+    "evalue": 6.477726655691842e-11
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 4.5277976978329294e-07
+   },
+   {
+    "profile": "RHH_3",
+    "evalue": 0.0020506904545592093
+   },
+   {
+    "profile": "RHH_4",
+    "evalue": 0.010828231368172101
+   },
+   {
+    "profile": "DUF5825",
+    "evalue": 0.022936439744738978
+   },
+   {
+    "profile": "DUF1564",
+    "evalue": 0.038924497359991865
+   }
+  ],
+  "natural_antitoxin::AT95": [],
+  "natural_antitoxin::AT97": [
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 1.2932990636285132e-18
+   }
+  ],
+  "natural_antitoxin::AT98": [],
+  "natural_antitoxin::AT101": [],
+  "natural_antitoxin::AT105": [
+   {
+    "profile": "ParD_antitoxin",
+    "evalue": 3.3995207994357215e-42
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.004358199518798214
+   },
+   {
+    "profile": "DUF6024",
+    "evalue": 0.01999191618515505
+   }
+  ],
+  "natural_antitoxin::AT106": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 9.394291679533907e-08
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 0.0007649123730738081
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.013160930132788089
+   }
+  ],
+  "natural_antitoxin::AT107": [
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 5.0889774121509486e-17
+   }
+  ],
+  "natural_antitoxin::AT111": [],
+  "natural_antitoxin::AT112": [
+   {
+    "profile": "DUF6364",
+    "evalue": 7.503332224323669e-05
+   },
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 0.0030877055435481974
+   }
+  ],
+  "natural_antitoxin::AT114": [
+   {
+    "profile": "DUF6364",
+    "evalue": 0.00011956453738892077
+   },
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 0.0002423573055149025
+   }
+  ],
+  "natural_antitoxin::AT116": [
+   {
+    "profile": "RHH_1",
+    "evalue": 4.150730999077572e-12
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.0012119880157973962
+   },
+   {
+    "profile": "DUF6181",
+    "evalue": 0.0025089988854158827
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 0.0026162962281846562
+   },
+   {
+    "profile": "DUF1778",
+    "evalue": 0.028894086348629427
+   }
+  ],
+  "natural_antitoxin::AT117": [
+   {
+    "profile": "RHH_1",
+    "evalue": 6.108012860514138e-08
+   }
+  ],
+  "natural_antitoxin::AT119": [
+   {
+    "profile": "CopG_antitoxin",
+    "evalue": 0.07086797298732192
+   },
+   {
+    "profile": "56B_RHH",
+    "evalue": 0.11961754974671295
+   }
+  ],
+  "natural_antitoxin::AT120": [],
+  "natural_antitoxin::AT121": [
+   {
+    "profile": "VapB_antitoxin",
+    "evalue": 4.585303415443342e-09
+   },
+   {
+    "profile": "3HCDH_N",
+    "evalue": 0.05521337484917871
+   }
+  ],
+  "natural_antitoxin::AT123": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 8.716247985659727e-09
+   }
+  ],
+  "natural_antitoxin::AT124": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.2639813572915145e-21
+   }
+  ],
+  "natural_antitoxin::AT125": [
+   {
+    "profile": "RHH_1",
+    "evalue": 6.812127814207223e-08
+   }
+  ],
+  "natural_antitoxin::AT127": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.5059644674539422e-08
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 1.0061504337095763e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 3.53793831682894e-07
+   },
+   {
+    "profile": "DUF1810",
+    "evalue": 0.03171839108706703
+   }
+  ],
+  "natural_antitoxin::AT129": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.0019601921693246475
+   }
+  ],
+  "natural_antitoxin::AT130": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 7.557544407782503e-22
+   },
+   {
+    "profile": "EAD1",
+    "evalue": 0.012467717964266857
+   }
+  ],
+  "natural_antitoxin::AT131": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 4.686490314112649e-10
+   }
+  ],
+  "natural_antitoxin::AT132": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.312589215847653e-09
+   }
+  ],
+  "natural_antitoxin::AT134": [
+   {
+    "profile": "RHH_1",
+    "evalue": 1.9268129164896458e-06
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 0.005253747933740266
+   }
+  ],
+  "natural_antitoxin::AT137": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.3420344463808483e-13
+   }
+  ],
+  "natural_antitoxin::AT162": [
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 1.713006499084638e-63
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 4.0311406891414036e-05
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0001549880761296582
+   },
+   {
+    "profile": "TF_Zn_Ribbon",
+    "evalue": 0.00604504202477276
+   },
+   {
+    "profile": "HVO_2753_ZBP",
+    "evalue": 0.0083203668730364
+   },
+   {
+    "profile": "zf-ISL3",
+    "evalue": 0.00954305341495312
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 0.015296737716535082
+   },
+   {
+    "profile": "Cys_rich_CPCC",
+    "evalue": 0.060899484847624745
+   }
+  ],
+  "natural_antitoxin::AT164": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 4.981410386848546e-13
+   }
+  ],
+  "natural_antitoxin::AT165": [
+   {
+    "profile": "DUF1778",
+    "evalue": 2.4146863605511885e-21
+   }
+  ],
+  "natural_antitoxin::AT166": [
+   {
+    "profile": "RelB",
+    "evalue": 5.035408267616686e-36
+   }
+  ],
+  "natural_antitoxin::AT167": [
+   {
+    "profile": "CopG_antitoxin",
+    "evalue": 5.352631371645537e-05
+   },
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 0.001826497208881704
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 0.006503891131098591
+   }
+  ],
+  "natural_antitoxin::AT169": [
+   {
+    "profile": "ParD_antitoxin",
+    "evalue": 1.7796432482717192e-42
+   }
+  ],
+  "natural_antitoxin::AT170": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 4.981410386848546e-13
+   }
+  ],
+  "natural_antitoxin::AT171": [
+   {
+    "profile": "HTH_3",
+    "evalue": 9.101252440007383e-11
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 9.350815122082552e-06
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0006852031256734377
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.0024068199028240552
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.003798234580186981
+   },
+   {
+    "profile": "HTH_17",
+    "evalue": 0.010658184666858231
+   },
+   {
+    "profile": "HTH_30",
+    "evalue": 0.016489369408748365
+   }
+  ],
+  "natural_antitoxin::AT172": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.5241096437976796e-17
+   }
+  ],
+  "natural_antitoxin::AT173": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.0382785008485079e-06
+   }
+  ],
+  "natural_antitoxin::AT174": [
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 7.448635933922668e-08
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.5536155705379586e-06
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.00016921679403733117
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.00027620571970758857
+   },
+   {
+    "profile": "Acp26Ab",
+    "evalue": 0.10214415116638255
+   }
+  ],
+  "natural_antitoxin::AT175": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.1910417104715911e-11
+   }
+  ],
+  "natural_antitoxin::AT176": [
+   {
+    "profile": "DUF1778",
+    "evalue": 2.4146863605511885e-21
+   }
+  ],
+  "natural_antitoxin::AT178": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.094819080387892e-15
+   },
+   {
+    "profile": "Bacillus_PapR",
+    "evalue": 0.10378523428291653
+   }
+  ],
+  "natural_antitoxin::AT180": [
+   {
+    "profile": "RHH_1",
+    "evalue": 3.047735786078549e-12
+   },
+   {
+    "profile": "STAT_int",
+    "evalue": 0.00015093256837864826
+   }
+  ],
+  "natural_antitoxin::AT182": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.840751502106456e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 2.4641637019378954e-05
+   },
+   {
+    "profile": "TetR_C_44",
+    "evalue": 0.0029634678938690756
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.003207999539560769
+   },
+   {
+    "profile": "PAS_4",
+    "evalue": 0.011125120506480955
+   },
+   {
+    "profile": "Cro",
+    "evalue": 0.038137003868616556
+   }
+  ],
+  "natural_antitoxin::AT183": [
+   {
+    "profile": "AraC_binding",
+    "evalue": 1.8918053248036066e-31
+   },
+   {
+    "profile": "HTH_18",
+    "evalue": 1.272393487564273e-25
+   },
+   {
+    "profile": "HTH_AraC",
+    "evalue": 8.472280392707603e-18
+   }
+  ],
+  "natural_antitoxin::AT190": [
+   {
+    "profile": "CcdA",
+    "evalue": 4.026335148287779e-26
+   }
+  ],
+  "natural_antitoxin::AT199": [
+   {
+    "profile": "DUF1778",
+    "evalue": 1.4104222886203214e-20
+   }
+  ],
+  "natural_antitoxin::AT200": [
+   {
+    "profile": "DUF1778",
+    "evalue": 5.0953933604880044e-26
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 5.821425879847538e-05
+   }
+  ],
+  "natural_antitoxin::AT226": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.0014096487536127428
+   }
+  ],
+  "natural_antitoxin::AT228": [
+   {
+    "profile": "ParD_antitoxin",
+    "evalue": 9.629775041576105e-44
+   },
+   {
+    "profile": "DUF2000",
+    "evalue": 0.03871203774347387
+   }
+  ],
+  "natural_antitoxin::AT229": [],
+  "natural_antitoxin::AT233": [
+   {
+    "profile": "ParD_antitoxin",
+    "evalue": 1.7886977363114731e-07
+   }
+  ],
+  "natural_antitoxin::AT301": [
+   {
+    "profile": "HTH_3",
+    "evalue": 0.011887138800716556
+   }
+  ],
+  "natural_antitoxin::AT303": [
+   {
+    "profile": "HTH_3",
+    "evalue": 4.976662783567065e-09
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 4.1605891828530906e-08
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.0009440554302542701
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.003767545783087569
+   },
+   {
+    "profile": "NMT1",
+    "evalue": 0.004365632187496949
+   }
+  ],
+  "natural_antitoxin::AT307": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 1.6060625298396047e-13
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 6.110113596069657e-07
+   }
+  ],
+  "natural_antitoxin::AT310": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.4865261172605262e-20
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.0005890806826998971
+   }
+  ],
+  "natural_antitoxin::AT313": [
+   {
+    "profile": "HTH_17",
+    "evalue": 1.4533680975205154e-12
+   }
+  ],
+  "natural_antitoxin::AT314": [
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 1.0946196241974996e-58
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0007772241537452356
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.0014392596820983472
+   }
+  ],
+  "natural_antitoxin::AT325": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.4020666124656584e-14
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 5.932164316780069e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 2.3021798780945774e-06
+   },
+   {
+    "profile": "dnstrm_HI1420",
+    "evalue": 3.661847432872663e-05
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.00010989838123751908
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.002066382223488108
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.0021407195848222103
+   }
+  ],
+  "natural_antitoxin::AT326": [
+   {
+    "profile": "DUF6290",
+    "evalue": 1.2719134266969412e-16
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.0013112520713358692
+   }
+  ],
+  "natural_antitoxin::AT439": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.01287035593414957
+   }
+  ],
+  "natural_antitoxin::AT443": [
+   {
+    "profile": "DUF1778",
+    "evalue": 2.7938454302991937e-26
+   }
+  ],
+  "natural_antitoxin::AT516": [
+   {
+    "profile": "CcdA",
+    "evalue": 0.0016484547549850115
+   }
+  ],
+  "natural_antitoxin::AT535": [
+   {
+    "profile": "CcdA",
+    "evalue": 1.4849203967856556e-05
+   },
+   {
+    "profile": "DUF4145",
+    "evalue": 0.000392147087787945
+   },
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 0.001085445337507614
+   },
+   {
+    "profile": "PRP1_N",
+    "evalue": 0.004206039838724522
+   }
+  ],
+  "natural_antitoxin::AT611": [
+   {
+    "profile": "HTH_3",
+    "evalue": 9.499020624058554e-15
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 1.7907404897716563e-13
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 3.5246639789433834e-11
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 6.226620959640799e-09
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.011920097508049862
+   },
+   {
+    "profile": "MarR",
+    "evalue": 0.015941856541807874
+   },
+   {
+    "profile": "BetR",
+    "evalue": 0.058059597400053835
+   }
+  ],
+  "natural_antitoxin::AT612": [],
+  "natural_antitoxin::AT613": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.41878236639479e-23
+   }
+  ],
+  "natural_antitoxin::AT614": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.1068524757570303e-18
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.0004279614248264323
+   }
+  ],
+  "natural_antitoxin::AT652": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.7925995009834822e-06
+   }
+  ],
+  "natural_antitoxin::AT655": [
+   {
+    "profile": "RHH_3",
+    "evalue": 3.879723817395576e-05
+   },
+   {
+    "profile": "HDNR",
+    "evalue": 0.0051339297147769926
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.011353969921704865
+   },
+   {
+    "profile": "ASMase_C",
+    "evalue": 0.08874156624457662
+   }
+  ],
+  "natural_antitoxin::AT658": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.1892558191498495e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 9.05751431298292e-07
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 0.012849769634122614
+   },
+   {
+    "profile": "ACT",
+    "evalue": 0.04630070813031143
+   }
+  ],
+  "natural_antitoxin::AT659": [
+   {
+    "profile": "RHH_1",
+    "evalue": 2.0001017577415823e-13
+   },
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 0.0037043771770599626
+   },
+   {
+    "profile": "PutA_1st",
+    "evalue": 0.009192568627445824
+   }
+  ],
+  "natural_antitoxin::AT663": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 3.6307160928676e-11
+   }
+  ],
+  "natural_antitoxin::AT665": [
+   {
+    "profile": "RelB",
+    "evalue": 1.611870167334139e-13
+   }
+  ],
+  "natural_antitoxin::AT705": [
+   {
+    "profile": "RelB",
+    "evalue": 4.2701366034962936e-05
+   },
+   {
+    "profile": "DUF1778",
+    "evalue": 0.001271130360782212
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.002106016476672437
+   }
+  ],
+  "natural_antitoxin::AT727": [
+   {
+    "profile": "DUF6290",
+    "evalue": 1.2719134266969412e-16
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.0013112520713358692
+   }
+  ],
+  "natural_antitoxin::AT728": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.058138025143029e-15
+   },
+   {
+    "profile": "DUF3780",
+    "evalue": 0.03287273422419763
+   }
+  ],
+  "natural_antitoxin::AT6090": [],
+  "natural_antitoxin::AT843": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.4763824403808446e-17
+   }
+  ],
+  "natural_antitoxin::AT875": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 1.9359620898181772e-39
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 5.522264404732844e-07
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.006212561766479569
+   },
+   {
+    "profile": "Arc",
+    "evalue": 0.06234358357121143
+   }
+  ],
+  "natural_antitoxin::AT877": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.7947886359643536e-07
+   }
+  ],
+  "natural_antitoxin::AT911": [
+   {
+    "profile": "CHIP_TPR_N",
+    "evalue": 0.01349427461398443
+   }
+  ],
+  "natural_antitoxin::AT945": [
+   {
+    "profile": "TFIID_NTD2",
+    "evalue": 0.0025972571171777358
+   },
+   {
+    "profile": "Mistic",
+    "evalue": 0.008061849879027
+   }
+  ],
+  "natural_antitoxin::AT947": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 8.862795530064355e-17
+   },
+   {
+    "profile": "PrlF_antitoxin",
+    "evalue": 2.0099700902582103e-05
+   }
+  ],
+  "natural_antitoxin::AT950": [
+   {
+    "profile": "DUF488",
+    "evalue": 1.6106280497975893e-28
+   },
+   {
+    "profile": "APP1_cat",
+    "evalue": 0.0791768465172695
+   }
+  ],
+  "natural_antitoxin::AT951": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 9.721350422577265e-12
+   }
+  ],
+  "natural_antitoxin::AT956": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 7.735250371992725e-15
+   },
+   {
+    "profile": "PrlF_antitoxin",
+    "evalue": 0.001964214084913056
+   },
+   {
+    "profile": "DUF3006",
+    "evalue": 0.024569650547550725
+   },
+   {
+    "profile": "AbrB-like",
+    "evalue": 0.0675178064649006
+   }
+  ],
+  "natural_antitoxin::AT957": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 3.968392236019694e-14
+   },
+   {
+    "profile": "CDC48_N",
+    "evalue": 0.00831429719789122
+   },
+   {
+    "profile": "AbrB-like",
+    "evalue": 0.1115873410228828
+   }
+  ],
+  "natural_antitoxin::AT962": [],
+  "natural_antitoxin::AT964": [
+   {
+    "profile": "DUF433",
+    "evalue": 2.08080252313151e-25
+   }
+  ],
+  "natural_antitoxin::AT970": [
+   {
+    "profile": "Imm70",
+    "evalue": 0.00926723660994257
+   },
+   {
+    "profile": "Drf_FH3",
+    "evalue": 0.023663275335590345
+   }
+  ],
+  "natural_antitoxin::AT972": [
+   {
+    "profile": "DUF2281",
+    "evalue": 1.3168981870188475e-18
+   }
+  ],
+  "natural_antitoxin::AT977": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 0.0009474299495220955
+   }
+  ],
+  "natural_antitoxin::AT978": [],
+  "natural_antitoxin::AT1005": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.6055344232061392e-09
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.2402798739650012e-05
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.00042355481041960656
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.0005035888311440253
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0021649060559721747
+   }
+  ],
+  "natural_antitoxin::AT1006": [
+   {
+    "profile": "PaaA2",
+    "evalue": 4.732122146126057e-19
+   }
+  ],
+  "natural_antitoxin::AT1008": [
+   {
+    "profile": "PaaA2",
+    "evalue": 8.495024532552467e-20
+   }
+  ],
+  "natural_antitoxin::AT1038": [
+   {
+    "profile": "RelB",
+    "evalue": 6.866767173978814e-35
+   }
+  ],
+  "natural_antitoxin::AT1039": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 1.0250384688357302e-07
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.4440111637576424e-07
+   },
+   {
+    "profile": "MarR_2",
+    "evalue": 0.00799098181482759
+   }
+  ],
+  "natural_antitoxin::AT1040": [
+   {
+    "profile": "HTH_3",
+    "evalue": 4.120533590183474e-15
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.653286168769277e-07
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 5.517737042773803e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 7.652133967087515e-06
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 8.55140534166752e-06
+   },
+   {
+    "profile": "MarR",
+    "evalue": 0.00036142882147662464
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.0012981598673616078
+   },
+   {
+    "profile": "Terminase_5",
+    "evalue": 0.002986436870276238
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.007620735339287051
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.012724172495738
+   }
+  ],
+  "natural_antitoxin::AT1041": [
+   {
+    "profile": "RelB",
+    "evalue": 7.365265836002796e-31
+   }
+  ],
+  "natural_antitoxin::AT1043": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 8.68417958816112e-28
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.0007323923490868174
+   }
+  ],
+  "natural_antitoxin::AT1044": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 4.411389883885514e-13
+   },
+   {
+    "profile": "Tox-MPTase3",
+    "evalue": 0.007682927038271061
+   },
+   {
+    "profile": "DUF5031",
+    "evalue": 0.017806523196135612
+   }
+  ],
+  "natural_antitoxin::AT1045": [
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 6.034629689412232e-56
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.00045794161071551414
+   }
+  ],
+  "natural_antitoxin::AT1046": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.2231898722562557e-07
+   }
+  ],
+  "natural_antitoxin::AT1047": [
+   {
+    "profile": "PrlF_antitoxin",
+    "evalue": 5.097473221585447e-41
+   },
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.0026705259572302516
+   }
+  ],
+  "natural_antitoxin::AT1049": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 9.407670236648071e-11
+   }
+  ],
+  "natural_antitoxin::AT1066": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 6.733444670567668e-09
+   }
+  ],
+  "natural_antitoxin::AT1067": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.7020591355776095e-14
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 1.185417921707561e-08
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.6370839446873996e-06
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.00023818596043492045
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.002192726686468597
+   }
+  ],
+  "natural_antitoxin::AT1070": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 5.669673727317845e-06
+   }
+  ],
+  "natural_antitoxin::AT1073": [],
+  "natural_antitoxin::AT1074": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.41878236639479e-23
+   }
+  ],
+  "natural_antitoxin::AT1075": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.1068524757570303e-18
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.0004279614248264323
+   }
+  ],
+  "natural_antitoxin::AT1076": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.3397560567256041e-06
+   }
+  ],
+  "natural_antitoxin::AT1222": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 5.532567176411906e-16
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 1.3452763396123618e-09
+   }
+  ],
+  "natural_antitoxin::AT1325": [
+   {
+    "profile": "UPF0150",
+    "evalue": 1.7137939466414988e-08
+   },
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 3.337954026158303e-08
+   },
+   {
+    "profile": "DUF1902",
+    "evalue": 0.030475502474125272
+   }
+  ],
+  "natural_antitoxin::AT1499": [
+   {
+    "profile": "ALC",
+    "evalue": 0.09846853617725672
+   }
+  ],
+  "natural_antitoxin::AT1547": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 2.303320104815793e-23
+   }
+  ],
+  "natural_antitoxin::AT1729": [
+   {
+    "profile": "TraY",
+    "evalue": 6.026552059196494e-10
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 1.0662005476735389e-07
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 0.0017891178135388999
+   },
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 0.0064592905092037585
+   },
+   {
+    "profile": "DUF3168",
+    "evalue": 0.039685305304349404
+   }
+  ],
+  "natural_antitoxin::AT1818": [
+   {
+    "profile": "DUF2281",
+    "evalue": 2.4217613571235764e-15
+   }
+  ],
+  "natural_antitoxin::AT1852": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.2563146914299775e-09
+   }
+  ],
+  "natural_antitoxin::AT2224": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 3.8187165251035624e-27
+   }
+  ],
+  "natural_antitoxin::AT2427": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.41878236639479e-23
+   }
+  ],
+  "natural_antitoxin::AT3011": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 4.431583256038494e-16
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 1.4581561273411875e-11
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 5.230171112516285e-07
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 9.02024736168109e-05
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0007770408835272095
+   },
+   {
+    "profile": "Phage_CII",
+    "evalue": 0.0008690348392070195
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.0011673320171338493
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.005460636940462744
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 0.016652107434759665
+   }
+  ],
+  "natural_antitoxin::AT3165": [
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 5.936733637752294e-29
+   },
+   {
+    "profile": "Cep57_CLD_2",
+    "evalue": 0.08346897454144515
+   }
+  ],
+  "natural_antitoxin::AT3306": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.114696115422917e-12
+   }
+  ],
+  "natural_antitoxin::AT3484": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 1.0240402653063873e-14
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 2.6309037297441406e-10
+   }
+  ],
+  "natural_antitoxin::AT3593": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 1.2991852855649641e-46
+   },
+   {
+    "profile": "UPF0150",
+    "evalue": 1.4645942652016757e-05
+   }
+  ],
+  "natural_antitoxin::AT3856": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.931739411835e-06
+   }
+  ],
+  "natural_antitoxin::AT3858": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.931739411835e-06
+   }
+  ],
+  "natural_antitoxin::AT4244": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.431325630559592e-13
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 4.363119058031931e-10
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 2.147900674042985e-09
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 5.441137199207761e-07
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.0005242068851220148
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.0018690268439271961
+   },
+   {
+    "profile": "Sigma70_r4",
+    "evalue": 0.005359105215362239
+   },
+   {
+    "profile": "HTH_38",
+    "evalue": 0.007776278375383752
+   }
+  ],
+  "natural_antitoxin::AT4250": [
+   {
+    "profile": "RHH_3",
+    "evalue": 6.509845915505581e-06
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 8.631024158257784e-06
+   },
+   {
+    "profile": "CHASE9",
+    "evalue": 0.0774855085169467
+   }
+  ],
+  "natural_antitoxin::AT4502": [
+   {
+    "profile": "DUF1778",
+    "evalue": 5.174186295259158e-18
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.019118452707104286
+   },
+   {
+    "profile": "Condensation",
+    "evalue": 0.056047979394528005
+   }
+  ],
+  "natural_antitoxin::AT4914": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.00839943141132594
+   }
+  ],
+  "natural_antitoxin::AT4918": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 4.129920815223909e-21
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.006931607321008494
+   }
+  ],
+  "natural_antitoxin::AT4922": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 2.883988093380051e-06
+   }
+  ],
+  "natural_antitoxin::AT4923": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 4.45441295692994e-05
+   },
+   {
+    "profile": "DUF2540",
+    "evalue": 0.011700016343480989
+   },
+   {
+    "profile": "AbiH",
+    "evalue": 0.017055574351718845
+   }
+  ],
+  "natural_antitoxin::AT6021": [
+   {
+    "profile": "AbiEi_3",
+    "evalue": 9.744354061778257e-58
+   },
+   {
+    "profile": "AbiEi_3_N",
+    "evalue": 1.8000003776157072e-36
+   }
+  ],
+  "natural_antitoxin::AT6022": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.1483690253336784e-14
+   },
+   {
+    "profile": "Ets",
+    "evalue": 0.016900584725997276
+   }
+  ],
+  "natural_antitoxin::AT6023": [
+   {
+    "profile": "RelB",
+    "evalue": 1.1204840040601208e-15
+   }
+  ],
+  "natural_antitoxin::AT6024": [
+   {
+    "profile": "Epsilon_antitox",
+    "evalue": 3.6701592496727225e-56
+   }
+  ],
+  "natural_antitoxin::AT177": [
+   {
+    "profile": "DUF1778",
+    "evalue": 2.5514009548235933e-22
+   }
+  ],
+  "natural_antitoxin::AT6135": [
+   {
+    "profile": "56B_RHH",
+    "evalue": 0.022998854793163995
+   }
+  ],
+  "natural_antitoxin::AT6136": [
+   {
+    "profile": "56B_RHH",
+    "evalue": 0.022998854793163995
+   }
+  ],
+  "natural_antitoxin::AT6137": [],
+  "natural_antitoxin::AT6138": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.267020451721373e-16
+   }
+  ],
+  "natural_antitoxin::AT6139": [
+   {
+    "profile": "RelB",
+    "evalue": 1.438256465079326e-13
+   }
+  ],
+  "natural_antitoxin::AT6140": [
+   {
+    "profile": "56B_RHH",
+    "evalue": 0.022998854793163995
+   }
+  ],
+  "natural_antitoxin::AT6141": [
+   {
+    "profile": "56B_RHH",
+    "evalue": 0.022998854793163995
+   }
+  ],
+  "natural_antitoxin::AT6142": [],
+  "natural_antitoxin::AT6143": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.267020451721373e-16
+   }
+  ],
+  "natural_antitoxin::AT6144": [
+   {
+    "profile": "RelB",
+    "evalue": 1.438256465079326e-13
+   }
+  ],
+  "natural_antitoxin::AT6029": [
+   {
+    "profile": "SpoIISB_antitox",
+    "evalue": 1.9922135634208296e-36
+   },
+   {
+    "profile": "Chromo_2",
+    "evalue": 0.008331502963767428
+   }
+  ],
+  "natural_antitoxin::AT6038": [
+   {
+    "profile": "HTH_37",
+    "evalue": 3.0777731836128547e-28
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.0002774510165043963
+   },
+   {
+    "profile": "Sigma70_r4",
+    "evalue": 0.003089121612844508
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.008160771490359178
+   }
+  ],
+  "natural_antitoxin::AT6078": [
+   {
+    "profile": "RnlB_antitoxin",
+    "evalue": 3.1621815331070194e-18
+   }
+  ],
+  "natural_antitoxin::AT6079": [
+   {
+    "profile": "Epsilon_antitox",
+    "evalue": 3.6701592496727225e-56
+   }
+  ],
+  "natural_antitoxin::AT6080": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.288593887734087e-13
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 6.677913788628088e-09
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 1.5222227271192486e-08
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.9589929089149165e-08
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 1.3355986339651408e-05
+   }
+  ],
+  "natural_antitoxin::AT6086": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 3.752749768799262e-17
+   }
+  ],
+  "natural_antitoxin::AT6087": [
+   {
+    "profile": "HTH_3",
+    "evalue": 7.719942282077078e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0002078767648350591
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.006492422248641607
+   },
+   {
+    "profile": "Alkyl_sulf_dimr",
+    "evalue": 0.17646108548253922
+   }
+  ],
+  "natural_antitoxin::AT6088": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.5838954093119999e-09
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 6.355341801560638e-08
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 7.584880020082373e-05
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.0003778396661012598
+   },
+   {
+    "profile": "MerR",
+    "evalue": 0.003413925593596241
+   }
+  ],
+  "natural_antitoxin::AT6091": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.00040546479862237084
+   },
+   {
+    "profile": "BshC",
+    "evalue": 0.04820303128333807
+   }
+  ],
+  "natural_antitoxin::AT6093": [
+   {
+    "profile": "DUF6290",
+    "evalue": 0.02066109529584078
+   }
+  ],
+  "natural_antitoxin::AT6097": [
+   {
+    "profile": "RelB",
+    "evalue": 1.9390091100152153e-17
+   },
+   {
+    "profile": "PaaA2",
+    "evalue": 4.701100674403973e-05
+   },
+   {
+    "profile": "Agenet",
+    "evalue": 0.09049538190699744
+   }
+  ],
+  "natural_antitoxin::AT6098": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 1.3830610808773865e-07
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 3.3470797684319195e-05
+   }
+  ],
+  "natural_antitoxin::AT6100": [
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 6.034629689412232e-56
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.00045794161071551414
+   }
+  ],
+  "natural_antitoxin::AT6106": [
+   {
+    "profile": "dnstrm_HI1420",
+    "evalue": 2.9231654926155594e-27
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.003209411257262146
+   }
+  ],
+  "natural_antitoxin::AT6107": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 4.848239792586585e-51
+   },
+   {
+    "profile": "UPF0150",
+    "evalue": 0.009220209648378002
+   }
+  ],
+  "natural_antitoxin::AT6108": [
+   {
+    "profile": "HTH_3",
+    "evalue": 8.777010903959521e-14
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.3797859335496187e-06
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.6748582553682785e-05
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 0.0017300066138922435
+   }
+  ],
+  "natural_antitoxin::AT6033": [
+   {
+    "profile": "DUF6088",
+    "evalue": 2.3652242465157785e-07
+   }
+  ],
+  "natural_antitoxin::AT6035": [
+   {
+    "profile": "AbiEi_4",
+    "evalue": 9.6235520955308e-08
+   },
+   {
+    "profile": "AbiEi_3_N",
+    "evalue": 0.0009572728630229503
+   }
+  ],
+  "natural_antitoxin::AT6075": [
+   {
+    "profile": "RnlB_antitoxin",
+    "evalue": 7.679649155332059e-29
+   }
+  ],
+  "natural_antitoxin::AT6076": [
+   {
+    "profile": "RnlB_antitoxin",
+    "evalue": 7.679649155332059e-29
+   }
+  ],
+  "natural_antitoxin::AT6077": [
+   {
+    "profile": "RnlB_antitoxin",
+    "evalue": 7.679649155332059e-29
+   }
+  ],
+  "natural_antitoxin::AT6109": [
+   {
+    "profile": "CcdA",
+    "evalue": 1.1658306530937318e-26
+   }
+  ],
+  "natural_antitoxin::AT6111": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 5.51826780059936e-07
+   }
+  ],
+  "natural_antitoxin::AT6112": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.5324299429368784e-07
+   }
+  ],
+  "natural_antitoxin::AT6105": [
+   {
+    "profile": "dnstrm_HI1420",
+    "evalue": 4.349074232577128e-28
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.0034786540293370587
+   }
+  ],
+  "natural_antitoxin::AT6113": [],
+  "natural_antitoxin::AT6115": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.1483690253336784e-14
+   },
+   {
+    "profile": "Ets",
+    "evalue": 0.016900584725997276
+   }
+  ],
+  "natural_antitoxin::AT6120": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.000197732973688794
+   }
+  ],
+  "natural_antitoxin::AT6121": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 3.8187165251035624e-27
+   }
+  ],
+  "natural_antitoxin::AT6124": [
+   {
+    "profile": "HTH_3",
+    "evalue": 3.3210771793334045e-10
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 1.5950595848583647e-05
+   }
+  ],
+  "natural_antitoxin::AT6127": [
+   {
+    "profile": "Post_transc_reg",
+    "evalue": 0.012645952046996024
+   }
+  ],
+  "natural_antitoxin::AT6128": [
+   {
+    "profile": "RelB",
+    "evalue": 4.307012302311326e-07
+   }
+  ],
+  "natural_antitoxin::AT6129": [
+   {
+    "profile": "RelB",
+    "evalue": 4.307012302311326e-07
+   }
+  ],
+  "natural_antitoxin::AT6131": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.6750273549161674e-05
+   }
+  ],
+  "natural_antitoxin::AT6132": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.6750273549161674e-05
+   }
+  ],
+  "natural_antitoxin::AT6134": [
+   {
+    "profile": "RHH_1",
+    "evalue": 4.418190145741328e-05
+   }
+  ],
+  "natural_antitoxin::AT6130": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 0.0006967628749166753
+   }
+  ],
+  "natural_antitoxin::AT6122": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.325301310122471e-21
+   }
+  ],
+  "natural_antitoxin::AT6104": [
+   {
+    "profile": "Epsilon_antitox",
+    "evalue": 3.6701592496727225e-56
+   }
+  ],
+  "natural_antitoxin::AT103": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.7984615325234357e-11
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 7.757923670943936e-06
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 1.050816057975672e-05
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0007876328976636614
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.008108074728121547
+   }
+  ],
+  "natural_antitoxin::AT309": [
+   {
+    "profile": "RHH_1",
+    "evalue": 3.5918583631693334e-13
+   },
+   {
+    "profile": "PutA_1st",
+    "evalue": 0.0009697316915736518
+   }
+  ],
+  "natural_antitoxin::AT6030": [
+   {
+    "profile": "SUKH_6",
+    "evalue": 2.1389058493803635e-17
+   },
+   {
+    "profile": "SMI1_KNR4",
+    "evalue": 1.1418830625012755e-13
+   },
+   {
+    "profile": "SUKH_5",
+    "evalue": 4.3955634905601245e-06
+   }
+  ],
+  "natural_antitoxin::AT6083": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.0275407356210943e-06
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.0001350499379731788
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0012111830722994184
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 0.006465429031515159
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.006931422603974819
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.008106660609250473
+   },
+   {
+    "profile": "HTH_Tnp_ISL3",
+    "evalue": 0.010971276499154801
+   },
+   {
+    "profile": "HTH_38",
+    "evalue": 0.01688350102845873
+   }
+  ],
+  "natural_antitoxin::AT6037": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.297442349179691e-13
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 2.1285619543776164e-10
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 4.164580336061886e-10
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 1.569113215507863e-09
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 4.1956951278161104e-05
+   },
+   {
+    "profile": "HTH_Crp_2",
+    "evalue": 0.01014034639035069
+   }
+  ],
+  "natural_antitoxin::AT6081": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 6.148976207993209e-22
+   }
+  ],
+  "natural_antitoxin::AT6082": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 6.148976207993209e-22
+   }
+  ],
+  "natural_antitoxin::AT6092": [
+   {
+    "profile": "Epsilon_antitox",
+    "evalue": 3.6701592496727225e-56
+   }
+  ],
+  "natural_antitoxin::AT6025": [
+   {
+    "profile": "HTH_37",
+    "evalue": 1.5169794697689734e-30
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 4.2807747042610674e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.1881967078924526e-05
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 0.00806273139529623
+   }
+  ],
+  "natural_antitoxin::AT6114": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.00033998314303914176
+   },
+   {
+    "profile": "RHH_3",
+    "evalue": 0.008112449540391918
+   }
+  ],
+  "natural_antitoxin::AT6157": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.413675137267343e-07
+   }
+  ],
+  "natural_antitoxin::AT6241": [],
+  "natural_antitoxin::AT6246": [
+   {
+    "profile": "PSK_trans_fac",
+    "evalue": 4.49515490117277e-18
+   }
+  ],
+  "natural_antitoxin::AT6247": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.0001614406885450584
+   },
+   {
+    "profile": "RHH_5",
+    "evalue": 0.0009088117226963433
+   }
+  ],
+  "natural_antitoxin::AT6248": [
+   {
+    "profile": "PapA_C",
+    "evalue": 0.0021826325779136695
+   }
+  ],
+  "natural_antitoxin::AT6249": [],
+  "natural_antitoxin::AT6252": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.00023296418615162393
+   }
+  ],
+  "natural_antitoxin::AT6145": [
+   {
+    "profile": "CcdA",
+    "evalue": 1.1658306530937318e-26
+   }
+  ],
+  "natural_antitoxin::AT6146": [
+   {
+    "profile": "HTH_3",
+    "evalue": 3.661325652123974e-09
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.0958463049799078e-05
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.004739733973009505
+   },
+   {
+    "profile": "LacI",
+    "evalue": 0.006657268119555782
+   }
+  ],
+  "natural_antitoxin::AT6237": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.267020451721373e-16
+   }
+  ],
+  "natural_antitoxin::AT6238": [],
+  "natural_antitoxin::AT6239": [
+   {
+    "profile": "RelB",
+    "evalue": 1.438256465079326e-13
+   }
+  ],
+  "natural_antitoxin::AT6256": [
+   {
+    "profile": "RelB",
+    "evalue": 2.060893227701924e-09
+   }
+  ],
+  "natural_antitoxin::AT6257": [
+   {
+    "profile": "RelB",
+    "evalue": 7.052936135890537e-13
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.01394516057467939
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.015794289688161153
+   },
+   {
+    "profile": "Cadherin_2",
+    "evalue": 0.06038065222564159
+   }
+  ],
+  "natural_antitoxin::AT6258": [
+   {
+    "profile": "RelB",
+    "evalue": 3.109616512875994e-10
+   }
+  ],
+  "natural_antitoxin::AT6259": [
+   {
+    "profile": "RelB",
+    "evalue": 1.579102624272221e-05
+   }
+  ],
+  "natural_antitoxin::AT6260": [
+   {
+    "profile": "RelB",
+    "evalue": 7.347574681149594e-07
+   }
+  ],
+  "natural_antitoxin::AT6261": [
+   {
+    "profile": "RelB",
+    "evalue": 1.9851985041525608e-08
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.0030372858045002327
+   }
+  ],
+  "natural_antitoxin::AT6279": [
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 4.0292049514484654e-12
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 4.879671033375869e-09
+   },
+   {
+    "profile": "Acetyltransf_9",
+    "evalue": 0.00015354996055652224
+   },
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 0.00205063886804029
+   },
+   {
+    "profile": "Acetyltransf_CG",
+    "evalue": 0.09417512180317826
+   }
+  ],
+  "natural_antitoxin::AT6280": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.2991659667340776e-13
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 2.1314356632087233e-10
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 4.2160232198181806e-10
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 1.5742032186909938e-09
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 4.355190776009471e-05
+   },
+   {
+    "profile": "HTH_Crp_2",
+    "evalue": 0.010150123834584395
+   }
+  ],
+  "natural_antitoxin::AT6281": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 6.699240880382626e-14
+   }
+  ],
+  "natural_antitoxin::AT6282": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.288593887734087e-13
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 6.677913788628088e-09
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 1.5222227271192486e-08
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.9589929089149165e-08
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 1.3355986339651408e-05
+   }
+  ],
+  "natural_antitoxin::AT6283": [
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0016268662228385979
+   },
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 0.0036266138493725743
+   },
+   {
+    "profile": "HicB-like_2",
+    "evalue": 0.013506040875944812
+   }
+  ],
+  "natural_antitoxin::AT6285": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.2086287426310544e-12
+   }
+  ],
+  "natural_antitoxin::AT6286": [
+   {
+    "profile": "LETM1_RBD",
+    "evalue": 0.005220634343392513
+   }
+  ],
+  "natural_antitoxin::AT6288": [],
+  "natural_antitoxin::AT6289": [
+   {
+    "profile": "RelB",
+    "evalue": 1.0838554858704245e-12
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.02148608955934984
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.02295128083851793
+   },
+   {
+    "profile": "Cadherin_2",
+    "evalue": 0.03699554926275818
+   }
+  ],
+  "natural_antitoxin::AT6290": [
+   {
+    "profile": "RelB",
+    "evalue": 6.866767173978814e-35
+   }
+  ],
+  "natural_antitoxin::AT6297b": [],
+  "natural_antitoxin::AT179": [
+   {
+    "profile": "RelB",
+    "evalue": 2.2949374850119396e-05
+   },
+   {
+    "profile": "DUF1778",
+    "evalue": 0.0014684454426695367
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.0025006661282258574
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.009758519144752335
+   },
+   {
+    "profile": "MRP-S27",
+    "evalue": 0.014335045391998669
+   },
+   {
+    "profile": "DUF4404",
+    "evalue": 0.01595110398786791
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.025281086571906714
+   }
+  ],
+  "natural_antitoxin::AT168": [
+   {
+    "profile": "RelB",
+    "evalue": 2.2949374850119396e-05
+   },
+   {
+    "profile": "DUF1778",
+    "evalue": 0.0014684454426695367
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.0025006661282258574
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.009758519144752335
+   },
+   {
+    "profile": "MRP-S27",
+    "evalue": 0.014335045391998669
+   },
+   {
+    "profile": "DUF4404",
+    "evalue": 0.01595110398786791
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.025281086571906714
+   }
+  ],
+  "natural_antitoxin::AT10003": [
+   {
+    "profile": "DUF6718",
+    "evalue": 3.7193784845868204e-30
+   }
+  ],
+  "natural_antitoxin::AT10004": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 1.3272502093414787e-17
+   }
+  ],
+  "natural_antitoxin::AT10005": [],
+  "natural_antitoxin::AT10006": [],
+  "natural_antitoxin::AT10007": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 1.935550164390263e-18
+   }
+  ],
+  "natural_antitoxin::AT10008": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 1.907314582971101e-16
+   }
+  ],
+  "natural_antitoxin::AT10009": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 8.679106170888295e-24
+   }
+  ],
+  "natural_antitoxin::AT10010": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 6.1827226134619765e-18
+   }
+  ],
+  "natural_antitoxin::AT10011": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 1.5085720221827126e-18
+   }
+  ],
+  "natural_antitoxin::AT10012": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 2.291666656477703e-22
+   }
+  ],
+  "natural_antitoxin::AT10013": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 4.410015836526945e-17
+   }
+  ],
+  "natural_antitoxin::AT10014": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 5.291083964975123e-07
+   }
+  ],
+  "natural_antitoxin::AT10015": [
+   {
+    "profile": "SocA_Panacea",
+    "evalue": 9.224552866302596e-13
+   }
+  ],
+  "natural_antitoxin::AT10002b": [],
+  "natural_antitoxin::AT10018": [
+   {
+    "profile": "CcdA",
+    "evalue": 4.026335148287779e-26
+   }
+  ],
+  "natural_antitoxin::AT10019": [
+   {
+    "profile": "HTH_3",
+    "evalue": 3.8972977044993594e-14
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.3248946686680516e-09
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 4.584449698029809e-08
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 6.497623130806215e-08
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 1.6557949604637265e-05
+   }
+  ],
+  "natural_antitoxin::AT10020": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.267020451721373e-16
+   }
+  ],
+  "natural_antitoxin::AT10021": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 5.267020451721373e-16
+   }
+  ],
+  "natural_antitoxin::AT10022": [
+   {
+    "profile": "RnlB_antitoxin",
+    "evalue": 7.679649155332059e-29
+   }
+  ],
+  "natural_antitoxin::AT10023": [
+   {
+    "profile": "RnlB_antitoxin",
+    "evalue": 7.679649155332059e-29
+   }
+  ],
+  "natural_antitoxin::AT10030": [
+   {
+    "profile": "Acetyltransf_10",
+    "evalue": 1.0478976372126408e-19
+   },
+   {
+    "profile": "Acetyltransf_1",
+    "evalue": 1.2540486227865635e-14
+   },
+   {
+    "profile": "Acetyltransf_7",
+    "evalue": 4.859956834578038e-09
+   },
+   {
+    "profile": "Acetyltransf_8",
+    "evalue": 1.6777126678111667e-07
+   },
+   {
+    "profile": "Acetyltransf_3",
+    "evalue": 8.012021178342785e-06
+   },
+   {
+    "profile": "Acetyltransf_4",
+    "evalue": 8.190536989345383e-05
+   },
+   {
+    "profile": "Acetyltransf_CG",
+    "evalue": 0.0010997418703861085
+   },
+   {
+    "profile": "Acetyltransf_15",
+    "evalue": 0.02229496358645315
+   }
+  ],
+  "natural_antitoxin::AT10032": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.2998494395834874e-06
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.0003901576487208375
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0016261183110024397
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.011765411398190843
+   }
+  ],
+  "natural_antitoxin::AT10033": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.6186409243664377e-13
+   }
+  ],
+  "natural_antitoxin::AT10034": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.0131089575857454e-16
+   }
+  ],
+  "natural_antitoxin::AT10035": [
+   {
+    "profile": "DUF2442",
+    "evalue": 5.024131533044424e-08
+   },
+   {
+    "profile": "dnstrm_HI1420",
+    "evalue": 0.00035405352795052255
+   }
+  ],
+  "natural_antitoxin::AT10036": [
+   {
+    "profile": "Couple_hipA",
+    "evalue": 8.196137865241446e-24
+   }
+  ],
+  "natural_antitoxin::AT10037": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.509295313785114e-11
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 5.957710512945448e-09
+   },
+   {
+    "profile": "Sigma70_r4",
+    "evalue": 1.408389946638713e-06
+   },
+   {
+    "profile": "MarR_2",
+    "evalue": 7.574071981641817e-05
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 0.00021060823279923818
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.00022703785640444056
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.00034956610193985233
+   },
+   {
+    "profile": "Sigma70_r4_2",
+    "evalue": 0.0006078404815518066
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.003001423966645707
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.0048576803154258726
+   },
+   {
+    "profile": "HTH_IclR",
+    "evalue": 0.005285181792009055
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 0.009710547430213433
+   }
+  ],
+  "natural_antitoxin::AT10038": [
+   {
+    "profile": "HTH_31",
+    "evalue": 1.0418241910913108e-05
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 3.661962566075173e-05
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.002699909449717168
+   }
+  ],
+  "natural_antitoxin::AT10040": [
+   {
+    "profile": "Glucosamine_iso",
+    "evalue": 0.0014598849968559197
+   },
+   {
+    "profile": "PAC_bac",
+    "evalue": 0.007834604770235693
+   },
+   {
+    "profile": "DUF2103",
+    "evalue": 0.01538009187978738
+   }
+  ],
+  "natural_antitoxin::AT10041": [
+   {
+    "profile": "DUF1778",
+    "evalue": 1.3406776669763807e-25
+   }
+  ],
+  "natural_antitoxin::AT10042": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 0.0022535139770168983
+   }
+  ],
+  "natural_antitoxin::AT10043": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.1068524757570303e-18
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.0004279614248264323
+   }
+  ],
+  "natural_antitoxin::AT10044": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 9.637334368212974e-15
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 0.0005950495253042457
+   }
+  ],
+  "natural_antitoxin::AT10048": [
+   {
+    "profile": "RelB",
+    "evalue": 8.717325665754452e-11
+   }
+  ],
+  "natural_antitoxin::AT10050": [
+   {
+    "profile": "HTH_37",
+    "evalue": 1.9343698015458852e-11
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 7.890614259842039e-11
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 3.793891348972613e-09
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 1.5223871688448722e-05
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.2487404928004542e-05
+   },
+   {
+    "profile": "BicD",
+    "evalue": 0.027364012214085343
+   }
+  ],
+  "natural_antitoxin::AT10051": [
+   {
+    "profile": "DUF1778",
+    "evalue": 8.483186852292932e-26
+   }
+  ],
+  "natural_antitoxin::AT10052": [
+   {
+    "profile": "DUF1778",
+    "evalue": 3.682204434305973e-27
+   }
+  ],
+  "natural_antitoxin::AT10053": [
+   {
+    "profile": "HTH_26",
+    "evalue": 1.921358606878781e-13
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.4859368109421227e-06
+   },
+   {
+    "profile": "DUF6471",
+    "evalue": 0.0001549322544601936
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0017426125775434655
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.004654382911766158
+   },
+   {
+    "profile": "HTH_35",
+    "evalue": 0.0048490400899084286
+   },
+   {
+    "profile": "IF2_N",
+    "evalue": 0.006970711904561292
+   }
+  ],
+  "natural_antitoxin::AT10054": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.3368216098496936e-05
+   }
+  ],
+  "natural_antitoxin::AT10055": [],
+  "natural_antitoxin::AT10057": [
+   {
+    "profile": "SUKH_6",
+    "evalue": 2.1389058493803635e-17
+   },
+   {
+    "profile": "SMI1_KNR4",
+    "evalue": 1.1418830625012755e-13
+   },
+   {
+    "profile": "SUKH_5",
+    "evalue": 4.3955634905601245e-06
+   }
+  ],
+  "natural_antitoxin::AT10058": [
+   {
+    "profile": "YezG-like",
+    "evalue": 1.1254749818088199e-54
+   },
+   {
+    "profile": "CBP4",
+    "evalue": 0.0013891673772443585
+   }
+  ],
+  "natural_antitoxin::AT10059": [
+   {
+    "profile": "SUFU",
+    "evalue": 1.772784781498068e-35
+   }
+  ],
+  "natural_antitoxin::AT10060": [
+   {
+    "profile": "MORN_2",
+    "evalue": 2.1640758386598296e-07
+   }
+  ],
+  "natural_antitoxin::AT10061": [
+   {
+    "profile": "SMI1_KNR4",
+    "evalue": 5.6640275807469423e-11
+   },
+   {
+    "profile": "SUKH_6",
+    "evalue": 0.00036664750849551805
+   }
+  ],
+  "natural_antitoxin::AT10062": [
+   {
+    "profile": "SUKH_5",
+    "evalue": 1.5365914739356863e-36
+   },
+   {
+    "profile": "SMI1_KNR4",
+    "evalue": 1.0654984250140965e-16
+   },
+   {
+    "profile": "SUKH_6",
+    "evalue": 2.66226887747854e-14
+   },
+   {
+    "profile": "DUF1473",
+    "evalue": 0.013998117041738577
+   }
+  ],
+  "natural_antitoxin::AT10063": [
+   {
+    "profile": "HTH_37",
+    "evalue": 9.677328978247133e-07
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.9086140927112312e-06
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.00014931708849236837
+   },
+   {
+    "profile": "HTH_Crp_2",
+    "evalue": 0.002460506388401977
+   },
+   {
+    "profile": "MarR",
+    "evalue": 0.005104791184280421
+   }
+  ],
+  "natural_antitoxin::AT10064": [
+   {
+    "profile": "CcdA",
+    "evalue": 2.8865581176485807e-28
+   },
+   {
+    "profile": "DUF2624",
+    "evalue": 0.013201992889457639
+   }
+  ],
+  "natural_antitoxin::AT10065": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 1.3975470299244489e-12
+   }
+  ],
+  "natural_antitoxin::AT10066": [
+   {
+    "profile": "dnstrm_HI1420",
+    "evalue": 0.00016205545558069785
+   },
+   {
+    "profile": "DUF2442",
+    "evalue": 0.0008720158231232198
+   }
+  ],
+  "natural_antitoxin::AT10067": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 2.762472219846686e-07
+   },
+   {
+    "profile": "Asp_protease_2",
+    "evalue": 0.1442012428762819
+   }
+  ],
+  "natural_antitoxin::AT10069": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 3.3113769720749226e-07
+   }
+  ],
+  "natural_antitoxin::AT10070": [
+   {
+    "profile": "RelB",
+    "evalue": 9.084230502289657e-09
+   },
+   {
+    "profile": "ANTAR",
+    "evalue": 0.05263208491405749
+   }
+  ],
+  "natural_antitoxin::AT10072": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.0285215988206487e-21
+   }
+  ],
+  "natural_antitoxin::AT10073": [
+   {
+    "profile": "FAM186A_PQQAQ",
+    "evalue": 0.021750259458389216
+   }
+  ],
+  "natural_antitoxin::AT10074": [
+   {
+    "profile": "YbaJ",
+    "evalue": 6.450600927867939e-65
+   }
+  ],
+  "natural_antitoxin::AT10075": [
+   {
+    "profile": "HTH_31",
+    "evalue": 6.120838324196371e-10
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.7595590616228432e-09
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.0002253161299362808
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0036480851549677753
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.01300507251165264
+   }
+  ],
+  "natural_antitoxin::AT10076": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.1927762259555393e-08
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 7.639581263909985e-07
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 9.926309055215487e-06
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.000728285717177661
+   },
+   {
+    "profile": "Sigma70_r4",
+    "evalue": 0.001236498659209826
+   },
+   {
+    "profile": "HTH_Crp_2",
+    "evalue": 0.002017534698199917
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0033266647682046323
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 0.004109773791069364
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.004149885072228609
+   }
+  ],
+  "natural_antitoxin::AT10077": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 3.1543993651399623e-23
+   },
+   {
+    "profile": "PHD_like",
+    "evalue": 0.009541508798800485
+   }
+  ],
+  "natural_antitoxin::AT10078": [],
+  "natural_antitoxin::AT10079": [
+   {
+    "profile": "ParD_antitoxin",
+    "evalue": 3.0921536828728795e-20
+   }
+  ],
+  "natural_antitoxin::AT10088": [
+   {
+    "profile": "ANAPC2",
+    "evalue": 0.014889635453605464
+   },
+   {
+    "profile": "Cyclin_C",
+    "evalue": 0.034353271490151355
+   },
+   {
+    "profile": "Closter_coat",
+    "evalue": 0.053332033915631294
+   }
+  ],
+  "natural_antitoxin::AT10089": [
+   {
+    "profile": "DUF5397",
+    "evalue": 7.495613378643689e-32
+   }
+  ],
+  "natural_antitoxin::AT10090": [],
+  "natural_antitoxin::AT10091": [
+   {
+    "profile": "HTH_19",
+    "evalue": 8.052617756145192e-07
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0013024133966238734
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 0.003354265025183104
+   },
+   {
+    "profile": "BetR",
+    "evalue": 0.034784719384941015
+   }
+  ],
+  "natural_antitoxin::AT10092": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.067793921674823e-12
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.1524411058415226e-09
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 4.798954654941482e-07
+   },
+   {
+    "profile": "BetR",
+    "evalue": 0.0009785393697566455
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.009336841494177756
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.014490177232021282
+   },
+   {
+    "profile": "KAR",
+    "evalue": 0.01568030035231359
+   }
+  ],
+  "natural_antitoxin::AT10093": [
+   {
+    "profile": "IclR",
+    "evalue": 1.4163011563931726e-16
+   },
+   {
+    "profile": "HTH_IclR",
+    "evalue": 2.1029247211388613e-15
+   },
+   {
+    "profile": "MarR_2",
+    "evalue": 2.627902694574753e-06
+   },
+   {
+    "profile": "TrmB",
+    "evalue": 1.514040019844032e-05
+   },
+   {
+    "profile": "MarR",
+    "evalue": 0.00033613424672574214
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.001447909818787952
+   },
+   {
+    "profile": "HTH_11",
+    "evalue": 0.005383092325279858
+   },
+   {
+    "profile": "sCache_3_2",
+    "evalue": 0.010138126863743735
+   },
+   {
+    "profile": "DUF4423",
+    "evalue": 0.032658622203571006
+   }
+  ],
+  "natural_antitoxin::AT10094": [],
+  "natural_antitoxin::AT10095": [
+   {
+    "profile": "RelB",
+    "evalue": 7.20264966042109e-13
+   }
+  ],
+  "natural_antitoxin::AT10096": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 0.0005202211054880401
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.004875009220719284
+   },
+   {
+    "profile": "RHH_8",
+    "evalue": 0.010385653371673223
+   }
+  ],
+  "natural_antitoxin::AT10097": [
+   {
+    "profile": "dnstrm_HI1420",
+    "evalue": 1.2779224745454846e-25
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.3864625283583716e-06
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0014634225072568687
+   }
+  ],
+  "natural_antitoxin::AT10098": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.68030537831724e-15
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 2.3472645107616303e-07
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 3.487474976357333e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 6.249967578059632e-06
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 6.626681580097706e-06
+   },
+   {
+    "profile": "MarR",
+    "evalue": 0.000449063821332592
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.0010615904225226408
+   },
+   {
+    "profile": "Terminase_5",
+    "evalue": 0.0023705515944540396
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.007359080876276934
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.011408313239241762
+   }
+  ],
+  "natural_antitoxin::AT10099": [
+   {
+    "profile": "CcdA",
+    "evalue": 4.026335148287779e-26
+   }
+  ],
+  "natural_antitoxin::AT10100": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.3587404077255722e-05
+   }
+  ],
+  "natural_antitoxin::AT10101": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.00047561540653952007
+   }
+  ],
+  "natural_antitoxin::AT10102": [],
+  "natural_antitoxin::AT10104": [
+   {
+    "profile": "HTH_31",
+    "evalue": 5.819004446456926e-07
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.1275428053199292e-06
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.004474151129968468
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 0.004649676248672697
+   },
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 0.006466287390059012
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.015693600694132743
+   }
+  ],
+  "natural_antitoxin::AT10105": [
+   {
+    "profile": "Ntox47",
+    "evalue": 1.243803617274286e-48
+   },
+   {
+    "profile": "RHS",
+    "evalue": 4.610109152414531e-11
+   }
+  ],
+  "natural_antitoxin::AT10106": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.9053533252381156e-12
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 5.743343874112662e-08
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 1.2162739703416527e-05
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 0.0007123507205374303
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 0.0007826320067075243
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.0035361751150835416
+   },
+   {
+    "profile": "Chordopox_A13L",
+    "evalue": 0.03905211097545648
+   }
+  ],
+  "natural_antitoxin::AT10108": [
+   {
+    "profile": "RelB",
+    "evalue": 2.4131442698498966e-05
+   }
+  ],
+  "natural_antitoxin::AT10109": [
+   {
+    "profile": "RelB",
+    "evalue": 2.609219146060269e-13
+   }
+  ],
+  "natural_antitoxin::AT10110": [
+   {
+    "profile": "RelB",
+    "evalue": 1.438256465079326e-13
+   }
+  ],
+  "natural_antitoxin::AT10111": [
+   {
+    "profile": "RelB",
+    "evalue": 1.0185305462411491e-10
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.007241942522151484
+   }
+  ],
+  "natural_antitoxin::AT10112": [
+   {
+    "profile": "RelB",
+    "evalue": 2.8303173647798782e-11
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.002976112624645703
+   }
+  ],
+  "natural_antitoxin::AT10114": [],
+  "natural_antitoxin::AT10115": [
+   {
+    "profile": "Glucosamine_iso",
+    "evalue": 0.0014598849968559197
+   },
+   {
+    "profile": "PAC_bac",
+    "evalue": 0.007834604770235693
+   },
+   {
+    "profile": "DUF2103",
+    "evalue": 0.01538009187978738
+   }
+  ],
+  "natural_antitoxin::AT10116": [],
+  "natural_antitoxin::AT10117": [
+   {
+    "profile": "Trns_repr_metal",
+    "evalue": 1.947327353800895e-28
+   },
+   {
+    "profile": "DHR-2_Lobe_C",
+    "evalue": 0.005866867098490868
+   },
+   {
+    "profile": "CdaS_N",
+    "evalue": 0.014327786603152372
+   }
+  ],
+  "natural_antitoxin::AT10118": [
+   {
+    "profile": "Entericidin",
+    "evalue": 1.5077351546628085e-07
+   }
+  ],
+  "natural_antitoxin::AT10119": [
+   {
+    "profile": "RHH_1",
+    "evalue": 0.009062472882024783
+   },
+   {
+    "profile": "HrpJ",
+    "evalue": 0.014232685442352197
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.022792605537733837
+   },
+   {
+    "profile": "CcdA",
+    "evalue": 0.08962097245492376
+   }
+  ],
+  "natural_antitoxin::AT10120": [
+   {
+    "profile": "DUF1778",
+    "evalue": 6.32593667280446e-26
+   },
+   {
+    "profile": "DUF6290",
+    "evalue": 0.003617488738249318
+   }
+  ],
+  "natural_antitoxin::AT10121": [
+   {
+    "profile": "Couple_hipA",
+    "evalue": 1.4459512967805663e-22
+   }
+  ],
+  "natural_antitoxin::AT10122": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 3.0354078440396834e-28
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 8.271501334221452e-06
+   },
+   {
+    "profile": "CopG_antitoxin",
+    "evalue": 0.05043768312825851
+   }
+  ],
+  "natural_antitoxin::AT10123": [
+   {
+    "profile": "HTH_3",
+    "evalue": 7.416297040035018e-14
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 2.563920322453334e-10
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 7.3948030569599e-08
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 2.9274954014656132e-06
+   }
+  ],
+  "natural_antitoxin::AT10125": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.2231898722562557e-07
+   }
+  ],
+  "natural_antitoxin::AT10129": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 6.733444670567668e-09
+   }
+  ],
+  "natural_antitoxin::AT10130": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 4.411389883885514e-13
+   },
+   {
+    "profile": "Tox-MPTase3",
+    "evalue": 0.007682927038271061
+   },
+   {
+    "profile": "DUF5031",
+    "evalue": 0.017806523196135612
+   }
+  ],
+  "natural_antitoxin::AT10131": [
+   {
+    "profile": "ASPRs",
+    "evalue": 0.06595346335302549
+   }
+  ],
+  "natural_antitoxin::AT10132": [
+   {
+    "profile": "HicB",
+    "evalue": 5.5707572062029226e-18
+   },
+   {
+    "profile": "Arc",
+    "evalue": 0.0020805389111814053
+   }
+  ],
+  "natural_antitoxin::AT10134": [
+   {
+    "profile": "adh_short_C2",
+    "evalue": 7.722074895356587e-62
+   },
+   {
+    "profile": "adh_short",
+    "evalue": 3.596628475898104e-51
+   },
+   {
+    "profile": "KR",
+    "evalue": 1.0689550857453303e-07
+   }
+  ],
+  "natural_antitoxin::AT10135": [
+   {
+    "profile": "HTH_3",
+    "evalue": 1.2231898722562557e-07
+   }
+  ],
+  "natural_antitoxin::AT10136": [
+   {
+    "profile": "RelB",
+    "evalue": 2.213067997557616e-17
+   },
+   {
+    "profile": "AAA_30",
+    "evalue": 0.09336869140700002
+   }
+  ],
+  "natural_antitoxin::AT10137": [
+   {
+    "profile": "RHH_1",
+    "evalue": 9.50824216987476e-10
+   },
+   {
+    "profile": "PutA_1st",
+    "evalue": 0.0037972054459144288
+   }
+  ],
+  "natural_antitoxin::AT10138": [
+   {
+    "profile": "Arc",
+    "evalue": 0.00010300295283928786
+   }
+  ],
+  "natural_antitoxin::AT10139": [
+   {
+    "profile": "PaaA2",
+    "evalue": 1.2232287228722851e-15
+   }
+  ],
+  "natural_antitoxin::AT10140": [
+   {
+    "profile": "MazE-like",
+    "evalue": 1.289355593999926e-32
+   }
+  ],
+  "natural_antitoxin::AT10141": [
+   {
+    "profile": "PaaA2",
+    "evalue": 1.381817406374724e-16
+   }
+  ],
+  "natural_antitoxin::AT10142": [
+   {
+    "profile": "RHH_1",
+    "evalue": 3.526395909488037e-05
+   },
+   {
+    "profile": "PutA_1st",
+    "evalue": 0.0008334604986597953
+   },
+   {
+    "profile": "TIP39",
+    "evalue": 0.008973128850005637
+   }
+  ],
+  "natural_antitoxin::AT10143": [
+   {
+    "profile": "PaaA2",
+    "evalue": 1.1873548537965188e-18
+   },
+   {
+    "profile": "DUF2922",
+    "evalue": 0.021190483936541608
+   }
+  ],
+  "natural_antitoxin::AT10144": [
+   {
+    "profile": "ParD_like",
+    "evalue": 5.971631670618525e-21
+   }
+  ],
+  "natural_antitoxin::AT10145": [
+   {
+    "profile": "Xre_MbcA_ParS_C",
+    "evalue": 1.0325494489390922e-11
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 1.8370049130352354e-10
+   }
+  ],
+  "natural_antitoxin::AT10150": [
+   {
+    "profile": "HicB",
+    "evalue": 1.3115228455564385e-19
+   },
+   {
+    "profile": "Antitox_RHH",
+    "evalue": 0.024850805523899434
+   }
+  ],
+  "natural_antitoxin::AT10151": [
+   {
+    "profile": "MqsA_antitoxin",
+    "evalue": 1.4827754948812241e-05
+   },
+   {
+    "profile": "Xre-like-HTH",
+    "evalue": 7.35450805509146e-05
+   }
+  ],
+  "natural_antitoxin::AT10152": [
+   {
+    "profile": "YbaJ",
+    "evalue": 6.450600927867939e-65
+   }
+  ],
+  "natural_antitoxin::AT10153": [],
+  "natural_antitoxin::AT10157": [
+   {
+    "profile": "DUF6290",
+    "evalue": 1.7206115047683244e-22
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.012156550920240554
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.021586779690991667
+   }
+  ],
+  "natural_antitoxin::AT10158": [
+   {
+    "profile": "DUF6290",
+    "evalue": 4.096667351864865e-28
+   },
+   {
+    "profile": "DUF6364",
+    "evalue": 0.0013571168345028416
+   }
+  ],
+  "natural_antitoxin::AT10159": [],
+  "natural_antitoxin::AT10160": [],
+  "natural_antitoxin::AT10161": [
+   {
+    "profile": "HTH_3",
+    "evalue": 8.189502683830446e-07
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.00039862205911356203
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.0006668699288502495
+   },
+   {
+    "profile": "HTH_24",
+    "evalue": 0.011643416154689912
+   }
+  ],
+  "natural_antitoxin::AT10162": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 6.737534115828792e-10
+   },
+   {
+    "profile": "PrlF_antitoxin",
+    "evalue": 1.8367190921830608e-08
+   },
+   {
+    "profile": "eIF-1a",
+    "evalue": 0.0033178426599662914
+   }
+  ],
+  "natural_antitoxin::AT10163": [],
+  "natural_antitoxin::AT10164": [
+   {
+    "profile": "DUF6057",
+    "evalue": 0.0040329331413689684
+   },
+   {
+    "profile": "DUF6773",
+    "evalue": 0.006201624309739359
+   },
+   {
+    "profile": "DUF2178",
+    "evalue": 0.013571318553381291
+   },
+   {
+    "profile": "DUF485",
+    "evalue": 0.021716062725745347
+   }
+  ],
+  "natural_antitoxin::AT10166": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 0.006726717767146297
+   }
+  ],
+  "natural_antitoxin::AT10167": [
+   {
+    "profile": "Big_3_5",
+    "evalue": 0.05491073388558548
+   }
+  ],
+  "natural_antitoxin::AT10168": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 1.9000702331357626e-06
+   }
+  ],
+  "natural_antitoxin::AT10169": [
+   {
+    "profile": "HTH_3",
+    "evalue": 2.0227619091380817e-10
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 1.2303432618988176e-07
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 1.4816258662685807e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 0.00043837203562429775
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.0013570051659182
+   },
+   {
+    "profile": "MarR_2",
+    "evalue": 0.0036890374172044976
+   },
+   {
+    "profile": "HTH_Crp_2",
+    "evalue": 0.012118532997700717
+   }
+  ],
+  "natural_antitoxin::AT10170": [],
+  "natural_antitoxin::AT10177": [],
+  "natural_antitoxin::AT10179": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.2202078931055052e-05
+   }
+  ],
+  "natural_antitoxin::AT10181": [
+   {
+    "profile": "RelB",
+    "evalue": 1.0470915899251977e-20
+   },
+   {
+    "profile": "FAD-depend_C",
+    "evalue": 0.018075934201013596
+   }
+  ],
+  "natural_antitoxin::AT10182": [
+   {
+    "profile": "PhdYeFM_antitox",
+    "evalue": 2.8105402332103404e-23
+   },
+   {
+    "profile": "PEGA",
+    "evalue": 0.011150664135077142
+   }
+  ],
+  "natural_antitoxin::AT10183": [
+   {
+    "profile": "ParD_like",
+    "evalue": 1.7098274068780355e-15
+   }
+  ],
+  "natural_antitoxin::AT10184": [],
+  "natural_antitoxin::AT10185": [
+   {
+    "profile": "Fic",
+    "evalue": 1.8849011333572855e-17
+   },
+   {
+    "profile": "SRP54_N",
+    "evalue": 0.005675372661245268
+   }
+  ],
+  "natural_antitoxin::AT10186": [
+   {
+    "profile": "VbhA",
+    "evalue": 3.3960632239417805e-12
+   }
+  ],
+  "natural_antitoxin::AT10187": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 0.00017660251543848623
+   }
+  ],
+  "natural_antitoxin::AT10188": [
+   {
+    "profile": "BrnA_antitoxin",
+    "evalue": 6.528919295788564e-22
+   }
+  ],
+  "natural_antitoxin::AT10189": [
+   {
+    "profile": "HicB_lk_antitox",
+    "evalue": 1.0250384688357302e-07
+   },
+   {
+    "profile": "HTH_3",
+    "evalue": 1.4440111637576424e-07
+   },
+   {
+    "profile": "MarR_2",
+    "evalue": 0.00799098181482759
+   }
+  ],
+  "natural_antitoxin::AT10190": [
+   {
+    "profile": "RelB",
+    "evalue": 1.9528652679994245e-18
+   }
+  ],
+  "natural_antitoxin::AT10191": [
+   {
+    "profile": "RHH_1",
+    "evalue": 4.753719271644109e-08
+   },
+   {
+    "profile": "PutA_1st",
+    "evalue": 0.003623173081022967
+   }
+  ],
+  "natural_antitoxin::AT10192": [
+   {
+    "profile": "Lysine_decarbox",
+    "evalue": 1.7962577329758284e-29
+   },
+   {
+    "profile": "LDcluster4",
+    "evalue": 1.2603282729475881e-08
+   }
+  ],
+  "natural_antitoxin::AT10195": [
+   {
+    "profile": "HTH_3",
+    "evalue": 4.120533590183474e-15
+   },
+   {
+    "profile": "HTH_19",
+    "evalue": 2.653286168769277e-07
+   },
+   {
+    "profile": "HTH_37",
+    "evalue": 5.517737042773803e-07
+   },
+   {
+    "profile": "HTH_31",
+    "evalue": 7.652133967087515e-06
+   },
+   {
+    "profile": "HTH_26",
+    "evalue": 8.55140534166752e-06
+   },
+   {
+    "profile": "MarR",
+    "evalue": 0.00036142882147662464
+   },
+   {
+    "profile": "HTH_23",
+    "evalue": 0.0012981598673616078
+   },
+   {
+    "profile": "Terminase_5",
+    "evalue": 0.002986436870276238
+   },
+   {
+    "profile": "YdaS_toxin",
+    "evalue": 0.007620735339287051
+   },
+   {
+    "profile": "HTH_25",
+    "evalue": 0.012724172495738
+   }
+  ],
+  "natural_antitoxin::AT10197": [
+   {
+    "profile": "MazE_antitoxin",
+    "evalue": 1.9765999346271892e-07
+   }
+  ],
+  "design::EvoRele1": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 4.739475800194353e-17
+   }
+  ],
+  "design::EvoAT1": [
+   {
+    "profile": "DUF6290",
+    "evalue": 0.0035994243602131726
+   },
+   {
+    "profile": "Carot_N",
+    "evalue": 0.09873511167622354
+   }
+  ],
+  "design::EvoAT2": [
+   {
+    "profile": "DUF6290",
+    "evalue": 0.0002419053887865189
+   },
+   {
+    "profile": "DEAD_assoc",
+    "evalue": 0.04186683400006646
+   }
+  ],
+  "design::EvoAT3": [
+   {
+    "profile": "DUF6290",
+    "evalue": 7.952874548877438e-14
+   },
+   {
+    "profile": "RHH_1",
+    "evalue": 0.004286542900321484
+   },
+   {
+    "profile": "ParD",
+    "evalue": 0.006585442976743215
+   }
+  ],
+  "design::EvoAT4": [
+   {
+    "profile": "DUF6290",
+    "evalue": 6.447665618092949e-08
+   },
+   {
+    "profile": "Unstab_antitox",
+    "evalue": 0.00025450276637197357
+   }
+  ],
+  "design::wtRelE_homolog": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.8764948957998066e-14
+   }
+  ],
+  "design::RelE_ECOLI": [
+   {
+    "profile": "ParE_toxin",
+    "evalue": 1.8724585013365148e-13
+   },
+   {
+    "profile": "ParE-like_toxin",
+    "evalue": 1.1999953739022597e-05
+   }
+  ],
+  "design::MazF_ECOLI": [
+   {
+    "profile": "PemK_toxin",
+    "evalue": 3.7833232679197174e-24
+   }
+  ],
+  "design::YoeB_ECOLI": [
+   {
+    "profile": "YoeB_toxin",
+    "evalue": 2.374209259379504e-43
+   },
+   {
+    "profile": "ParE_toxin",
+    "evalue": 2.1258399456327982e-05
+   }
+  ]
+ },
+ "family_counts_all": [
+  [
+   "ParE_toxin",
+   96
+  ],
+  [
+   "PIN",
+   71
+  ],
+  [
+   "HTH_3",
+   57
+  ],
+  [
+   "PhdYeFM_antitox",
+   49
+  ],
+  [
+   "PemK_toxin",
+   48
+  ],
+  [
+   "HTH_31",
+   44
+  ],
+  [
+   "MazE_antitoxin",
+   36
+  ],
+  [
+   "RHH_1",
+   35
+  ],
+  [
+   "RelB",
+   33
+  ],
+  [
+   "HTH_19",
+   31
+  ],
+  [
+   "YafQ_toxin",
+   27
+  ],
+  [
+   "YoeB_toxin",
+   27
+  ],
+  [
+   "HTH_26",
+   27
+  ],
+  [
+   "ParE-like_toxin",
+   22
+  ],
+  [
+   "DUF6290",
+   21
+  ],
+  [
+   "HTH_37",
+   19
+  ],
+  [
+   "MqsA_antitoxin",
+   18
+  ],
+  [
+   "Gp49",
+   15
+  ],
+  [
+   "DUF6364",
+   15
+  ],
+  [
+   "DUF1778",
+   15
+  ],
+  [
+   "Acetyltransf_7",
+   14
+  ],
+  [
+   "Acetyltransf_1",
+   14
+  ],
+  [
+   "HigB-like_toxin",
+   14
+  ],
+  [
+   "Acetyltransf_10",
+   13
+  ],
+  [
+   "HicB_lk_antitox",
+   13
+  ],
+  [
+   "Xre-like-HTH",
+   13
+  ],
+  [
+   "PIN_3",
+   12
+  ],
+  [
+   "HTH_23",
+   12
+  ],
+  [
+   "HicA_toxin",
+   11
+  ],
+  [
+   "Zeta_toxin",
+   11
+  ],
+  [
+   "AAA_33",
+   11
+  ],
+  [
+   "AAA_16",
+   11
+  ],
+  [
+   "CcdA",
+   11
+  ],
+  [
+   "HTH_25",
+   11
+  ],
+  [
+   "AAA",
+   10
+  ],
+  [
+   "AAA_22",
+   10
+  ],
+  [
+   "SocA_Panacea",
+   10
+  ],
+  [
+   "RES",
+   9
+  ],
+  [
+   "CcdB",
+   9
+  ],
+  [
+   "ABC_tran",
+   9
+  ],
+  [
+   "BrnT_toxin",
+   8
+  ],
+  [
+   "HTH_24",
+   8
+  ],
+  [
+   "AAA_18",
+   8
+  ],
+  [
+   "Fic",
+   8
+  ],
+  [
+   "RHH_5",
+   8
+  ],
+  [
+   "Xre_MbcA_ParS_C",
+   8
+  ],
+  [
+   "DUF5615",
+   7
+  ],
+  [
+   "DUF4411",
+   7
+  ],
+  [
+   "PSK_trans_fac",
+   7
+  ],
+  [
+   "VapB_antitoxin",
+   7
+  ],
+  [
+   "YdaS_toxin",
+   7
+  ],
+  [
+   "PHD_like",
+   7
+  ],
+  [
+   "BrnA_antitoxin",
+   7
+  ],
+  [
+   "FR47",
+   6
+  ],
+  [
+   "CPT",
+   6
+  ],
+  [
+   "RelA_SpoT",
+   6
+  ],
+  [
+   "dnstrm_HI1420",
+   6
+  ],
+  [
+   "MarR",
+   6
+  ],
+  [
+   "PaaA2",
+   6
+  ],
+  [
+   "RnlB_antitoxin",
+   6
+  ],
+  [
+   "RelE",
+   5
+  ],
+  [
+   "Acetyltransf_CG",
+   5
+  ],
+  [
+   "HigB_toxin",
+   5
+  ],
+  [
+   "Sigma70_r4",
+   5
+  ],
+  [
+   "AAA_11",
+   5
+  ],
+  [
+   "APS_kinase",
+   5
+  ],
+  [
+   "AAA_24",
+   5
+  ],
+  [
+   "ParD_antitoxin",
+   5
+  ],
+  [
+   "56B_RHH",
+   5
+  ],
+  [
+   "PutA_1st",
+   5
+  ],
+  [
+   "MarR_2",
+   5
+  ],
+  [
+   "HTH_Crp_2",
+   5
+  ],
+  [
+   "MqsR_toxin",
+   4
+  ],
+  [
+   "Peptidase_M78",
+   4
+  ],
+  [
+   "RuvB_N",
+   4
+  ],
+  [
+   "cobW",
+   4
+  ],
+  [
+   "EndoS_Ig-like",
+   4
+  ],
+  [
+   "AAA_19",
+   4
+  ],
+  [
+   "AAA_17",
+   4
+  ],
+  [
+   "AAA_29",
+   4
+  ],
+  [
+   "AAA_14",
+   4
+  ],
+  [
+   "RHH_3",
+   4
+  ],
+  [
+   "PrlF_antitoxin",
+   4
+  ],
+  [
+   "Epsilon_antitox",
+   4
+  ],
+  [
+   "SUKH_6",
+   4
+  ],
+  [
+   "SMI1_KNR4",
+   4
+  ],
+  [
+   "Acetyltransf_4",
+   3
+  ],
+  [
+   "PIN_2",
+   3
+  ],
+  [
+   "TINF2_N",
+   3
+  ],
+  [
+   "Gtr1_RagA",
+   3
+  ],
+  [
+   "KAP_NTPase",
+   3
+  ],
+  [
+   "DarT",
+   3
+  ],
+  [
+   "AbrB-like",
+   3
+  ],
+  [
+   "CopG_antitoxin",
+   3
+  ],
+  [
+   "BetR",
+   3
+  ],
+  [
+   "Arc",
+   3
+  ],
+  [
+   "Terminase_5",
+   3
+  ],
+  [
+   "UPF0150",
+   3
+  ],
+  [
+   "SUKH_5",
+   3
+  ],
+  [
+   "PIN_4",
+   2
+  ],
+  [
+   "DUF5105",
+   2
+  ],
+  [
+   "Acetyltransf_3",
+   2
+  ],
+  [
+   "ALC",
+   2
+  ],
+  [
+   "Acetyltransf_15",
+   2
+  ],
+  [
+   "SpoIISA_toxin",
+   2
+  ],
+  [
+   "BAF",
+   2
+  ],
+  [
+   "DUF2207_C",
+   2
+  ],
+  [
+   "FPP",
+   2
+  ],
+  [
+   "DUF4160",
+   2
+  ],
+  [
+   "HHA",
+   2
+  ],
+  [
+   "AAA_23",
+   2
+  ],
+  [
+   "DUF6773",
+   2
+  ],
+  [
+   "HTH_17",
+   2
+  ],
+  [
+   "DUF2281",
+   2
+  ],
+  [
+   "Tox-MPTase3",
+   2
+  ],
+  [
+   "DUF5031",
+   2
+  ],
+  [
+   "HTH_38",
+   2
+  ],
+  [
+   "AbiEi_3_N",
+   2
+  ],
+  [
+   "Ets",
+   2
+  ],
+  [
+   "Cadherin_2",
+   2
+  ],
+  [
+   "MRP-S27",
+   2
+  ],
+  [
+   "DUF4404",
+   2
+  ],
+  [
+   "DUF2442",
+   2
+  ],
+  [
+   "Couple_hipA",
+   2
+  ],
+  [
+   "HTH_IclR",
+   2
+  ],
+  [
+   "Glucosamine_iso",
+   2
+  ],
+  [
+   "PAC_bac",
+   2
+  ],
+  [
+   "DUF2103",
+   2
+  ],
+  [
+   "YbaJ",
+   2
+  ],
+  [
+   "HicB",
+   2
+  ],
+  [
+   "ParD_like",
+   2
+  ],
+  [
+   "Polyketide_cyc2",
+   1
+  ],
+  [
+   "PIN_12",
+   1
+  ],
+  [
+   "LPD22",
+   1
+  ],
+  [
+   "ALF",
+   1
+  ],
+  [
+   "Glutaminase",
+   1
+  ],
+  [
+   "HD_3",
+   1
+  ],
+  [
+   "YfbR-like",
+   1
+  ],
+  [
+   "HD",
+   1
+  ],
+  [
+   "Arg_decarb_HB",
+   1
+  ],
+  [
+   "HTH_10",
+   1
+  ],
+  [
+   "Carm_PH",
+   1
+  ],
+  [
+   "PIN_10",
+   1
+  ],
+  [
+   "Toxin_YhaV",
+   1
+  ],
+  [
+   "Flexi_CP",
+   1
+  ],
+  [
+   "Med9",
+   1
+  ],
+  [
+   "DUF6680",
+   1
+  ],
+  [
+   "DUF4116",
+   1
+  ],
+  [
+   "DUF2812",
+   1
+  ],
+  [
+   "AbiEii",
+   1
+  ],
+  [
+   "DUF815",
+   1
+  ],
+  [
+   "YafO_toxin",
+   1
+  ],
+  [
+   "YjhX_toxin",
+   1
+  ],
+  [
+   "Ribosomal_S2",
+   1
+  ],
+  [
+   "GpcrRhopsn4",
+   1
+  ],
+  [
+   "CPG4",
+   1
+  ],
+  [
+   "DUF6463",
+   1
+  ],
+  [
+   "7tm_6",
+   1
+  ],
+  [
+   "DUF2975",
+   1
+  ],
+  [
+   "Vma12",
+   1
+  ],
+  [
+   "TMPIT",
+   1
+  ],
+  [
+   "Rootletin",
+   1
+  ],
+  [
+   "DUF3450",
+   1
+  ],
+  [
+   "CENP-F_leu_zip",
+   1
+  ],
+  [
+   "AAA_lid_2",
+   1
+  ],
+  [
+   "CSS-motif",
+   1
+  ],
+  [
+   "DUF1206",
+   1
+  ],
+  [
+   "NTP_transf_2",
+   1
+  ],
+  [
+   "Polbeta",
+   1
+  ],
+  [
+   "YpoC",
+   1
+  ],
+  [
+   "AAR2_1st",
+   1
+  ],
+  [
+   "CRISPR_Cas2",
+   1
+  ],
+  [
+   "M3K_C",
+   1
+  ],
+  [
+   "DLH",
+   1
+  ],
+  [
+   "DUF6782",
+   1
+  ],
+  [
+   "DUF3920",
+   1
+  ],
+  [
+   "ANAPC5",
+   1
+  ],
+  [
+   "MRAP",
+   1
+  ],
+  [
+   "BRI3BP",
+   1
+  ],
+  [
+   "DUF1474",
+   1
+  ],
+  [
+   "HMA",
+   1
+  ],
+  [
+   "HMA_2",
+   1
+  ],
+  [
+   "Big_3_2",
+   1
+  ],
+  [
+   "Tox-ODYAM1",
+   1
+  ],
+  [
+   "AAA_27",
+   1
+  ],
+  [
+   "DUF1024",
+   1
+  ],
+  [
+   "AA_synth",
+   1
+  ],
+  [
+   "DUF2663",
+   1
+  ],
+  [
+   "FeoB_associated",
+   1
+  ],
+  [
+   "NYN",
+   1
+  ],
+  [
+   "5_3_exonuc_N",
+   1
+  ],
+  [
+   "5_3_exonuc",
+   1
+  ],
+  [
+   "GA",
+   1
+  ],
+  [
+   "DNA_pol_lambd_f",
+   1
+  ],
+  [
+   "SRP54",
+   1
+  ],
+  [
+   "ATPase",
+   1
+  ],
+  [
+   "CoaE",
+   1
+  ],
+  [
+   "ATP_bind_1",
+   1
+  ],
+  [
+   "AAA_21",
+   1
+  ],
+  [
+   "AAA_28",
+   1
+  ],
+  [
+   "AAA_15",
+   1
+  ],
+  [
+   "AAA_7",
+   1
+  ],
+  [
+   "AAA_13",
+   1
+  ],
+  [
+   "DUF3213",
+   1
+  ],
+  [
+   "BAR_4",
+   1
+  ],
+  [
+   "CTD9",
+   1
+  ],
+  [
+   "Baculo_PEP_C",
+   1
+  ],
+  [
+   "AvrPtoB_bdg",
+   1
+  ],
+  [
+   "Pcc1",
+   1
+  ],
+  [
+   "MraZ",
+   1
+  ],
+  [
+   "MT0933_antitox",
+   1
+  ],
+  [
+   "RHH_4",
+   1
+  ],
+  [
+   "DUF5825",
+   1
+  ],
+  [
+   "DUF1564",
+   1
+  ],
+  [
+   "DUF6024",
+   1
+  ],
+  [
+   "DUF6181",
+   1
+  ],
+  [
+   "3HCDH_N",
+   1
+  ],
+  [
+   "DUF1810",
+   1
+  ],
+  [
+   "EAD1",
+   1
+  ],
+  [
+   "TF_Zn_Ribbon",
+   1
+  ],
+  [
+   "HVO_2753_ZBP",
+   1
+  ],
+  [
+   "zf-ISL3",
+   1
+  ],
+  [
+   "Cys_rich_CPCC",
+   1
+  ],
+  [
+   "HTH_30",
+   1
+  ],
+  [
+   "Acp26Ab",
+   1
+  ],
+  [
+   "Bacillus_PapR",
+   1
+  ],
+  [
+   "STAT_int",
+   1
+  ],
+  [
+   "TetR_C_44",
+   1
+  ],
+  [
+   "PAS_4",
+   1
+  ],
+  [
+   "Cro",
+   1
+  ],
+  [
+   "AraC_binding",
+   1
+  ],
+  [
+   "HTH_18",
+   1
+  ],
+  [
+   "HTH_AraC",
+   1
+  ],
+  [
+   "DUF2000",
+   1
+  ],
+  [
+   "NMT1",
+   1
+  ],
+  [
+   "DUF4145",
+   1
+  ],
+  [
+   "PRP1_N",
+   1
+  ],
+  [
+   "HDNR",
+   1
+  ],
+  [
+   "ASMase_C",
+   1
+  ],
+  [
+   "ACT",
+   1
+  ],
+  [
+   "DUF3780",
+   1
+  ],
+  [
+   "CHIP_TPR_N",
+   1
+  ],
+  [
+   "TFIID_NTD2",
+   1
+  ],
+  [
+   "Mistic",
+   1
+  ],
+  [
+   "DUF488",
+   1
+  ],
+  [
+   "APP1_cat",
+   1
+  ],
+  [
+   "DUF3006",
+   1
+  ],
+  [
+   "CDC48_N",
+   1
+  ],
+  [
+   "DUF433",
+   1
+  ],
+  [
+   "Imm70",
+   1
+  ],
+  [
+   "Drf_FH3",
+   1
+  ],
+  [
+   "DUF1902",
+   1
+  ],
+  [
+   "TraY",
+   1
+  ],
+  [
+   "DUF3168",
+   1
+  ],
+  [
+   "Phage_CII",
+   1
+  ],
+  [
+   "Cep57_CLD_2",
+   1
+  ],
+  [
+   "CHASE9",
+   1
+  ],
+  [
+   "Condensation",
+   1
+  ],
+  [
+   "DUF2540",
+   1
+  ],
+  [
+   "AbiH",
+   1
+  ],
+  [
+   "AbiEi_3",
+   1
+  ],
+  [
+   "SpoIISB_antitox",
+   1
+  ],
+  [
+   "Chromo_2",
+   1
+  ],
+  [
+   "Alkyl_sulf_dimr",
+   1
+  ],
+  [
+   "MerR",
+   1
+  ],
+  [
+   "BshC",
+   1
+  ],
+  [
+   "Agenet",
+   1
+  ],
+  [
+   "DUF6088",
+   1
+  ],
+  [
+   "AbiEi_4",
+   1
+  ],
+  [
+   "Post_transc_reg",
+   1
+  ],
+  [
+   "HTH_Tnp_ISL3",
+   1
+  ],
+  [
+   "PapA_C",
+   1
+  ],
+  [
+   "LacI",
+   1
+  ],
+  [
+   "Acetyltransf_9",
+   1
+  ],
+  [
+   "HicB-like_2",
+   1
+  ],
+  [
+   "LETM1_RBD",
+   1
+  ],
+  [
+   "DUF6718",
+   1
+  ],
+  [
+   "Acetyltransf_8",
+   1
+  ],
+  [
+   "Sigma70_r4_2",
+   1
+  ],
+  [
+   "BicD",
+   1
+  ],
+  [
+   "DUF6471",
+   1
+  ],
+  [
+   "HTH_35",
+   1
+  ],
+  [
+   "IF2_N",
+   1
+  ],
+  [
+   "YezG-like",
+   1
+  ],
+  [
+   "CBP4",
+   1
+  ],
+  [
+   "SUFU",
+   1
+  ],
+  [
+   "MORN_2",
+   1
+  ],
+  [
+   "DUF1473",
+   1
+  ],
+  [
+   "DUF2624",
+   1
+  ],
+  [
+   "Asp_protease_2",
+   1
+  ],
+  [
+   "ANTAR",
+   1
+  ],
+  [
+   "FAM186A_PQQAQ",
+   1
+  ],
+  [
+   "ANAPC2",
+   1
+  ],
+  [
+   "Cyclin_C",
+   1
+  ],
+  [
+   "Closter_coat",
+   1
+  ],
+  [
+   "DUF5397",
+   1
+  ],
+  [
+   "KAR",
+   1
+  ],
+  [
+   "IclR",
+   1
+  ],
+  [
+   "TrmB",
+   1
+  ],
+  [
+   "HTH_11",
+   1
+  ],
+  [
+   "sCache_3_2",
+   1
+  ],
+  [
+   "DUF4423",
+   1
+  ],
+  [
+   "RHH_8",
+   1
+  ],
+  [
+   "Ntox47",
+   1
+  ],
+  [
+   "RHS",
+   1
+  ],
+  [
+   "Chordopox_A13L",
+   1
+  ],
+  [
+   "Trns_repr_metal",
+   1
+  ],
+  [
+   "DHR-2_Lobe_C",
+   1
+  ],
+  [
+   "CdaS_N",
+   1
+  ],
+  [
+   "Entericidin",
+   1
+  ],
+  [
+   "HrpJ",
+   1
+  ],
+  [
+   "ASPRs",
+   1
+  ],
+  [
+   "adh_short_C2",
+   1
+  ],
+  [
+   "adh_short",
+   1
+  ],
+  [
+   "KR",
+   1
+  ],
+  [
+   "AAA_30",
+   1
+  ],
+  [
+   "MazE-like",
+   1
+  ],
+  [
+   "TIP39",
+   1
+  ],
+  [
+   "DUF2922",
+   1
+  ],
+  [
+   "Antitox_RHH",
+   1
+  ],
+  [
+   "eIF-1a",
+   1
+  ],
+  [
+   "DUF6057",
+   1
+  ],
+  [
+   "DUF2178",
+   1
+  ],
+  [
+   "DUF485",
+   1
+  ],
+  [
+   "Big_3_5",
+   1
+  ],
+  [
+   "FAD-depend_C",
+   1
+  ],
+  [
+   "PEGA",
+   1
+  ],
+  [
+   "SRP54_N",
+   1
+  ],
+  [
+   "VbhA",
+   1
+  ],
+  [
+   "Lysine_decarbox",
+   1
+  ],
+  [
+   "LDcluster4",
+   1
+  ],
+  [
+   "Carot_N",
+   1
+  ],
+  [
+   "DEAD_assoc",
+   1
+  ],
+  [
+   "ParD",
+   1
+  ],
+  [
+   "Unstab_antitox",
+   1
+  ]
+ ],
+ "family_counts_natural_only": [
+  [
+   "ParE_toxin",
+   92
+  ],
+  [
+   "PIN",
+   71
+  ],
+  [
+   "HTH_3",
+   57
+  ],
+  [
+   "PhdYeFM_antitox",
+   49
+  ],
+  [
+   "PemK_toxin",
+   47
+  ],
+  [
+   "HTH_31",
+   44
+  ],
+  [
+   "MazE_antitoxin",
+   36
+  ],
+  [
+   "RHH_1",
+   34
+  ],
+  [
+   "RelB",
+   33
+  ],
+  [
+   "HTH_19",
+   31
+  ],
+  [
+   "YafQ_toxin",
+   27
+  ],
+  [
+   "HTH_26",
+   27
+  ],
+  [
+   "YoeB_toxin",
+   26
+  ],
+  [
+   "ParE-like_toxin",
+   21
+  ],
+  [
+   "HTH_37",
+   19
+  ],
+  [
+   "MqsA_antitoxin",
+   18
+  ],
+  [
+   "DUF6290",
+   17
+  ],
+  [
+   "Gp49",
+   15
+  ],
+  [
+   "DUF6364",
+   15
+  ],
+  [
+   "DUF1778",
+   15
+  ],
+  [
+   "Acetyltransf_7",
+   14
+  ],
+  [
+   "Acetyltransf_1",
+   14
+  ],
+  [
+   "HigB-like_toxin",
+   14
+  ],
+  [
+   "Acetyltransf_10",
+   13
+  ],
+  [
+   "HicB_lk_antitox",
+   13
+  ],
+  [
+   "Xre-like-HTH",
+   13
+  ],
+  [
+   "PIN_3",
+   12
+  ],
+  [
+   "HTH_23",
+   12
+  ],
+  [
+   "HicA_toxin",
+   11
+  ],
+  [
+   "Zeta_toxin",
+   11
+  ],
+  [
+   "AAA_33",
+   11
+  ],
+  [
+   "AAA_16",
+   11
+  ],
+  [
+   "CcdA",
+   11
+  ],
+  [
+   "HTH_25",
+   11
+  ],
+  [
+   "AAA",
+   10
+  ],
+  [
+   "AAA_22",
+   10
+  ],
+  [
+   "SocA_Panacea",
+   10
+  ],
+  [
+   "RES",
+   9
+  ],
+  [
+   "CcdB",
+   9
+  ],
+  [
+   "ABC_tran",
+   9
+  ],
+  [
+   "BrnT_toxin",
+   8
+  ],
+  [
+   "HTH_24",
+   8
+  ],
+  [
+   "AAA_18",
+   8
+  ],
+  [
+   "Fic",
+   8
+  ],
+  [
+   "RHH_5",
+   8
+  ],
+  [
+   "Xre_MbcA_ParS_C",
+   8
+  ],
+  [
+   "DUF5615",
+   7
+  ],
+  [
+   "DUF4411",
+   7
+  ],
+  [
+   "PSK_trans_fac",
+   7
+  ],
+  [
+   "VapB_antitoxin",
+   7
+  ],
+  [
+   "YdaS_toxin",
+   7
+  ],
+  [
+   "PHD_like",
+   7
+  ],
+  [
+   "BrnA_antitoxin",
+   7
+  ],
+  [
+   "FR47",
+   6
+  ],
+  [
+   "CPT",
+   6
+  ],
+  [
+   "RelA_SpoT",
+   6
+  ],
+  [
+   "dnstrm_HI1420",
+   6
+  ],
+  [
+   "MarR",
+   6
+  ],
+  [
+   "PaaA2",
+   6
+  ],
+  [
+   "RnlB_antitoxin",
+   6
+  ],
+  [
+   "RelE",
+   5
+  ],
+  [
+   "Acetyltransf_CG",
+   5
+  ],
+  [
+   "HigB_toxin",
+   5
+  ],
+  [
+   "Sigma70_r4",
+   5
+  ],
+  [
+   "AAA_11",
+   5
+  ],
+  [
+   "APS_kinase",
+   5
+  ],
+  [
+   "AAA_24",
+   5
+  ],
+  [
+   "ParD_antitoxin",
+   5
+  ],
+  [
+   "56B_RHH",
+   5
+  ],
+  [
+   "PutA_1st",
+   5
+  ],
+  [
+   "MarR_2",
+   5
+  ],
+  [
+   "HTH_Crp_2",
+   5
+  ],
+  [
+   "MqsR_toxin",
+   4
+  ],
+  [
+   "Peptidase_M78",
+   4
+  ],
+  [
+   "RuvB_N",
+   4
+  ],
+  [
+   "cobW",
+   4
+  ],
+  [
+   "EndoS_Ig-like",
+   4
+  ],
+  [
+   "AAA_19",
+   4
+  ],
+  [
+   "AAA_17",
+   4
+  ],
+  [
+   "AAA_29",
+   4
+  ],
+  [
+   "AAA_14",
+   4
+  ],
+  [
+   "RHH_3",
+   4
+  ],
+  [
+   "PrlF_antitoxin",
+   4
+  ],
+  [
+   "Epsilon_antitox",
+   4
+  ],
+  [
+   "SUKH_6",
+   4
+  ],
+  [
+   "SMI1_KNR4",
+   4
+  ],
+  [
+   "Acetyltransf_4",
+   3
+  ],
+  [
+   "PIN_2",
+   3
+  ],
+  [
+   "TINF2_N",
+   3
+  ],
+  [
+   "Gtr1_RagA",
+   3
+  ],
+  [
+   "KAP_NTPase",
+   3
+  ],
+  [
+   "DarT",
+   3
+  ],
+  [
+   "AbrB-like",
+   3
+  ],
+  [
+   "CopG_antitoxin",
+   3
+  ],
+  [
+   "BetR",
+   3
+  ],
+  [
+   "Arc",
+   3
+  ],
+  [
+   "Terminase_5",
+   3
+  ],
+  [
+   "UPF0150",
+   3
+  ],
+  [
+   "SUKH_5",
+   3
+  ],
+  [
+   "PIN_4",
+   2
+  ],
+  [
+   "DUF5105",
+   2
+  ],
+  [
+   "Acetyltransf_3",
+   2
+  ],
+  [
+   "ALC",
+   2
+  ],
+  [
+   "Acetyltransf_15",
+   2
+  ],
+  [
+   "SpoIISA_toxin",
+   2
+  ],
+  [
+   "BAF",
+   2
+  ],
+  [
+   "DUF2207_C",
+   2
+  ],
+  [
+   "FPP",
+   2
+  ],
+  [
+   "DUF4160",
+   2
+  ],
+  [
+   "HHA",
+   2
+  ],
+  [
+   "AAA_23",
+   2
+  ],
+  [
+   "DUF6773",
+   2
+  ],
+  [
+   "HTH_17",
+   2
+  ],
+  [
+   "DUF2281",
+   2
+  ],
+  [
+   "Tox-MPTase3",
+   2
+  ],
+  [
+   "DUF5031",
+   2
+  ],
+  [
+   "HTH_38",
+   2
+  ],
+  [
+   "AbiEi_3_N",
+   2
+  ],
+  [
+   "Ets",
+   2
+  ],
+  [
+   "Cadherin_2",
+   2
+  ],
+  [
+   "MRP-S27",
+   2
+  ],
+  [
+   "DUF4404",
+   2
+  ],
+  [
+   "DUF2442",
+   2
+  ],
+  [
+   "Couple_hipA",
+   2
+  ],
+  [
+   "HTH_IclR",
+   2
+  ],
+  [
+   "Glucosamine_iso",
+   2
+  ],
+  [
+   "PAC_bac",
+   2
+  ],
+  [
+   "DUF2103",
+   2
+  ],
+  [
+   "YbaJ",
+   2
+  ],
+  [
+   "HicB",
+   2
+  ],
+  [
+   "ParD_like",
+   2
+  ],
+  [
+   "Polyketide_cyc2",
+   1
+  ],
+  [
+   "PIN_12",
+   1
+  ],
+  [
+   "LPD22",
+   1
+  ],
+  [
+   "ALF",
+   1
+  ],
+  [
+   "Glutaminase",
+   1
+  ],
+  [
+   "HD_3",
+   1
+  ],
+  [
+   "YfbR-like",
+   1
+  ],
+  [
+   "HD",
+   1
+  ],
+  [
+   "Arg_decarb_HB",
+   1
+  ],
+  [
+   "HTH_10",
+   1
+  ],
+  [
+   "Carm_PH",
+   1
+  ],
+  [
+   "PIN_10",
+   1
+  ],
+  [
+   "Toxin_YhaV",
+   1
+  ],
+  [
+   "Flexi_CP",
+   1
+  ],
+  [
+   "Med9",
+   1
+  ],
+  [
+   "DUF6680",
+   1
+  ],
+  [
+   "DUF4116",
+   1
+  ],
+  [
+   "DUF2812",
+   1
+  ],
+  [
+   "AbiEii",
+   1
+  ],
+  [
+   "DUF815",
+   1
+  ],
+  [
+   "YafO_toxin",
+   1
+  ],
+  [
+   "YjhX_toxin",
+   1
+  ],
+  [
+   "Ribosomal_S2",
+   1
+  ],
+  [
+   "GpcrRhopsn4",
+   1
+  ],
+  [
+   "CPG4",
+   1
+  ],
+  [
+   "DUF6463",
+   1
+  ],
+  [
+   "7tm_6",
+   1
+  ],
+  [
+   "DUF2975",
+   1
+  ],
+  [
+   "Vma12",
+   1
+  ],
+  [
+   "TMPIT",
+   1
+  ],
+  [
+   "Rootletin",
+   1
+  ],
+  [
+   "DUF3450",
+   1
+  ],
+  [
+   "CENP-F_leu_zip",
+   1
+  ],
+  [
+   "AAA_lid_2",
+   1
+  ],
+  [
+   "CSS-motif",
+   1
+  ],
+  [
+   "DUF1206",
+   1
+  ],
+  [
+   "NTP_transf_2",
+   1
+  ],
+  [
+   "Polbeta",
+   1
+  ],
+  [
+   "YpoC",
+   1
+  ],
+  [
+   "AAR2_1st",
+   1
+  ],
+  [
+   "CRISPR_Cas2",
+   1
+  ],
+  [
+   "M3K_C",
+   1
+  ],
+  [
+   "DLH",
+   1
+  ],
+  [
+   "DUF6782",
+   1
+  ],
+  [
+   "DUF3920",
+   1
+  ],
+  [
+   "ANAPC5",
+   1
+  ],
+  [
+   "MRAP",
+   1
+  ],
+  [
+   "BRI3BP",
+   1
+  ],
+  [
+   "DUF1474",
+   1
+  ],
+  [
+   "HMA",
+   1
+  ],
+  [
+   "HMA_2",
+   1
+  ],
+  [
+   "Big_3_2",
+   1
+  ],
+  [
+   "Tox-ODYAM1",
+   1
+  ],
+  [
+   "AAA_27",
+   1
+  ],
+  [
+   "DUF1024",
+   1
+  ],
+  [
+   "AA_synth",
+   1
+  ],
+  [
+   "DUF2663",
+   1
+  ],
+  [
+   "FeoB_associated",
+   1
+  ],
+  [
+   "NYN",
+   1
+  ],
+  [
+   "5_3_exonuc_N",
+   1
+  ],
+  [
+   "5_3_exonuc",
+   1
+  ],
+  [
+   "GA",
+   1
+  ],
+  [
+   "DNA_pol_lambd_f",
+   1
+  ],
+  [
+   "SRP54",
+   1
+  ],
+  [
+   "ATPase",
+   1
+  ],
+  [
+   "CoaE",
+   1
+  ],
+  [
+   "ATP_bind_1",
+   1
+  ],
+  [
+   "AAA_21",
+   1
+  ],
+  [
+   "AAA_28",
+   1
+  ],
+  [
+   "AAA_15",
+   1
+  ],
+  [
+   "AAA_7",
+   1
+  ],
+  [
+   "AAA_13",
+   1
+  ],
+  [
+   "DUF3213",
+   1
+  ],
+  [
+   "BAR_4",
+   1
+  ],
+  [
+   "CTD9",
+   1
+  ],
+  [
+   "Baculo_PEP_C",
+   1
+  ],
+  [
+   "AvrPtoB_bdg",
+   1
+  ],
+  [
+   "Pcc1",
+   1
+  ],
+  [
+   "MraZ",
+   1
+  ],
+  [
+   "MT0933_antitox",
+   1
+  ],
+  [
+   "RHH_4",
+   1
+  ],
+  [
+   "DUF5825",
+   1
+  ],
+  [
+   "DUF1564",
+   1
+  ],
+  [
+   "DUF6024",
+   1
+  ],
+  [
+   "DUF6181",
+   1
+  ],
+  [
+   "3HCDH_N",
+   1
+  ],
+  [
+   "DUF1810",
+   1
+  ],
+  [
+   "EAD1",
+   1
+  ],
+  [
+   "TF_Zn_Ribbon",
+   1
+  ],
+  [
+   "HVO_2753_ZBP",
+   1
+  ],
+  [
+   "zf-ISL3",
+   1
+  ],
+  [
+   "Cys_rich_CPCC",
+   1
+  ],
+  [
+   "HTH_30",
+   1
+  ],
+  [
+   "Acp26Ab",
+   1
+  ],
+  [
+   "Bacillus_PapR",
+   1
+  ],
+  [
+   "STAT_int",
+   1
+  ],
+  [
+   "TetR_C_44",
+   1
+  ],
+  [
+   "PAS_4",
+   1
+  ],
+  [
+   "Cro",
+   1
+  ],
+  [
+   "AraC_binding",
+   1
+  ],
+  [
+   "HTH_18",
+   1
+  ],
+  [
+   "HTH_AraC",
+   1
+  ],
+  [
+   "DUF2000",
+   1
+  ],
+  [
+   "NMT1",
+   1
+  ],
+  [
+   "DUF4145",
+   1
+  ],
+  [
+   "PRP1_N",
+   1
+  ],
+  [
+   "HDNR",
+   1
+  ],
+  [
+   "ASMase_C",
+   1
+  ],
+  [
+   "ACT",
+   1
+  ],
+  [
+   "DUF3780",
+   1
+  ],
+  [
+   "CHIP_TPR_N",
+   1
+  ],
+  [
+   "TFIID_NTD2",
+   1
+  ],
+  [
+   "Mistic",
+   1
+  ],
+  [
+   "DUF488",
+   1
+  ],
+  [
+   "APP1_cat",
+   1
+  ],
+  [
+   "DUF3006",
+   1
+  ],
+  [
+   "CDC48_N",
+   1
+  ],
+  [
+   "DUF433",
+   1
+  ],
+  [
+   "Imm70",
+   1
+  ],
+  [
+   "Drf_FH3",
+   1
+  ],
+  [
+   "DUF1902",
+   1
+  ],
+  [
+   "TraY",
+   1
+  ],
+  [
+   "DUF3168",
+   1
+  ],
+  [
+   "Phage_CII",
+   1
+  ],
+  [
+   "Cep57_CLD_2",
+   1
+  ],
+  [
+   "CHASE9",
+   1
+  ],
+  [
+   "Condensation",
+   1
+  ],
+  [
+   "DUF2540",
+   1
+  ],
+  [
+   "AbiH",
+   1
+  ],
+  [
+   "AbiEi_3",
+   1
+  ],
+  [
+   "SpoIISB_antitox",
+   1
+  ],
+  [
+   "Chromo_2",
+   1
+  ],
+  [
+   "Alkyl_sulf_dimr",
+   1
+  ],
+  [
+   "MerR",
+   1
+  ],
+  [
+   "BshC",
+   1
+  ],
+  [
+   "Agenet",
+   1
+  ],
+  [
+   "DUF6088",
+   1
+  ],
+  [
+   "AbiEi_4",
+   1
+  ],
+  [
+   "Post_transc_reg",
+   1
+  ],
+  [
+   "HTH_Tnp_ISL3",
+   1
+  ],
+  [
+   "PapA_C",
+   1
+  ],
+  [
+   "LacI",
+   1
+  ],
+  [
+   "Acetyltransf_9",
+   1
+  ],
+  [
+   "HicB-like_2",
+   1
+  ],
+  [
+   "LETM1_RBD",
+   1
+  ],
+  [
+   "DUF6718",
+   1
+  ],
+  [
+   "Acetyltransf_8",
+   1
+  ],
+  [
+   "Sigma70_r4_2",
+   1
+  ],
+  [
+   "BicD",
+   1
+  ],
+  [
+   "DUF6471",
+   1
+  ],
+  [
+   "HTH_35",
+   1
+  ],
+  [
+   "IF2_N",
+   1
+  ],
+  [
+   "YezG-like",
+   1
+  ],
+  [
+   "CBP4",
+   1
+  ],
+  [
+   "SUFU",
+   1
+  ],
+  [
+   "MORN_2",
+   1
+  ],
+  [
+   "DUF1473",
+   1
+  ],
+  [
+   "DUF2624",
+   1
+  ],
+  [
+   "Asp_protease_2",
+   1
+  ],
+  [
+   "ANTAR",
+   1
+  ],
+  [
+   "FAM186A_PQQAQ",
+   1
+  ],
+  [
+   "ANAPC2",
+   1
+  ],
+  [
+   "Cyclin_C",
+   1
+  ],
+  [
+   "Closter_coat",
+   1
+  ],
+  [
+   "DUF5397",
+   1
+  ],
+  [
+   "KAR",
+   1
+  ],
+  [
+   "IclR",
+   1
+  ],
+  [
+   "TrmB",
+   1
+  ],
+  [
+   "HTH_11",
+   1
+  ],
+  [
+   "sCache_3_2",
+   1
+  ],
+  [
+   "DUF4423",
+   1
+  ],
+  [
+   "RHH_8",
+   1
+  ],
+  [
+   "Ntox47",
+   1
+  ],
+  [
+   "RHS",
+   1
+  ],
+  [
+   "Chordopox_A13L",
+   1
+  ],
+  [
+   "Trns_repr_metal",
+   1
+  ],
+  [
+   "DHR-2_Lobe_C",
+   1
+  ],
+  [
+   "CdaS_N",
+   1
+  ],
+  [
+   "Entericidin",
+   1
+  ],
+  [
+   "HrpJ",
+   1
+  ],
+  [
+   "ASPRs",
+   1
+  ],
+  [
+   "adh_short_C2",
+   1
+  ],
+  [
+   "adh_short",
+   1
+  ],
+  [
+   "KR",
+   1
+  ],
+  [
+   "AAA_30",
+   1
+  ],
+  [
+   "MazE-like",
+   1
+  ],
+  [
+   "TIP39",
+   1
+  ],
+  [
+   "DUF2922",
+   1
+  ],
+  [
+   "Antitox_RHH",
+   1
+  ],
+  [
+   "eIF-1a",
+   1
+  ],
+  [
+   "DUF6057",
+   1
+  ],
+  [
+   "DUF2178",
+   1
+  ],
+  [
+   "DUF485",
+   1
+  ],
+  [
+   "Big_3_5",
+   1
+  ],
+  [
+   "FAD-depend_C",
+   1
+  ],
+  [
+   "PEGA",
+   1
+  ],
+  [
+   "SRP54_N",
+   1
+  ],
+  [
+   "VbhA",
+   1
+  ],
+  [
+   "Lysine_decarbox",
+   1
+  ],
+  [
+   "LDcluster4",
+   1
+  ]
+ ]
+}
