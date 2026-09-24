@@ -248,7 +248,8 @@ flags override in-file directives**, so no editing is needed:
 ```bash
 sbatch --partition=your_partition --exclude= \
        --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
-       proto_pipelines/slurm/acr_e2e.sbatch
+       proto_pipelines/slurm/run_pipeline.sbatch \
+       acr_sample proto_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
 
 ## Custom Evo 2 checkpoints
@@ -332,9 +333,10 @@ proto_pipelines/
 │   ├── data/                 the artefacts the pipeline loads (tracked)
 │   └── results/              intermediates (~1.6 GB, gitignored, reproducible)
 ├── scripts/
-│   ├── run_pipeline.sh       run any pipeline: local, SLURM, or remote
+│   ├── run_pipeline.sh       run any pipeline: local, Slurm, or remote
+│   ├── run_smoke.sh          run every smoke config, in cost order
 │   └── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
-├── slurm/                Optional batch templates — see slurm/README.md
+├── slurm/                Optional Slurm wrappers (3) — see slurm/README.md
 ├── docs/
 │   ├── ACR_PIPELINE.md       the anti-CRISPR stack in detail
 │   └── CALIBRATION.md        how the thresholds were derived, and their limits

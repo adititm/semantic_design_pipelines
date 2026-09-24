@@ -15,7 +15,8 @@ override in-file directives**, so you do not need to edit them:
 ```bash
 sbatch --partition=your_gpu_partition --exclude= --time=8:00:00 \
        --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
-       proto_pipelines/slurm/acr_e2e.sbatch
+       proto_pipelines/slurm/run_pipeline.sbatch \
+       acr_sample proto_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
 
 Set `--exclude=` (empty) to clear the node exclusion. Partition names are
@@ -23,19 +24,32 @@ the one thing that is never portable — check `sinfo -s`.
 
 ## What each template does
 
+Three templates, because everything else was one file per pipeline-config
+pair and `scripts/run_pipeline.sh` already covers that.
+
 | template | runs |
 | --- | --- |
-| `acr_e2e.sbatch` | Anti-CRISPR pipeline, parity checks first |
-| `t2ta_e2e.sbatch` | Toxin–antitoxin pipeline, parity checks first |
-| `t2ta_evo1.sbatch` / `t2ta_evo2.sbatch` | The same, pinned to one generator family |
-| `t2ta_hmm_gate.sbatch` | TA run with the profile-HMM gate enabled |
-| `completion_only.sbatch` | Gene + operon completion. No folding, so no AF3 weights or MSA database needed |
-| `smoke_test.sbatch` | Fast end-to-end check of the TA path |
-| `acrnet_rescore.sbatch` | Regenerate an AcrNET calibration table (worked example of driving `calibration/`) |
-| `build_blastdb.sbatch` | Build the UniRef30 BLAST database for AcrNET's PSSM |
+| `run_pipeline.sbatch` | **Any** pipeline. Takes the pipeline name and config as arguments and wraps `scripts/run_pipeline.sh`. |
+| `acrnet_rescore.sbatch` | Regenerate an AcrNET calibration table — the worked example of driving `calibration/`. |
+| `build_blastdb.sbatch` | Wrapper around `scripts/build_blastdb.sh` for the UniRef30 BLAST database. |
 
-One-off jobs that produced the shipped calibration assets are in
-`../archive/slurm/`.
+```bash
+sbatch --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
+       proto_pipelines/slurm/run_pipeline.sbatch \
+       acr_sample proto_pipelines/configs/smoke/acr_sample_smoke.yaml
+```
+
+The per-pipeline templates that used to live here are in
+`../archive/slurm/`, along with the one-off jobs that produced the shipped
+calibration assets. They are superseded, not deleted: each was a pipeline
+plus a config, which is now two arguments.
+
+To run every smoke config in one go, on a cluster or not:
+
+```bash
+scripts/run_smoke.sh            # all of them
+scripts/run_smoke.sh nofold     # skip the two folding pipelines
+```
 
 ## Required environment
 

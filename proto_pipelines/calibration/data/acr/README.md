@@ -23,7 +23,9 @@ records the 115 source entities so they can be regenerated.
 
 ## Two Foldseek references, and which to use
 
-`ref_db/acr_ref` — 189 experimentally determined Acr chains from the PDB.
+`ref_db_ext/acr_ref_ext` — 220 Acr chains: 189 experimentally determined
+from the PDB plus 31 AlphaFold 3 models. This is the database the configs
+point at. The PDB-only predecessor is in `archive/data/acr_ref_db_189chains/`.
 **This is the calibration reference.** Every number reported for the
 structural caller (0.75 vs shuffles, 0.775 divergent-tier AUROC) was measured
 against it.

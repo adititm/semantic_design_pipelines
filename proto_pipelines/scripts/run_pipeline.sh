@@ -85,6 +85,25 @@ if [ "$NEEDS_AF3" = 1 ] && [ "$DEVICE" != "proto" ] && [ "$DEVICE" != "modal" ];
     fi
 fi
 
+# Fail here, not 30 lines into proto-tools' device manager, when the config
+# asks for a GPU that this host does not have. The common cases are running
+# on a login node and forgetting to request a GPU from the scheduler.
+case "$DEVICE" in
+    cuda*)
+        # nvidia-smi -L prints "No devices found." and exits 0 when there are
+        # none, so count real entries rather than testing output emptiness.
+        if [ "$(nvidia-smi -L 2>/dev/null | grep -c '^GPU')" -eq 0 ]; then
+            echo "ERROR: $CONFIG asks for device='$DEVICE' but no GPU is visible on $(hostname)." >&2
+            echo "       CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-(unset)}" >&2
+            echo "       Options:" >&2
+            echo "         - request a GPU from your scheduler (sbatch --gpus=1 ...)" >&2
+            echo "         - set 'device: modal' or 'device: proto' to use connected compute" >&2
+            echo "         - set 'device: cpu' (works, but Evo generation will be very slow)" >&2
+            exit 1
+        fi
+        ;;
+esac
+
 if [ "${SKIP_CHECKS:-0}" != "1" ]; then
     echo; echo "=== parity checks (CPU, no weights needed) ==="
     "$PYTHON" proto_pipelines/tests/test_parity.py
