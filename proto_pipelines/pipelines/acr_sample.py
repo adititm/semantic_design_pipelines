@@ -150,9 +150,12 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
     # structures for Foldseek and no pLDDT for the combined model.
     run_acr_evidence = bool(data.get("run_acr_evidence", True)) and run_af3
     # Sequence-only prescreen: HMM + AcRanker + AcrNET all take sequence, and
-    # cost ~5 s/protein against AlphaFold 3's minutes. Ranking first lets the
-    # fold step skip the least Acr-like tail -- folding the top 50% retains
-    # 94% of known Acrs (sequence-only AUROC 0.857 vs 0.905 with Foldseek).
+    # cost seconds per protein against AlphaFold 3's minutes. Ranking first
+    # lets the fold step skip the least Acr-like tail. Foldseek and pLDDT are
+    # deliberately absent -- both need a structure, which is what this stage
+    # exists to avoid paying for. Sequence-only costs a little discrimination
+    # (see docs/ACR_PIPELINE.md) but is reliable enough to order on; it gates
+    # folding, never the final call, and an HMM hit always folds regardless.
     prescreen_config = AcrEvidenceConfig(
         source_constraint_label=QC_LABEL,
         source_metadata_key="qc_proteins",

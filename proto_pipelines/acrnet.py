@@ -21,12 +21,15 @@ threads but only 23 s at 4, so processes beat threads by ~3x), and ESM-1b in
 one GPU pass with the model loaded once. Against AlphaFold 3 at 1-2 min per
 protein this is roughly 5% overhead.
 
-Scored on the 316-sequence calibration set, AcrNET reaches 0.883 AUROC
-against all negatives and **0.874 on divergent Acrs** -- the best divergent
-signal available, against 0.775 for the HMM/AcRanker/Foldseek tier. It is
-still not a gate: it calls 77% of composition-matched shuffles anti-CRISPR
-at median 0.937, and real Acrs beat their own shuffles by a median of only
-+0.041. Use it to rank, never to threshold.
+AcrNET contributes more than any other caller -- removing it drops the
+divergent model from 0.924 to 0.776 AUROC -- but its raw probability is
+**not** a calibrated confidence and must not be thresholded directly. It
+saturates near 1.0, and a missing PSI-BLAST PSSM inflates it further
+regardless of the protein. ``acr.py`` therefore reads it against the
+per-PSSM-regime tables in
+``calibration/data/acr/acrnet_operating_points.json`` and feeds the models
+a within-regime percentile rather than the raw value. See
+``docs/ACR_PIPELINE.md`` for the tiers and how they were derived.
 """
 
 from __future__ import annotations
@@ -132,7 +135,11 @@ def extract_features(
     Args:
         proteins: ``{"protein_id", "sequence"}`` dicts, across all proposals.
         predict_property_home: Checkout of RaptorX Predict_Property.
-        esm_device: Device for ESM-1b.
+        esm_device: Device for ESM-1b. A local torch device only -- "cpu",
+            "cuda", "cuda:1". proto-tools' remote device strings ("proto",
+            "modal") are NOT valid here: ESM-1b is loaded directly with
+            torch, not dispatched as a proto tool, so a remote value would
+            fail inside torch rather than being routed anywhere.
         psiblast_bin: ``psiblast`` executable; empty disables the PSSM and
             zeroes that feature block.
         blast_db: BLAST database prefix; empty disables the PSSM.
@@ -188,6 +195,14 @@ def extract_features(
         import torch
 
         model, alphabet = esm_lib.pretrained.esm1b_t33_650M_UR50S()
+        if esm_device in ("proto", "modal"):
+            raise ValueError(
+                f"esm_device={esm_device!r} is a proto-tools remote device, but "
+                "ESM-1b is loaded with torch directly here rather than "
+                "dispatched as a proto tool. Set acrnet_device to a local "
+                'device ("cpu" or "cuda"); the generator and AlphaFold 3 can '
+                "still run remotely via their own device settings."
+            )
         model = model.eval().to(esm_device)
         convert = alphabet.get_batch_converter()
         ids = list(out)

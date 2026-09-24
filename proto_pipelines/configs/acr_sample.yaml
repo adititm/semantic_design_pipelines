@@ -105,10 +105,14 @@ acr_min_score: 0.0
 acr_min_qualifying_proteins: 1
 
 # --- AcrNET (optional 5th caller) ---------------------------------------
-# Raises divergent-Acr AUROC from 0.775 to 0.905 (5-fold CV), the single
-# largest gain of any caller. Needs RaptorX Predict_Property (no database)
-# and, optionally, psiblast + a BLAST DB for the PSSM block: with the PSSM
-# AcrNET reproduces its published 1.00 on its own test set, without it 0.90.
+# The single largest gain of any caller: removing it drops the divergent
+# model from 0.924 to 0.776 (5-fold CV). Needs RaptorX Predict_Property (no
+# database) and, strongly recommended, psiblast + a BLAST DB for the PSSM
+# block. Without a PSSM AcrNET still ranks (AUROC 0.806 in that regime) but
+# its scores inflate toward 1.0 and are read against the weaker `no_pssm`
+# calibration -- so supply the database if you can. De novo generated ORFs
+# often have no UniRef30 homologs and land in `no_pssm` regardless; that is
+# expected, not a misconfiguration.
 # Leave acrnet_home empty to disable.
 acrnet_home: ./proto_pipelines/calibration/data/acr/acrnet
 acrnet_predict_property: ./.scratch_acr/Predict_Property

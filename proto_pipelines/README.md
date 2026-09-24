@@ -192,6 +192,62 @@ None of this proves a sequence is an anti-CRISPR. These are similarity and
 confidence measures — level-1 evidence throughout.
 
 
+## Execution modes
+
+The pipelines do not care where the heavy tools run. One script covers every
+case:
+
+```bash
+scripts/run_pipeline.sh acr_sample configs/smoke/acr_sample_smoke.yaml
+```
+
+It resolves the repo root from its own location, derives the asset roots from
+`PROTO_HOME`, runs the parity checks, and refuses to start a folding pipeline
+without AlphaFold 3 weights unless you are folding remotely.
+
+| mode | `device:` | what you need |
+| --- | --- | --- |
+| **Local GPU** | `cuda` | A GPU, AF3 weights, and the MSA database for folding pipelines |
+| **SLURM** | `cuda` | The same, plus a cluster. Templates in `slurm/` — see [slurm/README.md](slurm/README.md) |
+| **Connected compute** | `proto` or `modal` | Credentials only. No local GPU, no weights, no databases |
+
+### Connected compute
+
+proto-tools accepts two remote device strings in place of `cuda`, so the same
+config runs without any local accelerator:
+
+```yaml
+device: proto     # Proto's hosted service
+device: modal     # your own Modal deployment
+```
+
+`modal` needs `MODAL_TOKEN_ID` / `MODAL_TOKEN_SECRET` (or `~/.modal.toml`);
+without them dispatch fails immediately with a credentials error rather than
+falling back to CPU. `af3_msa_device` takes the same values, so the MSA search
+can be dispatched independently of folding.
+
+Two limits worth knowing before you rely on this:
+
+* **`acrnet_device` must stay local** (`cpu` / `cuda`). ESM-1b is loaded with
+  torch directly rather than dispatched as a proto tool, so a remote value
+  there raises with an explanation instead of being silently routed nowhere.
+  AcrNET's other two inputs — RaptorX and PSI-BLAST — are local binaries and
+  are unaffected.
+* **`model_local_path` and remote devices are mutually exclusive.** A local
+  weights directory does not exist on a hosted worker, and proto-tools says
+  so. Sample a custom checkpoint on hardware that can see the weights.
+
+### SLURM portability
+
+The `#SBATCH` directives in `slurm/` name one cluster's partitions. **`sbatch`
+flags override in-file directives**, so no editing is needed:
+
+```bash
+sbatch --partition=your_partition --exclude= \
+       --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
+       proto_pipelines/slurm/acr_e2e.sbatch
+```
+
 ## Custom Evo 2 checkpoints
 
 Any pipeline can sample from local Evo 2 weights instead of the released
