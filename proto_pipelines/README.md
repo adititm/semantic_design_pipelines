@@ -297,7 +297,8 @@ them: the fitted artefacts are read directly from `data/models/`.
 
 Nothing at the top level is a script: those fourteen modules are the library,
 none has a `__main__`, and every one is imported by something below. The only
-things you run are the four pipelines, the calibration tools and the tests.
+things you run are the four pipelines, the scripts in `scripts/`, and the
+tests.
 
 ```
 proto_pipelines/
@@ -324,7 +325,7 @@ proto_pipelines/
 │   ├── acr_sample.py         generation -> QC -> prescreen -> fold -> Acr evidence
 │   ├── gene_completion.py    generation -> QC -> MAFFT identity
 │   └── operon_completion.py  generation -> QC -> MAFFT identity
-├── tests/test_parity.py  17 CPU checks; the install check
+├── tests/test_parity.py  18 CPU checks; the install check
 │
 │   ── data and settings ──
 ├── configs/              One YAML per pipeline, plus configs/smoke/ for fast runs
@@ -336,7 +337,7 @@ proto_pipelines/
 │   ├── run_pipeline.sh       run any pipeline: local, Slurm, or remote
 │   ├── run_smoke.sh          run every smoke config, in cost order
 │   └── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
-├── slurm/                Optional Slurm wrappers (3) — see slurm/README.md
+├── slurm/                Optional Slurm wrappers — see slurm/README.md
 └── docs/
     └── ACR_PIPELINE.md   the anti-CRISPR stack in detail
 ```

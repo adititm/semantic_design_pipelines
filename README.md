@@ -24,8 +24,8 @@ model_local_path: /path/to/weights   # a directory; empty = released weights
   setup, the four workflows, and the custom-checkpoint hook in detail.
 * **[proto_pipelines/docs/ACR_PIPELINE.md](proto_pipelines/docs/ACR_PIPELINE.md)**
   — the anti-CRISPR caller stack.
-* **[proto_pipelines/docs/CALIBRATION.md](proto_pipelines/docs/CALIBRATION.md)**
-  — how the shipped thresholds were derived and what they support.
+* **[proto_pipelines/slurm/README.md](proto_pipelines/slurm/README.md)** —
+  optional Slurm wrappers, and how to override the cluster-specific parts.
 
 ```bash
 git lfs install && git lfs pull
