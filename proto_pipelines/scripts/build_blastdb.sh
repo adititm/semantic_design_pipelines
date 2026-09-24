@@ -18,7 +18,8 @@
 #   PROTO_HOME    required, to locate the mmseqs binary and UniRef30 index
 #   MMSEQS_BIN    override the mmseqs executable
 #   UNIREF30_DB   override the mmseqs UniRef30 database prefix
-#   THREADS       makeblastdb/mmseqs threads (default: nproc)
+#   THREADS       makeblastdb/mmseqs threads
+#                 (default: $SLURM_CPUS_PER_TASK, else nproc)
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -27,7 +28,8 @@ cd "$REPO_ROOT"
 : "${PROTO_HOME:?set PROTO_HOME (see README Setup)}"
 MM="${MMSEQS_BIN:-$PROTO_HOME/proto_tool_envs/colabfold_search_env/bin/mmseqs}"
 DB="${UNIREF30_DB:-${PROTO_DATABASES_DIR:-$PROTO_HOME/proto_model_cache/databases}/uniref30_2302/uniref30_2302_db}"
-THREADS="${THREADS:-$(nproc)}"
+# Prefer the scheduler allocation when there is one; nproc otherwise.
+THREADS="${THREADS:-${SLURM_CPUS_PER_TASK:-$(nproc)}}"
 W=.scratch_acr/blast
 
 [ -x "$MM" ] || { echo "ERROR: no mmseqs at $MM; set MMSEQS_BIN" >&2; exit 1; }

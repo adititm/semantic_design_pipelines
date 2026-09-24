@@ -13,7 +13,9 @@
 #                   data/models/ and are kept; only the machinery goes.
 #   archive/        Superseded scripts and round notes. Provenance only.
 #   docs/CALIBRATION.md        Describes the dropped workflows.
-#   slurm/acrnet_rescore.sbatch  Drives calibration/.
+#   slurm/         Three-line wrappers around scripts/run_pipeline.sh whose
+#                  only real content was one cluster's partition names. The
+#                  resource sizing they encoded is a table in the README.
 #
 # The parity suite deliberately carries its own copies of the reference
 # implementations and a two-sequence fixture, so it passes in the export with
@@ -28,8 +30,8 @@ mkdir -p "$TARGET/proto_pipelines"
 # path that already exists in the target is PROTECTED rather than removed,
 # so a previously-exported calibration/ would survive here forever.
 rsync -a --delete --delete-excluded \
-  --exclude=calibration --exclude=archive \
-  --exclude=docs/CALIBRATION.md --exclude='slurm/acrnet_rescore.sbatch' \
+  --exclude=calibration --exclude=archive --exclude=slurm \
+  --exclude=docs/CALIBRATION.md \
   --exclude=outputs --exclude='outputs_*' --exclude=logs \
   --exclude=__pycache__ --exclude='*.pyc' --exclude=.scratch_acr \
   "$SRC/" "$TARGET/proto_pipelines/"
@@ -97,19 +99,10 @@ acr = acr.replace("calibration (`calibration/score_acrnet.py`; features cached i
 acr = re.sub(r"`calibration/[A-Za-z0-9_./-]+`", "the research tree", acr)
 acr_doc.write_text(acr)
 
-# Slurm README: drop the acrnet_rescore row and the archive pointer.
-slurm_doc = root / "slurm/README.md"
-slurm = slurm_doc.read_text()
-slurm = "\n".join(
-    line for line in slurm.splitlines()
-    if "acrnet_rescore" not in line and "../archive/slurm/" not in line
-) + "\n"
-slurm = slurm.replace("Three templates, because", "Two templates, because")
-slurm_doc.write_text(slurm)
 
 # Anything still pointing into a dropped tree is a bug in this script.
 bad = []
-for doc in list(root.glob("*.md")) + list(root.glob("docs/*.md")) + list(root.glob("slurm/*.md")):
+for doc in list(root.glob("*.md")) + list(root.glob("docs/*.md")):
     for line_no, line in enumerate(doc.read_text().splitlines(), 1):
         for dropped in ("calibration/", "archive/", "CALIBRATION.md"):
             if dropped in line and "not in this repository" not in line:

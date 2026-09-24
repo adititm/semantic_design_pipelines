@@ -211,7 +211,7 @@ without AlphaFold 3 weights unless you are folding remotely.
 | mode | `device:` | what you need |
 | --- | --- | --- |
 | **Local GPU** | `cuda` | A GPU, AF3 weights, and the MSA database for folding pipelines |
-| **SLURM** | `cuda` | The same, plus a cluster. Templates in `slurm/` — see [slurm/README.md](slurm/README.md) |
+| **Slurm** | `cuda` | The same, plus a cluster. `--wrap` the runner — see [Running under Slurm](#running-under-slurm) |
 | **Connected compute** | `proto` or `modal` | Credentials only. No local GPU, no weights, no databases |
 
 ### Connected compute
@@ -240,17 +240,31 @@ Two limits worth knowing before you rely on this:
   weights directory does not exist on a hosted worker, and proto-tools says
   so. Sample a custom checkpoint on hardware that can see the weights.
 
-### SLURM portability
+### Running under Slurm
 
-The `#SBATCH` directives in `slurm/` name one cluster's partitions. **`sbatch`
-flags override in-file directives**, so no editing is needed:
+There is no Slurm-specific code and no template to maintain: the runner is a
+plain script, so `--wrap` it. What is worth keeping is the resource sizing,
+which is not obvious from the outside:
+
+| job | CPUs | GPU | memory | wall time |
+| --- | --- | --- | --- | --- |
+| `acr_sample`, `t2ta_sample` (fold) | 32 | 1 | 256 GB | 14 h |
+| `gene_completion`, `operon_completion` | 16 | 1 | 128 GB | 2 h |
+| `build_blastdb.sh` | 32 | – | 256 GB | 8 h |
 
 ```bash
-sbatch --partition=your_partition --exclude= \
+sbatch --job-name=acr --partition=YOUR_PARTITION \
+       --cpus-per-task=32 --gpus=1 --mem=256G --time=14:00:00 \
+       --output=logs/%x_%j.out --error=logs/%x_%j.err \
        --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
-       proto_pipelines/slurm/run_pipeline.sbatch \
-       acr_sample proto_pipelines/configs/smoke/acr_sample_smoke.yaml
+       --wrap="proto_pipelines/scripts/run_pipeline.sh acr_sample \
+               proto_pipelines/configs/acr_sample.yaml"
 ```
+
+`mkdir -p logs` first, since Slurm will not create the log directory. On a
+cluster with mixed GPU sizes, exclude the small-memory nodes — Evo 2 7B with
+a long prompt will not fit in 20 GB. `build_blastdb.sh` picks up
+`SLURM_CPUS_PER_TASK` automatically.
 
 ## Custom Evo 2 checkpoints
 
@@ -337,7 +351,6 @@ proto_pipelines/
 │   ├── run_pipeline.sh       run any pipeline: local, Slurm, or remote
 │   ├── run_smoke.sh          run every smoke config, in cost order
 │   └── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
-├── slurm/                Optional Slurm wrappers — see slurm/README.md
 └── docs/
     └── ACR_PIPELINE.md   the anti-CRISPR stack in detail
 ```
@@ -440,8 +453,7 @@ scripts/build_blastdb.sh        # no cluster needed; CPU-only, ~16 GB, a few hou
 ```
 
 Then set `acrnet_psiblast` and `acrnet_blast_db` in the config.
-`slurm/build_blastdb.sbatch` is a thin wrapper around the same script for
-cluster users.
+It picks up `SLURM_CPUS_PER_TASK` when run under a scheduler.
 
 De novo generated ORFs often have no UniRef30 homologs and land in `no_pssm`
 even with the database present — that is expected, not a misconfiguration.
