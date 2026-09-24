@@ -35,14 +35,14 @@ af3_save_structures: true
 
 # anti-CRISPR evidence callers (see configs/acr_sample.yaml for the rationale)
 run_acr_evidence: true
-acr_hmm_path: ./proto_pipelines/calibration/data/acr/acr_families_default.hmm
-aca_hmm_path: ./proto_pipelines/calibration/data/acr/aca_families.hmm
+acr_hmm_path: ./proto_pipelines/data/models/acr/acr_families_default.hmm
+aca_hmm_path: ./proto_pipelines/data/models/acr/aca_families.hmm
 acr_hmm_evalue: 1.0
-acr_acranker_model: ./proto_pipelines/calibration/data/acr/acranker_booster.json
+acr_acranker_model: ./proto_pipelines/data/models/acr/acranker_booster.json
 acr_acranker_shuffles: 10
-acr_foldseek_ref_dir: ./proto_pipelines/calibration/data/acr/ref_db_ext/acr_ref_ext
-acr_combined_model: ./proto_pipelines/calibration/data/acr/acr_combined_model.json
-acr_divergent_model: ./proto_pipelines/calibration/data/acr/acr_divergent_model.json
+acr_foldseek_ref_dir: ./proto_pipelines/data/models/acr/ref_db_ext/acr_ref_ext
+acr_combined_model: ./proto_pipelines/data/models/acr/acr_combined_model.json
+acr_divergent_model: ./proto_pipelines/data/models/acr/acr_divergent_model.json
 acr_min_score: 0.0
 
 # --- AcrNET (optional 5th caller) ---------------------------------------
@@ -55,7 +55,7 @@ acr_min_score: 0.0
 # often have no UniRef30 homologs and land in `no_pssm` regardless; that is
 # expected, not a misconfiguration.
 # Leave acrnet_home empty to disable.
-acrnet_home: ./proto_pipelines/calibration/data/acr/acrnet
+acrnet_home: ./proto_pipelines/data/models/acr/acrnet
 acrnet_predict_property: ./.scratch_acr/Predict_Property
 acrnet_psiblast: ./.scratch_acr/blast/ncbi-blast-2.17.0+/bin/psiblast
 acrnet_blast_db: ./.scratch_acr/blast/db/uniref30
@@ -66,7 +66,7 @@ acrnet_device: cuda
 # on the same phage proteins moved them from 19% to 78% above 0.99 -- so a
 # score is only readable against the regime that produced it. Emits
 # acrnet_regime / acrnet_tier / acrnet_pctile per protein.
-acrnet_operating_points: ./proto_pipelines/calibration/data/acr/acrnet_operating_points.json
+acrnet_operating_points: ./proto_pipelines/data/models/acr/acrnet_operating_points.json
 
 # --- sequence-only prescreen (optional speed-up) -------------------------
 # HMM, AcRanker and AcrNET all take sequence only (~5 s/protein) while
@@ -76,7 +76,7 @@ acrnet_operating_points: ./proto_pipelines/calibration/data/acr/acrnet_operating
 # 0.911 vs 0.924 with Foldseek, so the ordering is reliable enough to cut on.
 # Off by default; set fold_fraction below 1.0 to actually save folds.
 run_acr_prescreen: true
-acr_prescreen_model: ./proto_pipelines/calibration/data/acr/acr_prescreen_model.json
+acr_prescreen_model: ./proto_pipelines/data/models/acr/acr_prescreen_model.json
 acr_fold_fraction: 1.0
 # On the REFIT prescreen model (acranker_raw + acrnet_pctile): 0.15 keeps 95%
 # of known Acrs and folds 28% of negatives, vs 92%/23% at 0.20. 0.15 is

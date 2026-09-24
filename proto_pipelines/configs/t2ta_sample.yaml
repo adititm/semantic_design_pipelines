@@ -55,7 +55,7 @@ segmasker_threshold: 0.1      # max fraction of low-complexity residues
 
 # --- AlphaFold 3 monomer screen ---------------------------------------------
 # BASAL GATE, calibrated against real junk. Keeps 92% of Evo ORFs while
-# dropping 46% of spurious ones. Data: calibration/results/junk_vs_evo/.
+# dropping 46% of spurious ones.
 #
 # Measured on 24 Evo ORFs vs 24 ORFs called on random DNA, GC- and
 # length-matched (both median 156 aa, balance p=0.85):
@@ -74,7 +74,7 @@ segmasker_threshold: 0.1      # max fraction of low-complexity residues
 #
 # What this gate is NOT doing: judging fold specificity. AlphaFold 3 cannot
 # separate an Evo design from a composition-matched scramble of itself
-# (pLDDT AUROC 0.475 - chance; calibration/results/denovo_monomer_calib/).
+# (pLDDT AUROC 0.475 - chance).
 # It separates real ORFs from random-DNA ORFs because their composition
 # differs, not because it recognises a specific fold. Treat it as a
 # protein-likeness floor, not a quality score.
@@ -114,12 +114,12 @@ af3_save_structures: true
 # E<1.0 at scan time is deliberately lenient: the list itself supplies the
 # specificity, and a strict E selects against the divergent sequences this
 # pipeline exists to find. Rebuild at a different cutoff with
-# calibration/build_ta_hmm_subset.py.
+# a Pfam scan over known type II TA proteins.
 #
 # Caveat: 25 HTH families are included. 32 natural antitoxins are detected
 # ONLY via those, so they carry real sensitivity, but a lone HTH hit is weak
 # evidence - generic transcriptional regulators can pass on it.
-hmm_path: ./proto_pipelines/calibration/data/ta_families.hmm
+hmm_path: ./proto_pipelines/data/models/ta_families.hmm
 hmm_evalue_threshold: 1.0
 hmm_required_profiles: []
 hmm_min_matching_proteins: 1

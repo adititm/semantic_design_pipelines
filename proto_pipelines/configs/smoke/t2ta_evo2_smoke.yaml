@@ -21,7 +21,7 @@ filter_partial_bool: true
 segmasker_threshold: 0.1
 
 # HMM on, annotate-only so it records hits without gating this tiny run out
-hmm_path: ./proto_pipelines/calibration/data/ta_families.hmm
+hmm_path: ./proto_pipelines/data/models/ta_families.hmm
 hmm_evalue_threshold: 1.0
 hmm_required_profiles: []
 hmm_min_matching_proteins: 1

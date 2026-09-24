@@ -24,13 +24,12 @@ the one thing that is never portable — check `sinfo -s`.
 
 ## What each template does
 
-Three templates, because everything else was one file per pipeline-config
+Two templates, because everything else was one file per pipeline-config
 pair and `scripts/run_pipeline.sh` already covers that.
 
 | template | runs |
 | --- | --- |
 | `run_pipeline.sbatch` | **Any** pipeline. Takes the pipeline name and config as arguments and wraps `scripts/run_pipeline.sh`. |
-| `acrnet_rescore.sbatch` | Regenerate an AcrNET calibration table — the worked example of driving `calibration/`. |
 | `build_blastdb.sbatch` | Wrapper around `scripts/build_blastdb.sh` for the UniRef30 BLAST database. |
 
 ```bash
@@ -40,7 +39,6 @@ sbatch --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
 ```
 
 The per-pipeline templates that used to live here are in
-`../archive/slurm/`, along with the one-off jobs that produced the shipped
 calibration assets. They are superseded, not deleted: each was a pipeline
 plus a config, which is now two arguments.
 

@@ -93,7 +93,7 @@ find.
 caller is recalibrated, not dropped. The signal sits in the extreme tail.
 
 Scores are therefore read against the regime that produced them
-(`calibration/data/acr/acrnet_operating_points.json`), and `acr.py` emits
+(`data/models/acr/acrnet_operating_points.json`), and `acr.py` emits
 `acrnet_regime`, `acrnet_tier` and `acrnet_pctile` per protein:
 
 | regime | tier | bound | Acrs | negatives | LR |
@@ -167,7 +167,7 @@ call and inherits the same dependence. Cost ~1 ms per protein. Guarded by the
 **A superseded `acrnet_scores.csv` (AUROC 0.8831) was discarded as
 irreproducible**: neither per-protein nor chunked scoring regenerates it from
 the cached features (max delta 0.9988), and it was produced by an ad-hoc
-script with no committed entrypoint. `calibration/score_acrnet.py` now exists
+script with no committed entrypoint. a committed regeneration entrypoint now exists in the research tree
 so the table can always be regenerated, and `--dump-features` makes a scoring
 change comparable on identical inputs.
 
@@ -229,7 +229,7 @@ mechanistic property (acidic / DNA-mimic composition) rather than memorising.
 **AcrNET splits sharply by label provenance, not by divergence:**
 
 Regenerated with the corrected per-protein scoring and regime-aware
-calibration (`calibration/score_acrnet.py`; features cached in
+calibration (regenerated in the research tree; features cached in
 `results/acr/acrnet_features{,_heldout,_diverse}.pkl`). The reference is the
 same 63 phage proteins, all with real PSSMs.
 

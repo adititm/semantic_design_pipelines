@@ -320,7 +320,30 @@ def check_auroc() -> list[str]:
     """
     import numpy as np
 
-    from proto_pipelines.calibration.analyze import auroc, youden_threshold
+    # Carried here rather than imported: the suite must stay runnable without
+    # the calibration tooling. Tie handling is the point of the check -- a
+    # naive (pos > neg).mean() reports 0.0 for an all-tied score instead of
+    # 0.5, which makes a useless score look perfectly anti-correlated.
+    def auroc(positives, negatives):
+        if positives.size == 0 or negatives.size == 0:
+            return float("nan")
+        comparisons = positives[:, None] - negatives[None, :]
+        wins = (comparisons > 0).sum() + 0.5 * (comparisons == 0).sum()
+        return float(wins / (positives.size * negatives.size))
+
+    def youden_threshold(positives, negatives):
+        best = {"threshold": float("nan"), "sensitivity": 0.0,
+                "specificity": 0.0, "youden_j": -1.0}
+        if positives.size == 0 or negatives.size == 0:
+            return best
+        for cutoff in np.unique(np.concatenate([positives, negatives])):
+            sensitivity = float((positives >= cutoff).mean())
+            specificity = float((negatives < cutoff).mean())
+            j = sensitivity + specificity - 1.0
+            if j > best["youden_j"]:
+                best = {"threshold": float(cutoff), "sensitivity": sensitivity,
+                        "specificity": specificity, "youden_j": j}
+        return best
 
     cases = [
         ("perfect separation", np.array([1.0, 2, 3]), np.array([0.0, 0.1, 0.2]), 1.0),
@@ -697,10 +720,44 @@ def check_acr_assets() -> list[str]:
     import numpy as np
 
     from proto_pipelines.acr import AcrEvidenceConfig, _acranker_features, score_proteins
-    from proto_pipelines.calibration.score_acranker import features as ref_features
+    # AcRanker's published 412-feature construction, carried here rather than
+    # imported, so the suite stays a self-contained check of the shipped
+    # models. Verbatim from server2.prot_feats_seq: 20 L2-normalised amino
+    # acid fractions, then 2-mer and 3-mer counts over a 7-group reduced
+    # alphabet, each divided by len(seq)-1 and L2-normalised.
+    import numpy as _np
+    from itertools import product as _product
+
+    _AA = "ACDEFGHIKLMNPQRSTVWY"
+    _GROUPS = {
+        "A": "1", "V": "1", "G": "1", "I": "2", "L": "2", "F": "2", "P": "2",
+        "Y": "3", "M": "3", "T": "3", "S": "3", "H": "4", "N": "4", "Q": "4",
+        "W": "4", "R": "5", "K": "5", "D": "6", "E": "6", "C": "7",
+    }
+
+    def _l2(vector):
+        norm = _np.linalg.norm(vector)
+        return vector / norm if norm > 0 else vector
+
+    def _kmer_block(sequence, k):
+        index = {"".join(p): i for i, p in enumerate(_product("1234567", repeat=k))}
+        counts = _np.zeros(7**k)
+        for start in range(len(sequence) - k + 1):
+            kmer = sequence[start : start + k]
+            if any(residue not in _GROUPS for residue in kmer):
+                continue
+            counts[index["".join(_GROUPS[r] for r in kmer)]] += 1
+        return counts / max(len(sequence) - 1, 1)
+
+    def ref_features(sequence):
+        length = max(len(sequence), 1)
+        composition = _np.array([sequence.count(a) / length for a in _AA])
+        return _np.concatenate([
+            _l2(composition), _l2(_kmer_block(sequence, 2)), _l2(_kmer_block(sequence, 3))
+        ])
 
     failures: list[str] = []
-    data = Path("proto_pipelines/calibration/data/acr")
+    data = Path("proto_pipelines/data/models/acr")
     model_path = data / "acr_combined_model.json"
     for asset in ("acr_families_default.hmm", "acranker_booster.json",
                   "acr_combined_model.json", "acr_divergent_model.json"):
@@ -742,7 +799,9 @@ def check_acr_assets() -> list[str]:
         combined_model=str(model_path),
         divergent_model=str(data / "acr_divergent_model.json"),
     )
-    table = pd.read_csv(data / "acr_calibration.csv")
+    # A two-sequence fixture, not the calibration set: one known Acr and one
+    # random ORF, which is all this control needs.
+    table = pd.read_csv(Path(__file__).resolve().parent / "fixtures/acr_control_pair.csv")
     acr = table[table.seq_class == "acr"].iloc[0]
     junk = table[table.seq_class == "random_orf"].iloc[0]
     scored = score_proteins(
@@ -782,7 +841,7 @@ def check_acrnet_batch_of_one() -> list[str]:
 
     from proto_pipelines.acrnet import score
 
-    checkpoint = _Path("proto_pipelines/calibration/data/acr/acrnet/model.ckpt")
+    checkpoint = _Path("proto_pipelines/data/models/acr/acrnet/model.ckpt")
     if not checkpoint.exists():
         return []  # AcrNET assets are optional
 
@@ -833,7 +892,7 @@ def check_acr_model_features_resolve() -> list[str]:
 
     from proto_pipelines.acr import AcrEvidenceConfig, score_proteins
 
-    data = Path("proto_pipelines/calibration/data/acr")
+    data = Path("proto_pipelines/data/models/acr")
     if not (data / "acr_divergent_model.json").exists():
         return []
 
@@ -951,7 +1010,7 @@ def check_acrnet_tiers() -> list[str]:
     failures: list[str] = []
     path = (
         Path(__file__).resolve().parents[1]
-        / "calibration/data/acr/acrnet_operating_points.json"
+        / "data/models/acr/acrnet_operating_points.json"
     )
     if not path.exists():
         return [f"missing operating points: {path}"]
@@ -1011,7 +1070,7 @@ def check_acrnet_batch_invariance() -> list[str]:
 
     failures: list[str] = []
     root = Path(__file__).resolve().parents[1]
-    checkpoint = root / "calibration/data/acr/acrnet/model.ckpt"
+    checkpoint = root / "data/models/acr/acrnet/model.ckpt"
     if not checkpoint.exists():
         return [f"missing AcrNET checkpoint: {checkpoint}"]
 

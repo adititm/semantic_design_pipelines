@@ -46,6 +46,14 @@ the pipelines requires it.
 
 ## Scope
 
+This repository carries **only what runs a sampling pass and produces
+results**. The workflows that fit the shipped models -- labelled sequence
+sets, per-caller scoring, AUROC analysis and the provenance archive -- are
+deliberately absent; the fitted artefacts they produce are in
+`proto_pipelines/data/models/` and are loaded directly. Re-deriving them
+belongs in the research tree, not here.
+
+
 The upstream work this builds on is [*Semantic design of functional de novo
 genes from a genomic language
 model*](https://www.nature.com/articles/s41586-025-09749-7). Watermark

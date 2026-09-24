@@ -82,7 +82,7 @@ differs between the two.
 
 The published work used **Evo 1.5**, so reproducing its numbers means setting
 `generator: evo1` and `model_name: evo-1.5-8k-base`. Note also that every
-threshold in `calibration/` was measured on Evo 1.5 output; on Evo 2 they are
+threshold shipped here was measured on Evo 1.5 output; on Evo 2 they are
 an assumption until re-measured.
 
 ## Bundled data
@@ -90,7 +90,7 @@ an assumption until re-measured.
 ```
 data/prompts/      t2ta, acr, gene-completion, operon-completion, t3ta prompt CSVs
 data/reference/    rpoS and modABC reference proteins for the completion workflows
-calibration/data/  ta_families.hmm (219 TA profile HMMs) + the evidence behind it
+data/models/       fitted models + profile HMMs the pipelines load
 ```
 
 Every prompt from the paper's four supported workflows is included, so each
@@ -116,7 +116,7 @@ The paper called Acrs with PaCRISPR, a web server that cannot be run offline
 and is not part of the released code. It is replaced here by four independent
 callers combined by a logistic model calibrated on 316 labelled sequences.
 
-**Calibration set** (`calibration/data/acr/acr_calibration.csv`): 64
+**Calibration set** (in the research tree): 64
 experimentally named Acrs spanning CRISPR types I, II, III, V and VI, against
 four negative classes — composition-matched shuffles, random-DNA ORFs,
 length-matched non-Acr **bacteriophage** proteins, and **Aca** proteins. All
@@ -285,13 +285,13 @@ model's likelihood, not the stock model's.
 
 ## Calibration
 
-The cutoffs shipped in the configs are measured, not guesses. How they were
-derived, what the measurements support, and how to re-derive them is in
-[docs/CALIBRATION.md](docs/CALIBRATION.md). The anti-CRISPR caller stack has
-its own writeup in [docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md).
+The thresholds and models shipped in `data/models/` are measured, not
+guesses. The workflows that fit them -- labelled sequence sets, per-caller
+scoring, AUROC analysis -- are **not** in this repository; it carries only
+what is needed to run a sampling pass and get results.
 
-Nothing in `calibration/` runs at pipeline time: the fitted models in
-`calibration/data/` are loaded directly.
+They live in the research tree this was exported from. Nothing here loads
+them: the fitted artefacts are read directly from `data/models/`.
 
 ## Layout
 
@@ -328,19 +328,17 @@ proto_pipelines/
 │
 │   ── data and settings ──
 ├── configs/              One YAML per pipeline, plus configs/smoke/ for fast runs
-├── data/                 Bundled prompts and reference sequences
-├── calibration/          Derives the shipped models — see calibration/README.md
-│   ├── data/                 the artefacts the pipeline loads (tracked)
-│   └── results/              intermediates (~1.6 GB, gitignored, reproducible)
+├── data/
+│   ├── prompts/              bundled prompt CSVs
+│   ├── reference/            reference sequences for the identity pipelines
+│   └── models/               the fitted models and profiles the pipeline loads
 ├── scripts/
 │   ├── run_pipeline.sh       run any pipeline: local, Slurm, or remote
 │   ├── run_smoke.sh          run every smoke config, in cost order
 │   └── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
 ├── slurm/                Optional Slurm wrappers (3) — see slurm/README.md
-├── docs/
-│   ├── ACR_PIPELINE.md       the anti-CRISPR stack in detail
-│   └── CALIBRATION.md        how the thresholds were derived, and their limits
-└── archive/              Superseded scripts and round notes — see archive/README.md
+└── docs/
+    └── ACR_PIPELINE.md   the anti-CRISPR stack in detail
 ```
 
 The import graph is a DAG, four modules deep at most:
@@ -488,13 +486,11 @@ These scripts work around two things absent from `proto-tools` `main`:
 
 ### Repository size
 
-A clone is ~20 MB. `outputs/`, `calibration/results/` (~1.6 GB of AF3
-structures and cached features) and the Foldseek source structures are
-gitignored and reproducible; the fitted models the pipeline loads are
-tracked.
+A clone is ~17 MB. `outputs/` is gitignored; the fitted models the
+pipelines load are tracked, in `data/models/`.
 
 Profile HMMs (`*.hmm`) and model checkpoints (`*.ckpt`, `*.pt`, `*.pth`) are
-stored in **Git LFS** — `calibration/data/ta_families.hmm` is 12 MB on its
+stored in **Git LFS** — `data/models/ta_families.hmm` is 12 MB on its
 own and is needed at run time. Git keeps a ~130-byte pointer per file
 instead of the blob, so history stays small even as these are regenerated.
 
