@@ -1396,6 +1396,43 @@ def check_af3_gate_governs_candidacy() -> list[str]:
     return failures
 
 
+def check_vendored_sources_unmodified() -> list[str]:
+    """Vendored third-party files must stay byte-identical to upstream.
+
+    ``vendor/acrnet_model.py`` is the published AcrNET architecture. It has
+    to match the shipped checkpoint exactly, and the docs claim it is
+    verbatim -- a claim that is only worth making if it is checked. It is
+    also excluded from black and ruff, because a formatter silently breaks
+    exactly this property: an earlier `ruff --fix` rewrote `super(AcrNET,
+    self)` to `super()` and black rewrapped the Conv2d call, leaving the
+    behaviour identical and the claim false.
+
+    Hashes are pinned so this runs offline. If you deliberately update a
+    vendored file, re-pin the hash in the same commit.
+    """
+    import hashlib
+
+    failures: list[str] = []
+    pinned = {
+        # banma12956/AcrNET model.py, fetched 2026-09-24
+        "acrnet_model.py": "a560991acf195b1b65136815db1292f0b6f198e505f31cc8e40d16a4fec94132",
+    }
+    vendor = Path(__file__).resolve().parents[1] / "vendor"
+    for name, want in pinned.items():
+        path = vendor / name
+        if not path.exists():
+            failures.append(f"vendored file missing: {path}")
+            continue
+        got = hashlib.sha256(path.read_bytes()).hexdigest()
+        if got != want:
+            failures.append(
+                f"{name} no longer matches upstream (sha256 {got[:16]}..., "
+                f"expected {want[:16]}...). A formatter or edit has touched a "
+                "verbatim third-party file; restore it or re-pin deliberately."
+            )
+    return failures
+
+
 def main() -> int:
     """Run every check and report the results."""
     checks = {
@@ -1410,6 +1447,7 @@ def main() -> int:
         "fold cap keeps HMM-qualifying proteins": check_fold_cap_keeps_hmm_hits,
         "shipped configs build their generators": check_shipped_configs_build_generators,
         "Acr callers reproduce calibration": check_acr_assets,
+        "vendored sources unmodified": check_vendored_sources_unmodified,
         "AcrNET handles a batch of one": check_acrnet_batch_of_one,
         "AcrNET score is batch-invariant": check_acrnet_batch_invariance,
         "Acr model features resolve": check_acr_model_features_resolve,

@@ -34,7 +34,7 @@ pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121   # 
 
 export PROTO_HOME=/path/you/own/proto_home   # the runner derives the rest
 
-python proto_pipelines/tests/test_parity.py     # 18 checks, no GPU needed
+python proto_pipelines/tests/test_parity.py     # 20 checks, no GPU needed
 proto_pipelines/utils/run_pipeline.sh acr_sample \
     proto_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
@@ -250,7 +250,7 @@ them: the fitted artefacts are read directly from `data/models/`.
 
 ## Layout
 
-Nothing at the top level is a script: those fourteen modules are the library,
+Nothing at the top level is a script: those thirteen modules are the library,
 none has a `__main__`, and every one is imported by something below. The only
 things you run are the four pipelines, the scripts in `scripts/`, and the
 tests.
@@ -269,7 +269,6 @@ proto_pipelines/
 ├── identity.py           The three MAFFT identity definitions
 ├── acr.py                Five-caller anti-CRISPR evidence + Aca co-occurrence
 ├── acrnet.py             AcrNET feature extraction (RaptorX, PSI-BLAST, ESM-1b)
-├── acrnet_model.py       AcrNET architecture, verbatim from the published repo
 ├── runner.py             One Program per prompt; proposal history -> records
 ├── reporting.py          Stage CSVs, filter_summary, fold scores, FASTA
 ├── config.py             YAML loading; rejects retired and unknown keys
@@ -280,7 +279,9 @@ proto_pipelines/
 │   ├── acr_sample.py         generation -> QC -> prescreen -> fold -> Acr evidence
 │   ├── gene_completion.py    generation -> QC -> MAFFT identity
 │   └── operon_completion.py  generation -> QC -> MAFFT identity
-├── tests/test_parity.py  18 CPU checks; the install check
+├── tests/test_parity.py  20 CPU checks; the install check
+├── vendor/               Verbatim third-party sources — see vendor/README.md
+│   └── acrnet_model.py       AcrNET architecture, byte-identical to upstream
 │
 │   ── data and settings ──
 ├── configs/              One YAML per pipeline, plus configs/smoke/ for fast runs
@@ -404,7 +405,7 @@ even with the database present — that is expected, not a misconfiguration.
 ### 5. Verify
 
 ```bash
-python proto_pipelines/tests/test_parity.py      # 18 checks, expect 0 failures
+python proto_pipelines/tests/test_parity.py      # 20 checks, expect 0 failures
 ```
 
 The parity suite is the install check: it exercises config parsing, every

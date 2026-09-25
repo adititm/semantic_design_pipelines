@@ -64,11 +64,11 @@ proto_pipelines = [
 
 [tool.black]
 line-length = 88
-extend-exclude = "archive|calibration/results|outputs"
+extend-exclude = "archive|calibration/results|outputs|vendor"
 
 [tool.ruff]
 line-length = 88
-extend-exclude = ["archive", "calibration/results", "outputs"]
+extend-exclude = ["archive", "calibration/results", "outputs", "vendor"]
 
 [tool.ruff.lint]
 # E501 is advisory here: prose in module docstrings is wrapped for reading,

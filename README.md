@@ -46,7 +46,7 @@ model_local_path: /path/to/weights   # a directory; empty = released weights
 git lfs install && git lfs pull
 pip install "git+https://github.com/evo-design/proto-language.git"
 pip install -e "./proto_pipelines[acr]"
-python proto_pipelines/tests/test_parity.py      # 19 checks, no GPU needed
+python proto_pipelines/tests/test_parity.py      # 20 checks, no GPU needed
 
 export PROTO_HOME=/path/you/own/proto_home
 proto_pipelines/utils/run_pipeline.sh acr_sample \

@@ -289,7 +289,7 @@ def score(
     import torch.nn.functional as functional
     from torch.nn.utils.rnn import pad_sequence
 
-    from proto_pipelines.acrnet_model import AcrNET
+    from proto_pipelines.vendor.acrnet_model import AcrNET
 
     model = AcrNET()
     model.load_state_dict(torch.load(model_checkpoint, map_location="cpu"))

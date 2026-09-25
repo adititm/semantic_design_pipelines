@@ -2,13 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class AcrNET(nn.Module):
     def __init__(self):
-        super().__init__()
-        self.conv = nn.Conv2d(
-            in_channels=1, out_channels=20, kernel_size=(5, 34), stride=(1, 1)
-        )
+        super(AcrNET, self).__init__()
+        self.conv = nn.Conv2d(in_channels=1, out_channels=20, kernel_size=(5, 34), 
+                               stride=(1, 1))
 
         self.dnn_fc1 = nn.Linear(2390, 256)
         self.dnn_fc2 = nn.Linear(256, 32)
@@ -33,3 +31,4 @@ class AcrNET(nn.Module):
         pred = F.log_softmax(x, dim=1)
 
         return pred
+
