@@ -4,11 +4,6 @@ A reimplementation of the pipelines from [*Semantic design of functional de
 novo genes from a genomic language
 model*](https://www.nature.com/articles/s41586-025-09749-7).
 
-Four workflows run end to end from a YAML config — sequence generation, ORF
-calling, quality filtering, profile-HMM screening, structure prediction and
-interface scoring — with every external tool provisioned automatically. No
-per-tool installation, no binary paths to configure.
-
 | workflow | what it does |
 | --- | --- |
 | `t2ta_sample` | Type II toxin–antitoxin pairs: generate → QC → TA profile-HMM → monomer fold → pair → cofold + interface scoring |
