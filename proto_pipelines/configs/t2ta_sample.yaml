@@ -55,30 +55,8 @@ filter_partial_bool: true     # require Prodigal partial=00
 segmasker_threshold: 0.1      # max fraction of low-complexity residues
 
 # --- AlphaFold 3 monomer screen ---------------------------------------------
-# BASAL GATE, calibrated against real junk. Keeps 92% of Evo ORFs while
-# dropping 46% of spurious ones.
-#
-# Measured on 24 Evo ORFs vs 24 ORFs called on random DNA, GC- and
-# length-matched (both median 156 aa, balance p=0.85):
-#   pTM   AUROC 0.854 [0.742-0.946]   <- the better discriminator
-#   pLDDT AUROC 0.731 [0.580-0.865]
-#
-# Why these values and not stricter: pLDDT>=40/pTM>=0.25 drops 83% of junk but
-# keeps only 58% of real ORFs; pLDDT>=45/pTM>=0.30 drops 92% but keeps 38%.
-# The monomer fold is cheap and the cofold is expensive, but the cofold gate
-# already rejects ~1/3 of confirmed-functional pairs, so losses here compound.
-# This setting is deliberately high-sensitivity.
-#
-# Sanity check against knowns: all five validated designs pass comfortably
-# (EvoAT1 67.7/0.46 ... EvoAT4 54.2/0.35), as do the natural E. coli toxins
-# MazF (38.9/0.35) and YoeB (41.5/0.31) whose pairs rescued experimentally.
-#
-# What this gate is NOT doing: judging fold specificity. AlphaFold 3 cannot
-# separate an Evo design from a composition-matched scramble of itself
-# (pLDDT AUROC 0.475 - chance).
-# It separates real ORFs from random-DNA ORFs because their composition
-# differs, not because it recognises a specific fold. Treat it as a
-# protein-likeness floor, not a quality score.
+# Calibrated against single Evo-generated and natural toxin and antitoxin 
+# sequences, lenient by default to promoter more candidates to measured co-fold.
 run_af3: true
 af3_plddt_threshold: 30.0    # 0-100, single-sequence
 af3_ptm_threshold: 0.20      # 0-1; the load-bearing one
@@ -100,31 +78,11 @@ af3_save_structures: true
 # resembling a known type II TA family, so the expensive fold is spent on
 # plausible candidates.
 #
-# The family list is DERIVED, not curated: 219 Pfam families hit at E<1e-2 by
-# 767 known type II TA proteins (363 natural toxins + 395 natural antitoxins
-# from TADB's experimentally validated type II loci, + 9 characterised
-# designs). Prevalence >=1, synthetic hits retained.
-#
-# Why derived: all four validated EvoAT antitoxins have DUF6290 - a domain of
-# unknown function - as their top Pfam hit and hit no canonical antitoxin
-# family, so a name-curated list would discard them. DUF6290 is itself hit by
-# 17 natural type II antitoxins, so it is a real family and not an artifact
-# of including the designs.
-#
-# Validated: all knowns detected; 0 false positives on 30 non-TA proteins and
-# random-DNA ORFs, and 0 on 30 composition-matched shuffles. All 13 canonical
-# type II classes represented (RelBE, ParDE, MazEF, VapBC, HigBA, YefM-YoeB,
-# YafQ-DinJ, Phd-Doc, GNAT/TacT, HicAB, MqsRA, CcdAB, Zeta-Epsilon) across 72
-# genera. ~0.35 s/protein vs ~11 s against full Pfam.
-#
 # E<1.0 at scan time is deliberately lenient: the list itself supplies the
 # specificity, and a strict E selects against the divergent sequences this
 # pipeline exists to find. Rebuild at a different cutoff with
 # a Pfam scan over known type II TA proteins.
 #
-# Caveat: 25 HTH families are included. 32 natural antitoxins are detected
-# ONLY via those, so they carry real sensitivity, but a lone HTH hit is weak
-# evidence - generic transcriptional regulators can pass on it.
 hmm_path: ./proto_pipelines/data/models/ta_families.hmm
 hmm_evalue_threshold: 1.0
 hmm_required_profiles: []
@@ -137,29 +95,20 @@ hmm_annotate_only: false
 # of which one matched.
 
 # --- pairing ----------------------------------------------------------------
-# A Type II TA pair is two DIFFERENT proteins. Near-identical members are
+# A Type II TA pair is two different proteins. Near-identical members are
 # usually one gene called twice, a tandem duplication, or the same ORF on
-# both strands -- cofolding those spends the expensive step on a homodimer
-# that was never a TA hypothesis.
-#
-# Identity is MAFFT (align_method=auto) over columns where NEITHER sequence
-# is gapped -- the same definition the paper's align_pair used. This is a
-# different quantity from the MMseqs2 `pident` the novelty filter reports;
-# the two are not directly comparable despite both being "percent identity".
-# Set to 100.0 to disable.
+# both strands.
 max_pair_identity: 70.0
 mafft_threads: 4
 
 # --- cofolding (runs inside the same Program, as the last filter) -----------
-# The cofold is a proto Constraint now, not a separate script: the optimizer
-# short-circuits, so only generations that already yielded two confident
-# proteins are ever cofolded, and the pairs plus their interface scores live
-# on the proposal metadata rather than in an intermediate CSV.
+# The cofold is a proto Constraintt: the optimizer short-circuits, so only 
+# generations that already yielded two confident proteins are ever cofolded,
+# and the pairs plus their interface scores live on the proposal metadata
+# rather than in an intermediate CSV.
 run_cofold: true
 
-# Gates. All three must pass for a pair to count. Calibrated on 80 natural TA
-# pairs and checked against 10 functionally labelled de novo pairs -- see
-# "Calibration results" in proto_pipelines/README.md.
+# Gates. All three must pass for a pair to count. 
 cofold_pdockq2_threshold: 0.23   # DockQ "Acceptable" class boundary
 cofold_min_iptm: 0.55            # mid-gap in the de novo positives
 cofold_min_avg_plddt: 80.0       # non-binding guard at this value
@@ -180,7 +129,5 @@ cofold_af3_save_structures: true
 # cofold_target_fasta: ./targets/known_toxins.fasta
 
 # --- novelty (post-gate provenance policy, not evidence of function) --------
-# MMseqs2 `pident` against a reference set -- a different measure from the
-# MAFFT identity used for max_pair_identity above; the two are not comparable.
-# novelty_mmseqs_db: /path/to/known_proteins.fasta
+# MMseqs2 `pident` against a reference set
 novelty_max_identity: 75.0
