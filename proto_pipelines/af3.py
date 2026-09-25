@@ -86,7 +86,9 @@ class AlphaFold3RunConfig(BaseConfig):
     """
 
     use_msa: bool = ConfigField(
-        default=False, title="Use MSA", description="Run MMseqs2 homology search for each protein chain."
+        default=False,
+        title="Use MSA",
+        description="Run MMseqs2 homology search for each protein chain.",
     )
     pair_heterocomplex_msas: bool = ConfigField(
         default=True,
@@ -94,7 +96,9 @@ class AlphaFold3RunConfig(BaseConfig):
         description="Taxonomy-pair per-chain MSAs across chains of a heterocomplex.",
     )
     msa_search_mode: str = ConfigField(
-        default="local", title="MSA Search Mode", description="MMseqs2 homology search mode."
+        default="local",
+        title="MSA Search Mode",
+        description="MMseqs2 homology search mode.",
     )
     msa_device: str = ConfigField(
         default="cpu",
@@ -105,10 +109,16 @@ class AlphaFold3RunConfig(BaseConfig):
         ),
     )
     num_recycles: int = ConfigField(
-        default=10, ge=1, title="Recycles", description="AlphaFold 3 recycling iterations."
+        default=10,
+        ge=1,
+        title="Recycles",
+        description="AlphaFold 3 recycling iterations.",
     )
     num_diffusion_samples: int = ConfigField(
-        default=5, ge=1, title="Diffusion Samples", description="Diffusion samples per seed."
+        default=5,
+        ge=1,
+        title="Diffusion Samples",
+        description="Diffusion samples per seed.",
     )
     seeds: list[int] = ConfigField(
         default=[0], title="Seeds", description="AlphaFold 3 seeds to average over."
@@ -118,9 +128,13 @@ class AlphaFold3RunConfig(BaseConfig):
         title="Output Directory",
         description="Where to persist AlphaFold 3 result folders; None uses a temp dir.",
     )
-    device: str = ConfigField(default="cuda", title="Device", description="Device for AlphaFold 3.")
+    device: str = ConfigField(
+        default="cuda", title="Device", description="Device for AlphaFold 3."
+    )
     verbose: bool = ConfigField(
-        default=False, title="Verbose", description="Forward AlphaFold 3 progress output."
+        default=False,
+        title="Verbose",
+        description="Forward AlphaFold 3 progress output.",
     )
 
 
@@ -189,7 +203,6 @@ def _store_cached(path: Path | None, payload: dict[str, Any]) -> None:
     tmp.replace(path)
 
 
-
 def fold(chains: list[str], job_name: str, run_config: AlphaFold3RunConfig) -> Any:
     """Predict one complex with AlphaFold 3 and return its ``Structure``.
 
@@ -249,7 +262,9 @@ def fold(chains: list[str], job_name: str, run_config: AlphaFold3RunConfig) -> A
 # ---------------------------------------------------------------------------
 
 
-def _pdockq_v1_coordinates(pdb_text: str) -> tuple[dict[str, list[list[float]]], np.ndarray]:
+def _pdockq_v1_coordinates(
+    pdb_text: str,
+) -> tuple[dict[str, list[list[float]]], np.ndarray]:
     """Extract per-chain CB coordinates (CA for glycine) and per-residue pLDDT.
 
     Reproduces the parser used by the cofold stage so the reported
@@ -269,7 +284,9 @@ def _pdockq_v1_coordinates(pdb_text: str) -> tuple[dict[str, list[list[float]]],
         chain_coords.setdefault(chain, []).append(
             [float(line[30:38]), float(line[38:46]), float(line[46:54])]
         )
-        plddt_by_residue.setdefault(f"{chain}{residue_number}", []).append(float(line[60:66]))
+        plddt_by_residue.setdefault(f"{chain}{residue_number}", []).append(
+            float(line[60:66])
+        )
     plddt = np.array([float(np.mean(values)) for values in plddt_by_residue.values()])
     return chain_coords, plddt
 
@@ -308,12 +325,16 @@ def pdockq_v1(pdb_text: str) -> dict[str, float]:
 
     interface_plddt = float(
         np.average(
-            np.concatenate([plddt[np.unique(contacts[:, 0])], plddt[np.unique(contacts[:, 1])]])
+            np.concatenate(
+                [plddt[np.unique(contacts[:, 0])], plddt[np.unique(contacts[:, 1])]]
+            )
         )
     )
     n_contacts = int(contacts.shape[0])
     x = interface_plddt * math.log10(n_contacts + 1)
-    score = PDOCKQ_V1_L / (1 + math.exp(-PDOCKQ_V1_K * (x - PDOCKQ_V1_X0))) + PDOCKQ_V1_B
+    score = (
+        PDOCKQ_V1_L / (1 + math.exp(-PDOCKQ_V1_K * (x - PDOCKQ_V1_X0))) + PDOCKQ_V1_B
+    )
     return {
         "pdockq_v1": float(score),
         "if_plddt": interface_plddt,
@@ -360,35 +381,58 @@ class AlphaFold3MonomerScreenConfig(BaseConfig):
         description="AlphaFold 3 avg_plddt floor. Not transferable from the paper's ESMFold cutoff.",
     )
     ptm_threshold: float = ConfigField(
-        default=0.5, ge=0.0, le=1.0, title="Minimum pTM", description="AlphaFold 3 pTM floor."
+        default=0.5,
+        ge=0.0,
+        le=1.0,
+        title="Minimum pTM",
+        description="AlphaFold 3 pTM floor.",
     )
     min_surviving_proteins: int = ConfigField(
-        default=1, ge=1, title="Minimum Surviving Proteins", description="Proteins that must pass."
+        default=1,
+        ge=1,
+        title="Minimum Surviving Proteins",
+        description="Proteins that must pass.",
     )
     max_proteins_per_proposal: int = ConfigField(
-        default=8, ge=0, title="Max Proteins Folded", description="Per-proposal fold cap; 0 = no cap."
+        default=8,
+        ge=0,
+        title="Max Proteins Folded",
+        description="Per-proposal fold cap; 0 = no cap.",
     )
     prescreen_constraint_label: str = ConfigField(
-        default="", title="Prescreen Constraint",
+        default="",
+        title="Prescreen Constraint",
         description=(
             "Upstream sequence-only Acr scorer. When set, ORFs are folded in its "
             "score order and `fold_fraction` may skip the tail. Sequence callers "
             "cost ~5 s/protein against AlphaFold 3's minutes, so ranking first is "
-            "nearly free: folding the top 50% retains 94% of known Acrs."))
+            "nearly free: folding the top 50% retains 94% of known Acrs."
+        ),
+    )
     prescreen_min_score: float = ConfigField(
-        default=0.0, ge=0.0, le=1.0, title="Prescreen Minimum",
+        default=0.0,
+        ge=0.0,
+        le=1.0,
+        title="Prescreen Minimum",
         description=(
             "Fold only ORFs whose prescreen score reaches this. Calibrated: 0.10 "
             "keeps 100% of known Acrs (and 100% of the divergent subset) while "
             "skipping 53% of negatives. Deliberately lenient -- it exists to save "
-            "folds, not to select. 0.0 disables."))
+            "folds, not to select. 0.0 disables."
+        ),
+    )
     fold_fraction: float = ConfigField(
-        default=1.0, gt=0.0, le=1.0, title="Fraction To Fold",
+        default=1.0,
+        gt=0.0,
+        le=1.0,
+        title="Fraction To Fold",
         description=(
             "Fraction of each proposal's ORFs to fold, taken in prescreen order. "
             "1.0 folds everything. Requires prescreen_constraint_label; ignored "
             "without it, since folding an arbitrary subset would be worse than "
-            "folding all."))
+            "folding all."
+        ),
+    )
     hmm_constraint_label: str = ConfigField(
         default="profile_hmm",
         title="Profile-HMM Constraint Label",
@@ -487,7 +531,9 @@ def af3_monomer_screen_constraint(
                 f"af3_monomer_screen: no metadata from constraint "
                 f"{config.qc_constraint_label!r}; declare it before this screen."
             )
-        proteins: list[dict[str, Any]] = qc_entry.get("data", {}).get("qc_proteins") or []
+        proteins: list[dict[str, Any]] = (
+            qc_entry.get("data", {}).get("qc_proteins") or []
+        )
 
         if config.max_proteins_per_proposal:
             # Longest-first is only a tiebreak. A generation reaches this
@@ -511,17 +557,19 @@ def af3_monomer_screen_constraint(
         if config.prescreen_constraint_label and config.prescreen_min_score > 0.0:
             prescore = _prescreen_scores(sequence, config.prescreen_constraint_label)
             keep = [
-                p for p in proteins
+                p
+                for p in proteins
                 if prescore.get(p["protein_id"], 1.0) >= config.prescreen_min_score
-                or p["protein_id"] in _hmm_qualifying_ids(
-                    sequence, config.hmm_constraint_label
-                )
+                or p["protein_id"]
+                in _hmm_qualifying_ids(sequence, config.hmm_constraint_label)
             ]
             if len(keep) < len(proteins):
                 logger.info(
                     "af3_monomer_screen: prescreen kept %d/%d ORFs at >=%.2f "
                     "(HMM-qualifying ORFs are always folded)",
-                    len(keep), len(proteins), config.prescreen_min_score,
+                    len(keep),
+                    len(proteins),
+                    config.prescreen_min_score,
                 )
             # A proposal with nothing above threshold still folds its best ORF:
             # returning no structures at all would look like a pipeline failure
@@ -534,12 +582,16 @@ def af3_monomer_screen_constraint(
                 logger.info(
                     "af3_monomer_screen: folding %d/%d ORFs (fold_fraction=%.2f); "
                     "skipped ORFs get no structure and score on sequence alone",
-                    keep, len(proteins), config.fold_fraction,
+                    keep,
+                    len(proteins),
+                    config.fold_fraction,
                 )
             proteins = proteins[:keep]
         if config.max_proteins_per_proposal:
             dropped_qualifying = [
-                entry["protein_id"] for entry in dropped if entry["protein_id"] in qualifying
+                entry["protein_id"]
+                for entry in dropped
+                if entry["protein_id"] in qualifying
             ]
             if dropped_qualifying:
                 logger.warning(
@@ -583,7 +635,9 @@ def af3_monomer_screen_constraint(
                 "passed_af3_screen": passed,
             }
             if config.alphafold3.output_dir is not None:
-                record["af3_result_dir"] = f"{config.alphafold3.output_dir}/{job_name}_af3_results"
+                record["af3_result_dir"] = (
+                    f"{config.alphafold3.output_dir}/{job_name}_af3_results"
+                )
                 # Downstream structural callers need the PDB itself, not the
                 # folder. AlphaFold 3 appends .1/.2 when a directory already
                 # exists, so the path is globbed rather than constructed.

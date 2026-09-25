@@ -67,13 +67,21 @@ class ProteinQCConfig(BaseConfig):
     """
 
     min_length: int = ConfigField(
-        default=50, ge=1, title="Minimum Protein Length", description="Minimum protein length in aa."
+        default=50,
+        ge=1,
+        title="Minimum Protein Length",
+        description="Minimum protein length in aa.",
     )
     max_length: int = ConfigField(
-        default=300, ge=1, title="Maximum Protein Length", description="Maximum protein length in aa."
+        default=300,
+        ge=1,
+        title="Maximum Protein Length",
+        description="Maximum protein length in aa.",
     )
     filter_partial: bool = ConfigField(
-        default=True, title="Drop Partial ORFs", description="Require Prodigal partial=00."
+        default=True,
+        title="Drop Partial ORFs",
+        description="Require Prodigal partial=00.",
     )
     segmasker_threshold: float = ConfigField(
         default=0.1,
@@ -109,7 +117,10 @@ def is_highly_repetitive(sequence: str) -> bool:
     for k in range(REPEAT_MIN_K, REPEAT_MIN_K + REPEAT_K_SPAN):
         if k > length:
             break
-        kmers = ["".join(window) for window in np.lib.stride_tricks.sliding_window_view(residues, k)]
+        kmers = [
+            "".join(window)
+            for window in np.lib.stride_tricks.sliding_window_view(residues, k)
+        ]
         if kmers and max(Counter(kmers).values()) * k > length * REPEAT_FRACTION:
             return True
     return False
@@ -214,14 +225,23 @@ def prodigal_protein_qc_constraint(
         # today -- but a deferred call would silently write to the next
         # proposal's counters.
         def _reject(
-            orf: Any, protein: str, reason: str,
-            rejections: Counter = rejections, verdicts: list = verdicts,
+            orf: Any,
+            protein: str,
+            reason: str,
+            rejections: Counter = rejections,
+            verdicts: list = verdicts,
         ) -> None:
             rejections[reason] += 1
-            verdicts.append({
-                "protein_id": orf.orf_id, "length": len(protein), "strand": orf.strand,
-                "passed_qc": False, "rejected_by": reason, "sequence": protein,
-            })
+            verdicts.append(
+                {
+                    "protein_id": orf.orf_id,
+                    "length": len(protein),
+                    "strand": orf.strand,
+                    "passed_qc": False,
+                    "rejected_by": reason,
+                    "sequence": protein,
+                }
+            )
 
         prompt_dna = (config.require_prompt_dna or "").upper()
         for orf in orfs:
@@ -258,24 +278,36 @@ def prodigal_protein_qc_constraint(
             )
 
         # segmasker is the only subprocess check, so it runs last and in one batch.
-        fractions = _low_complexity_fractions([entry["sequence"] for entry in candidates])
+        fractions = _low_complexity_fractions(
+            [entry["sequence"] for entry in candidates]
+        )
         survivors: list[dict[str, Any]] = []
         for entry, fraction in zip(candidates, fractions, strict=True):
             if fraction > config.segmasker_threshold:
                 rejections["low_complexity"] += 1
-                verdicts.append({
-                    "protein_id": entry["protein_id"], "length": entry["length"],
-                    "strand": entry["strand"], "passed_qc": False,
-                    "rejected_by": "low_complexity", "sequence": entry["sequence"],
-                })
+                verdicts.append(
+                    {
+                        "protein_id": entry["protein_id"],
+                        "length": entry["length"],
+                        "strand": entry["strand"],
+                        "passed_qc": False,
+                        "rejected_by": "low_complexity",
+                        "sequence": entry["sequence"],
+                    }
+                )
                 continue
             entry["low_complexity_fraction"] = fraction
             survivors.append(entry)
-            verdicts.append({
-                "protein_id": entry["protein_id"], "length": entry["length"],
-                "strand": entry["strand"], "passed_qc": True,
-                "rejected_by": None, "sequence": entry["sequence"],
-            })
+            verdicts.append(
+                {
+                    "protein_id": entry["protein_id"],
+                    "length": entry["length"],
+                    "strand": entry["strand"],
+                    "passed_qc": True,
+                    "rejected_by": None,
+                    "sequence": entry["sequence"],
+                }
+            )
 
         passed = len(survivors) >= config.min_surviving_proteins
         outputs.append(

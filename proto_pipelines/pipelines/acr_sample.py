@@ -146,7 +146,9 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
         ptm_threshold=float(data.get("af3_ptm_threshold", 0.20)),
         min_surviving_proteins=1,
         max_proteins_per_proposal=int(data.get("af3_max_proteins_per_proposal", 8)),
-        prescreen_constraint_label=PRESCREEN_LABEL if data.get("run_acr_prescreen", False) else "",
+        prescreen_constraint_label=(
+            PRESCREEN_LABEL if data.get("run_acr_prescreen", False) else ""
+        ),
         fold_fraction=float(data.get("acr_fold_fraction", 1.0)),
         prescreen_min_score=float(data.get("acr_prescreen_min_score", 0.0)),
         alphafold3=af3_run_config(
@@ -173,8 +175,8 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
         hmm_evalue=float(data.get("acr_hmm_evalue", 1.0)),
         acranker_model=str(data.get("acr_acranker_model", "")),
         acranker_shuffles=int(data.get("acr_acranker_shuffles", 20)),
-        foldseek_ref_dir="",          # no structures yet
-        combined_model="",            # tier-1 model needs pLDDT and Foldseek
+        foldseek_ref_dir="",  # no structures yet
+        combined_model="",  # tier-1 model needs pLDDT and Foldseek
         divergent_model=str(data.get("acr_prescreen_model", "")),
         acrnet_home=str(data.get("acrnet_home", "")),
         acrnet_predict_property=str(data.get("acrnet_predict_property", "")),
@@ -351,7 +353,9 @@ def main() -> None:
     """Parse ``--config`` and run the pipeline."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--config", required=True, help="Path to the pipeline YAML config.")
+    parser.add_argument(
+        "--config", required=True, help="Path to the pipeline YAML config."
+    )
     parser.add_argument(
         "--output-root",
         default=None,

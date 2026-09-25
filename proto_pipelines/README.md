@@ -54,7 +54,7 @@ required. **Slurm is optional**: nothing in the pipelines needs it, and
 
 | workflow | what it does |
 | --- | --- |
-| `t2ta_sample` | Type II toxin–antitoxin: generate → QC → TA profile-HMM → monomer fold → pair → cofold + interface scoring |
+| `t2ta_sample` | Type II toxin–antitoxin: generate → QC → TA profile-HMM → monomer fold → pair → cofold + interface scoring ([docs/T2TA_PIPELINE.md](docs/T2TA_PIPELINE.md)) |
 | `acr_sample` | Anti-CRISPR candidates: generate → QC → sequence prescreen → monomer fold → five-caller Acr/Aca evidence → ranked candidates. Replaces the published PaCRISPR step (**PaCRISPR is no longer available**) with callers that run locally ([docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)) |
 | `gene_completion` | How closely a truncated gene is completed, by MAFFT identity to a reference |
 | `operon_completion` | Whether the downstream operon genes are produced |
@@ -234,6 +234,9 @@ Leave it empty (the default) to use the released weights.
 Every stage, its defaults, and what changing them costs:
 **[docs/SETTINGS.md](docs/SETTINGS.md)**. Unknown or retired config keys are
 rejected at startup rather than ignored, so a typo fails immediately.
+
+Per-pipeline detail: **[docs/T2TA_PIPELINE.md](docs/T2TA_PIPELINE.md)** and
+**[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**.
 
 ## Calibration
 

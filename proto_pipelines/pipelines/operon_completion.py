@@ -222,7 +222,13 @@ def summarize(results: pd.DataFrame) -> pd.DataFrame:
     """
     if results.empty:
         return pd.DataFrame(
-            columns=["prompt_id", "expected_response", "avg_identity", "std_identity", "count"]
+            columns=[
+                "prompt_id",
+                "expected_response",
+                "avg_identity",
+                "std_identity",
+                "count",
+            ]
         )
     grouped = results.groupby(["prompt_id", "expected_response"], dropna=False).agg(
         avg_identity=("sequence_identity", "mean"),
@@ -274,7 +280,9 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
             "top_k": settings.top_k,
         },
     )
-    summary = write_filter_summary(records, [QC_LABEL], output_dir / "filter_summary.csv")
+    summary = write_filter_summary(
+        records, [QC_LABEL], output_dir / "filter_summary.csv"
+    )
     write_hmm_hits(records, output_dir / "hmm_hits.csv")
     write_raw_metadata(records, output_dir / "raw_metadata.json")
     stages = write_stage_tables(records, output_dir)
@@ -297,7 +305,9 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
         prompts,
         references,
         identity_threshold=float(data.get("seq_identity_match_threshold", 30.0)),
-        expected_response_column=data.get("expected_response_column", "Expected_Response"),
+        expected_response_column=data.get(
+            "expected_response_column", "Expected_Response"
+        ),
         threads=int(data.get("mafft_threads", 1)),
     )
     results.to_csv(output_dir / "identity_results.csv", index=False)
@@ -315,7 +325,9 @@ def main() -> None:
     """Parse ``--config`` and run the pipeline."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--config", required=True, help="Path to the pipeline YAML config.")
+    parser.add_argument(
+        "--config", required=True, help="Path to the pipeline YAML config."
+    )
     parser.add_argument(
         "--output-root",
         default=None,

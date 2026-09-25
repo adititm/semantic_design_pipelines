@@ -63,9 +63,26 @@ logger = logging.getLogger(__name__)
 
 #: Reduced 7-group alphabet, verbatim from AcRanker's server2.twomerFromSeq.
 _GROUPS = {
-    "A": "1", "V": "1", "G": "1", "I": "2", "L": "2", "F": "2", "P": "2",
-    "Y": "3", "M": "3", "T": "3", "S": "3", "H": "4", "N": "4", "Q": "4",
-    "W": "4", "R": "5", "K": "5", "D": "6", "E": "6", "C": "7",
+    "A": "1",
+    "V": "1",
+    "G": "1",
+    "I": "2",
+    "L": "2",
+    "F": "2",
+    "P": "2",
+    "Y": "3",
+    "M": "3",
+    "T": "3",
+    "S": "3",
+    "H": "4",
+    "N": "4",
+    "Q": "4",
+    "W": "4",
+    "R": "5",
+    "K": "5",
+    "D": "6",
+    "E": "6",
+    "C": "7",
 }
 _AMINO_ACIDS = "ACDEFGHIKLMNPQRSTVWY"
 
@@ -101,86 +118,144 @@ class AcrEvidenceConfig(BaseConfig):
     """
 
     source_constraint_label: str = ConfigField(
-        default="af3_monomer_screen", title="Source Constraint",
-        description="Constraint whose metadata supplies the proteins to score.")
+        default="af3_monomer_screen",
+        title="Source Constraint",
+        description="Constraint whose metadata supplies the proteins to score.",
+    )
     source_metadata_key: str = ConfigField(
-        default="af3_proteins", title="Source Key", description="Protein list key.")
+        default="af3_proteins", title="Source Key", description="Protein list key."
+    )
     hmm_path: str = ConfigField(
-        default="", title="Acr HMM", description="Acr/Aca profile database; empty disables the caller.")
+        default="",
+        title="Acr HMM",
+        description="Acr/Aca profile database; empty disables the caller.",
+    )
     aca_hmm_path: str = ConfigField(
-        default="", title="Aca HMM",
+        default="",
+        title="Aca HMM",
         description=(
             "HTH families enriched in Aca proteins (>=10x over generic bacterial "
             "transcription factors). Detects 66% of Aca at an 8.3% false-positive "
             "rate on 2625 generic bacterial TFs -- these are Aca-ENRICHED, not "
-            "Aca-exclusive. Empty disables the caller."))
+            "Aca-exclusive. Empty disables the caller."
+        ),
+    )
     hmm_evalue: float = ConfigField(
-        default=1.0, gt=0, title="HMM E-value",
-        description="Sequence-level E-value cap; lenient, since strictness selects against divergence.")
+        default=1.0,
+        gt=0,
+        title="HMM E-value",
+        description="Sequence-level E-value cap; lenient, since strictness selects against divergence.",
+    )
     acranker_model: str = ConfigField(
-        default="", title="AcRanker Model",
-        description="Path to the AcRanker booster JSON; empty disables the caller.")
+        default="",
+        title="AcRanker Model",
+        description="Path to the AcRanker booster JSON; empty disables the caller.",
+    )
     acranker_shuffles: int = ConfigField(
-        default=20, ge=0, title="AcRanker Shuffles",
-        description="Shuffles per sequence for the composition-matched z; 0 disables it.")
+        default=20,
+        ge=0,
+        title="AcRanker Shuffles",
+        description="Shuffles per sequence for the composition-matched z; 0 disables it.",
+    )
     foldseek_ref_dir: str = ConfigField(
-        default="", title="Foldseek Reference",
-        description="Directory of reference Acr chain PDBs; empty disables the caller.")
+        default="",
+        title="Foldseek Reference",
+        description="Directory of reference Acr chain PDBs; empty disables the caller.",
+    )
     foldseek_binary: str = ConfigField(
-        default="", title="Foldseek Binary",
+        default="",
+        title="Foldseek Binary",
         description=(
             "foldseek executable. Empty resolves "
             "$PROTO_HOME/proto_tool_envs/foldseek_env/bin/foldseek, which "
-            "proto-tools provisions."))
+            "proto-tools provisions."
+        ),
+    )
     foldseek_max_self_identity: float = ConfigField(
-        default=0.90, ge=0, le=1, title="Max Self Identity",
-        description="Drop hits at or above this identity so a query cannot match itself.")
+        default=0.90,
+        ge=0,
+        le=1,
+        title="Max Self Identity",
+        description="Drop hits at or above this identity so a query cannot match itself.",
+    )
     combined_model: str = ConfigField(
-        default="", title="Combined Model",
-        description="Calibrated logistic model JSON; empty reports per-caller scores only.")
+        default="",
+        title="Combined Model",
+        description="Calibrated logistic model JSON; empty reports per-caller scores only.",
+    )
     acrnet_home: str = ConfigField(
-        default="", title="AcrNET Home",
-        description="AcrNET checkout containing model.ckpt; empty disables the caller.")
+        default="",
+        title="AcrNET Home",
+        description="AcrNET checkout containing model.ckpt; empty disables the caller.",
+    )
     acrnet_predict_property: str = ConfigField(
-        default="", title="Predict_Property Home",
-        description="RaptorX Predict_Property checkout for ss3/ss8/acc (no database needed).")
+        default="",
+        title="Predict_Property Home",
+        description="RaptorX Predict_Property checkout for ss3/ss8/acc (no database needed).",
+    )
     acrnet_psiblast: str = ConfigField(
-        default="", title="psiblast Binary",
-        description="psiblast executable; empty zeroes the PSSM block (1.00 -> 0.90 accuracy).")
+        default="",
+        title="psiblast Binary",
+        description="psiblast executable; empty zeroes the PSSM block (1.00 -> 0.90 accuracy).",
+    )
     acrnet_blast_db: str = ConfigField(
-        default="", title="BLAST Database",
-        description="BLAST database prefix for the PSSM; empty zeroes that block.")
+        default="",
+        title="BLAST Database",
+        description="BLAST database prefix for the PSSM; empty zeroes that block.",
+    )
     acrnet_workers: int = ConfigField(
-        default=8, ge=1, title="AcrNET Workers",
-        description="Concurrent RaptorX/PSI-BLAST processes; PSI-BLAST scales by process, not thread.")
+        default=8,
+        ge=1,
+        title="AcrNET Workers",
+        description="Concurrent RaptorX/PSI-BLAST processes; PSI-BLAST scales by process, not thread.",
+    )
     acrnet_device: str = ConfigField(
-        default="cuda", title="ESM Device", description="Device for the ESM-1b embedding.")
+        default="cuda",
+        title="ESM Device",
+        description="Device for the ESM-1b embedding.",
+    )
     acrnet_operating_points: str = ConfigField(
-        default="", title="AcrNET Operating Points",
+        default="",
+        title="AcrNET Operating Points",
         description=(
             "Empirical tier bounds JSON. AcrNET's probability is saturated near "
             "1.0 -- 33% of known negatives exceed 0.9 -- so a bare 0.9x is not a "
-            "positive call. Empty leaves acrnet_tier/acrnet_pctile unset."))
+            "positive call. Empty leaves acrnet_tier/acrnet_pctile unset."
+        ),
+    )
     divergent_model: str = ConfigField(
-        default="", title="Divergent Model",
+        default="",
+        title="Divergent Model",
         description=(
             "Model used when the HMM finds nothing. Absence of a Pfam hit is not "
             "evidence against an Acr -- 49 of 64 known Acrs have none -- so the "
-            "HMM feature must be dropped rather than read as a negative."))
+            "HMM feature must be dropped rather than read as a negative."
+        ),
+    )
     require_af3_pass: bool = ConfigField(
-        default=True, title="Require AF3 Pass",
+        default=True,
+        title="Require AF3 Pass",
         description=(
             "Exclude proteins that failed the AlphaFold 3 pLDDT/pTM gate from "
             "counting as candidates. They stay in the evidence table and still "
             "contribute locus context -- an Aca partner is identified by "
             "sequence HMM and is useful even when its own fold is poor -- but "
-            "a candidate you would actually test should have folded."))
+            "a candidate you would actually test should have folded."
+        ),
+    )
     min_score: float = ConfigField(
-        default=0.0, ge=0, le=1, title="Minimum Score",
-        description="acr_locus_score a protein must reach; 0 records evidence without filtering.")
+        default=0.0,
+        ge=0,
+        le=1,
+        title="Minimum Score",
+        description="acr_locus_score a protein must reach; 0 records evidence without filtering.",
+    )
     min_qualifying_proteins: int = ConfigField(
-        default=1, ge=1, title="Minimum Qualifying Proteins",
-        description="Proteins that must reach min_score for the generation to pass.")
+        default=1,
+        ge=1,
+        title="Minimum Qualifying Proteins",
+        description="Proteins that must reach min_score for the generation to pass.",
+    )
 
 
 def _acranker_features(sequence: str) -> list[float]:
@@ -217,7 +292,6 @@ def _acranker_features(sequence: str) -> list[float]:
             counts[index["".join(_GROUPS[r] for r in kmer)]] += 1
         blocks.append(l2(counts / max(len(sequence) - 1, 1)))
     return list(np.concatenate(blocks))
-
 
 
 def _foldseek_binary(configured: str) -> str:
@@ -276,17 +350,27 @@ def _foldseek_tm_hits(
     with tempfile.TemporaryDirectory() as work:
         out = Path(work) / "result.m8"
         command = [
-            _foldseek_binary(binary), "easy-search", structure, ref_dir,
-            str(out), str(Path(work) / "fs_tmp"),
-            "--format-output", _FOLDSEEK_TM_FORMAT,
-            "-e", str(evalue), "--max-seqs", str(max_seqs),
+            _foldseek_binary(binary),
+            "easy-search",
+            structure,
+            ref_dir,
+            str(out),
+            str(Path(work) / "fs_tmp"),
+            "--format-output",
+            _FOLDSEEK_TM_FORMAT,
+            "-e",
+            str(evalue),
+            "--max-seqs",
+            str(max_seqs),
             # alignment-type 2 (3Di+AA) is proto-tools' default and is what
             # the shipped models were calibrated against. Type 1 (TM-align)
             # returns systematically HIGHER TM -- median +0.15 over 25
             # re-searched calibration chains -- so switching it would put the
             # best_tmscore feature on a different scale than the fits.
-            "--alignment-type", "2",
-            "--threads", str(max(1, threads)),
+            "--alignment-type",
+            "2",
+            "--threads",
+            str(max(1, threads)),
         ]
         # Let a foldseek failure propagate: a crashed search must not look
         # like a protein with no structural neighbours.
@@ -299,14 +383,16 @@ def _foldseek_tm_hits(
             row = line.split("\t")
             if len(row) < 14:
                 continue
-            hits.append({
-                "target": row[1],
-                "pident": float(row[2]) / 100.0,
-                "evalue": float(row[10]),
-                "bits": float(row[11]),
-                "qtmscore": float(row[12]),
-                "alntmscore": float(row[13]),
-            })
+            hits.append(
+                {
+                    "target": row[1],
+                    "pident": float(row[2]) / 100.0,
+                    "evalue": float(row[10]),
+                    "bits": float(row[11]),
+                    "qtmscore": float(row[12]),
+                    "alntmscore": float(row[13]),
+                }
+            )
         if not hits:
             logger.warning("foldseek returned no hits for %s", structure)
         return hits
@@ -351,13 +437,20 @@ def score_proteins(
             # None when the monomer screen did not run (sequence-only
             # prescreen stage), which must not be read as a failure.
             "passed_af3_screen": p.get("passed_af3_screen"),
-            "hmm_score": None, "hmm_best_profile": None, "hmm_best_evalue": None,
-            "acranker_raw": None, "acranker_z": None,
-            "foldseek_tmscore": None, "foldseek_target": None,
-            "aca_best_profile": None, "is_aca_like": None,
+            "hmm_score": None,
+            "hmm_best_profile": None,
+            "hmm_best_evalue": None,
+            "acranker_raw": None,
+            "acranker_z": None,
+            "foldseek_tmscore": None,
+            "foldseek_target": None,
+            "aca_best_profile": None,
+            "is_aca_like": None,
             "acrnet_score": (acrnet_scores or {}).get(p["protein_id"]),
             "acrnet_has_pssm": (acrnet_has_pssm or {}).get(p["protein_id"]),
-            "acrnet_pctile": None, "acrnet_tier": None, "acrnet_regime": None,
+            "acrnet_pctile": None,
+            "acrnet_tier": None,
+            "acrnet_regime": None,
         }
         for p in proteins
     ]
@@ -415,10 +508,7 @@ def score_proteins(
                 max_seqs=500,
                 threads=config.acrnet_workers,
             )
-            kept = [
-                h for h in hits
-                if h["pident"] < config.foldseek_max_self_identity
-            ]
+            kept = [h for h in hits if h["pident"] < config.foldseek_max_self_identity]
             best = max(kept, key=lambda h: h["qtmscore"], default=None)
             record["foldseek_tmscore"] = best["qtmscore"] if best else 0.0
             record["foldseek_target"] = best["target"] if best else None
@@ -437,8 +527,10 @@ def score_proteins(
             # None means that caller was disabled, which is a real state; a
             # missing key is a bug and was raised above.
             values.append(0.0 if value is None else value)
-        z = [(v - m) / s for v, m, s in
-             zip(values, model["mean"], model["scale"], strict=True)]
+        z = [
+            (v - m) / s
+            for v, m, s in zip(values, model["mean"], model["scale"], strict=True)
+        ]
         logit = model["intercept"] + sum(
             c * v for c, v in zip(model["coef"], z, strict=True)
         )
@@ -472,8 +564,8 @@ def score_proteins(
             regime = ops["regimes"][name]
             record["acrnet_regime"] = name
             quantiles = sorted(float(v) for v in regime["negative_quantiles"].values())
-            record["acrnet_pctile"] = (
-                bisect.bisect_right(quantiles, score) / len(quantiles)
+            record["acrnet_pctile"] = bisect.bisect_right(quantiles, score) / len(
+                quantiles
             )
             for tier_def in regime["tiers"]:
                 if tier_def["lower"] <= score < tier_def["upper"]:
@@ -492,8 +584,16 @@ def score_proteins(
     # missing feature that carries no information. The divergent model drops
     # the HMM term rather than reading it as a negative. Cross-validated
     # AUROCs for both are in docs/ACR_PIPELINE.md and in each model JSON.
-    combined = json.loads(Path(config.combined_model).read_text()) if config.combined_model else None
-    divergent = json.loads(Path(config.divergent_model).read_text()) if config.divergent_model else None
+    combined = (
+        json.loads(Path(config.combined_model).read_text())
+        if config.combined_model
+        else None
+    )
+    divergent = (
+        json.loads(Path(config.divergent_model).read_text())
+        if config.divergent_model
+        else None
+    )
     for record in records:
         has_hmm_hit = bool(record.get("hmm_best_profile"))
         record["acr_tier"] = "hmm_hit" if has_hmm_hit else "divergent"
@@ -511,8 +611,7 @@ def score_proteins(
         record["is_candidate"] = bool(
             (record.get("acr_locus_score") or 0.0) >= config.min_score
             and not (
-                config.require_af3_pass
-                and record.get("passed_af3_screen") is False
+                config.require_af3_pass and record.get("passed_af3_screen") is False
             )
         )
     return records
@@ -568,12 +667,16 @@ def acr_evidence_constraint(
 
         flat = [
             {"protein_id": f"p{i}_{p['protein_id']}", "sequence": p["sequence"]}
-            for i, proteins in enumerate(per_proposal) for p in proteins
+            for i, proteins in enumerate(per_proposal)
+            for p in proteins
         ]
         if flat:
             features = acrnet_module.extract_features(
-                flat, config.acrnet_predict_property, esm_device=config.acrnet_device,
-                psiblast_bin=config.acrnet_psiblast, blast_db=config.acrnet_blast_db,
+                flat,
+                config.acrnet_predict_property,
+                esm_device=config.acrnet_device,
+                psiblast_bin=config.acrnet_psiblast,
+                blast_db=config.acrnet_blast_db,
                 workers=config.acrnet_workers,
             )
             for item in flat:
@@ -621,7 +724,8 @@ def acr_evidence_constraint(
         # aca_like rather than aca.
         aca_like = [r["protein_id"] for r in records if r.get("is_aca_like")]
         acr_like = [
-            r["protein_id"] for r in records
+            r["protein_id"]
+            for r in records
             if r.get("hmm_best_profile") and not r.get("is_aca_like")
         ]
         passed = config.min_score <= 0.0 or qualifying >= config.min_qualifying_proteins

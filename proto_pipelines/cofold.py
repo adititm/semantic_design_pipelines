@@ -70,41 +70,70 @@ class TACofoldConfig(BaseConfig):
     """
 
     source_constraint_label: str = ConfigField(
-        default="af3_monomer_screen", title="Source Constraint", description="Supplies the proteins."
+        default="af3_monomer_screen",
+        title="Source Constraint",
+        description="Supplies the proteins.",
     )
     source_metadata_key: str = ConfigField(
-        default="af3_proteins", title="Source Metadata Key", description="Protein list key."
+        default="af3_proteins",
+        title="Source Metadata Key",
+        description="Protein list key.",
     )
     mafft_threads: int = ConfigField(
-        default=1, ge=1, title="MAFFT Threads",
+        default=1,
+        ge=1,
+        title="MAFFT Threads",
         description="CPU threads for the pairwise identity alignments.",
     )
     max_pair_identity: float = ConfigField(
-        default=70.0, ge=0.0, le=100.0, title="Max Pair Identity",
+        default=70.0,
+        ge=0.0,
+        le=100.0,
+        title="Max Pair Identity",
         description="Drop pairs whose members exceed this percent identity (MAFFT).",
     )
     pdockq2_threshold: float = ConfigField(
-        default=0.23, title="pDockQ2 Threshold", description="DockQ 'Acceptable' class boundary."
+        default=0.23,
+        title="pDockQ2 Threshold",
+        description="DockQ 'Acceptable' class boundary.",
     )
-    min_iptm: float = ConfigField(default=0.55, title="Minimum ipTM", description="AF3 ipTM floor.")
+    min_iptm: float = ConfigField(
+        default=0.55, title="Minimum ipTM", description="AF3 ipTM floor."
+    )
     min_avg_plddt: float = ConfigField(
-        default=80.0, title="Minimum pLDDT", description="AF3 pLDDT floor (non-binding guard)."
+        default=80.0,
+        title="Minimum pLDDT",
+        description="AF3 pLDDT floor (non-binding guard).",
     )
     pdockq2_distance_cutoff: float = ConfigField(
-        default=8.0, gt=0.0, title="pDockQ2 Cutoff", description="CA-CA interface cutoff, angstroms."
+        default=8.0,
+        gt=0.0,
+        title="pDockQ2 Cutoff",
+        description="CA-CA interface cutoff, angstroms.",
     )
     min_passing_pairs: int = ConfigField(
-        default=1, ge=1, title="Minimum Passing Pairs", description="Pairs that must clear the gates."
+        default=1,
+        ge=1,
+        title="Minimum Passing Pairs",
+        description="Pairs that must clear the gates.",
     )
     max_pairs_per_proposal: int = ConfigField(
-        default=6, ge=0, title="Max Pairs Cofolded", description="Per-generation cap; 0 = no cap."
+        default=6,
+        ge=0,
+        title="Max Pairs Cofolded",
+        description="Per-generation cap; 0 = no cap.",
     )
     target_sequences: dict[str, str] = ConfigField(
-        default={}, title="Target Sequences", description="Fixed targets to fold every protein against."
+        default={},
+        title="Target Sequences",
+        description="Fixed targets to fold every protein against.",
     )
     alphafold3: AlphaFold3RunConfig = ConfigField(
-        default_factory=lambda: AlphaFold3RunConfig(use_msa=True, pair_heterocomplex_msas=True),
-        title="AlphaFold 3 Settings", description="MSA on: this is the scoring step.",
+        default_factory=lambda: AlphaFold3RunConfig(
+            use_msa=True, pair_heterocomplex_msas=True
+        ),
+        title="AlphaFold 3 Settings",
+        description="MSA on: this is the scoring step.",
     )
 
 
@@ -128,29 +157,40 @@ def _candidate_pairs(
     pairs: list[dict[str, Any]] = []
     dropped = 0
     for first, second in itertools.combinations(proteins, 2):
-        identity = pairwise_identity(first["sequence"], second["sequence"], config.mafft_threads)
+        identity = pairwise_identity(
+            first["sequence"], second["sequence"], config.mafft_threads
+        )
         if identity > config.max_pair_identity:
             dropped += 1
             continue
         pairs.append(
             {
-                "uid_1": first["protein_id"], "seq_1": first["sequence"],
-                "uid_2": second["protein_id"], "seq_2": second["sequence"],
-                "pair_identity": identity, "pair_source": "intra_generation",
+                "uid_1": first["protein_id"],
+                "seq_1": first["sequence"],
+                "uid_2": second["protein_id"],
+                "seq_2": second["sequence"],
+                "pair_identity": identity,
+                "pair_source": "intra_generation",
             }
         )
     for name, target in config.target_sequences.items():
         for protein in proteins:
             pairs.append(
                 {
-                    "uid_1": name, "seq_1": target,
-                    "uid_2": protein["protein_id"], "seq_2": protein["sequence"],
-                    "pair_identity": None, "pair_source": "set_target",
+                    "uid_1": name,
+                    "seq_1": target,
+                    "uid_2": protein["protein_id"],
+                    "seq_2": protein["sequence"],
+                    "pair_identity": None,
+                    "pair_source": "set_target",
                 }
             )
 
-    sized = [p for p in pairs
-             if MIN_TOTAL_RESIDUES <= len(p["seq_1"]) + len(p["seq_2"]) <= MAX_TOTAL_RESIDUES]
+    sized = [
+        p
+        for p in pairs
+        if MIN_TOTAL_RESIDUES <= len(p["seq_1"]) + len(p["seq_2"]) <= MAX_TOTAL_RESIDUES
+    ]
     dropped_size = len(pairs) - len(sized)
     sized.sort(key=lambda p: len(p["seq_1"]) + len(p["seq_2"]))
     if config.max_pairs_per_proposal:
@@ -208,7 +248,9 @@ def ta_cofold_constraint(
         for pair in pairs:
             job = job_name_for("cofold", [pair["seq_1"], pair["seq_2"]])
             metrics = score_complex(
-                chain_a=pair["seq_1"], chain_b=pair["seq_2"], job_name=job,
+                chain_a=pair["seq_1"],
+                chain_b=pair["seq_2"],
+                job_name=job,
                 run_config=config.alphafold3,
                 pdockq2_distance_cutoff=config.pdockq2_distance_cutoff,
             )
@@ -221,12 +263,17 @@ def ta_cofold_constraint(
             scored.append({**pair, **metrics, "passed_gates": ok})
 
         if dropped:
-            logger.info("ta_cofold: dropped %d pair(s) above %.0f%% identity",
-                        dropped, config.max_pair_identity)
+            logger.info(
+                "ta_cofold: dropped %d pair(s) above %.0f%% identity",
+                dropped,
+                config.max_pair_identity,
+            )
         if dropped_size:
             logger.info(
                 "ta_cofold: dropped %d pair(s) outside %d-%d total residues",
-                dropped_size, MIN_TOTAL_RESIDUES, MAX_TOTAL_RESIDUES,
+                dropped_size,
+                MIN_TOTAL_RESIDUES,
+                MAX_TOTAL_RESIDUES,
             )
         if proteins and not pairs:
             print(
@@ -291,7 +338,8 @@ def apply_novelty_filter(
     out["is_novel"] = out["max_top_identity"] < max_identity
     logger.info(
         "Novelty: %d/%d pair(s) below %.0f%% identity to the reference set",
-        int(out["is_novel"].sum()), len(out), max_identity,
+        int(out["is_novel"].sum()),
+        len(out),
+        max_identity,
     )
     return out
-

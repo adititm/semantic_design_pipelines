@@ -52,6 +52,15 @@ A proposal whose ORFs all score below threshold still folds its single best
 ORF, so a weak generation yields a structure rather than looking like a
 pipeline failure.
 
+## 3b. Profile-HMM filter (`profile_hmm`, TA pipeline only)
+
+| key | default | effect of changing it |
+| --- | --- | --- |
+| `hmm_min_matching_proteins` | `1` | A proposal must contain at least one protein hitting a TA family, or it is rejected. **This gates**, unlike the Acr HMM, because Pfam covers TA families well while most Acrs hit no family at all. |
+| `hmm_evalue_threshold` | `1.0` | Permissive; the family set is specific enough that recall binds. |
+| `hmm_annotate_only` | `false` | `true` records hits without rejecting anything. |
+| `hmm_required_profiles` | `[]` | Restrict to named families; empty accepts any TA family. |
+
 ## 4. Structure screen (`af3_monomer_screen`)
 
 AlphaFold 3 folds the survivors; low-confidence folds stop being candidates.
@@ -100,6 +109,25 @@ relevant comparison:
 The held-out figure uses 19 Acrs never involved in any derivation, so there
 is no generalisation gap on natural sequence. Performance on *generated*
 sequence is uncharacterised — there is no labelled set for it.
+
+## 5b. Pairing and cofold (`ta_cofold`, TA pipeline only)
+
+Surviving chains are enumerated into pairs and cofolded; the interface is
+scored with pDockQ2, ipTM, pTM and average pLDDT. Unlike the Acr callers,
+this gate genuinely discriminates, so it rejects rather than only ranking.
+
+| key | default | effect of changing it |
+| --- | --- | --- |
+| `cofold_min_iptm` | `0.55` | Placed by gap, not optimum: de novo positives sit at 0.74-0.86 and rejects at 0.19-0.31, so any cut in ~[0.32, 0.74] scores identically. 0.70 would leave +0.04 to the nearest functional pair, below the seed-to-seed variation, so it would reject on noise. |
+| `cofold_min_avg_plddt` | `80.0` | Free in false-negative terms -- discards no confirmed-functional pair that the pDockQ2 gate keeps, while halving cross-family admissions. |
+| `cofold_min_passing_pairs` | `1` | Pairs a proposal needs to be accepted. |
+| `cofold_max_pairs_per_proposal` | `6` | Pair count grows quadratically with surviving chains and cofolding is the most expensive step; this caps it. |
+| `max_pair_identity` | `70.0` | Drops pairs whose chains are near-copies of each other. |
+| `novelty_max_identity` | `75.0` | Drops candidates too close to natural TA proteins, so a pass is not a rediscovery. |
+
+Same-family non-cognate pairs pass at 12/20 — the gate separates TA-like
+from not-TA-like, **not cognate from non-cognate**. See
+[T2TA_PIPELINE.md](T2TA_PIPELINE.md).
 
 ## 6. Ranking
 

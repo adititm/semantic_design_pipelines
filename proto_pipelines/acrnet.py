@@ -77,11 +77,23 @@ def _run_raptorx(args: tuple[str, str, str, str]) -> tuple[str, str, str, str]:
     fasta.write_text(f">{protein_id}\n{sequence}\n")
     try:
         subprocess.run(
-            ["bash", str(Path(home) / "Predict_Property.sh"), "-i", str(fasta), "-o", str(out)],
-            check=True, capture_output=True, timeout=300, cwd=home,
+            [
+                "bash",
+                str(Path(home) / "Predict_Property.sh"),
+                "-i",
+                str(fasta),
+                "-o",
+                str(out),
+            ],
+            check=True,
+            capture_output=True,
+            timeout=300,
+            cwd=home,
         )
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
-        logger.warning("Predict_Property failed for %s: %s", protein_id, type(error).__name__)
+        logger.warning(
+            "Predict_Property failed for %s: %s", protein_id, type(error).__name__
+        )
         return protein_id, "", "", ""
     return (
         protein_id,
@@ -110,10 +122,26 @@ def _run_psiblast(args: tuple[str, str, str, str, str, int]) -> tuple[str, str]:
     fasta.write_text(f">{protein_id}\n{sequence}\n")
     try:
         subprocess.run(
-            [binary, "-query", str(fasta), "-db", database, "-num_iterations", "3",
-             "-out_ascii_pssm", str(pssm), "-out", "/dev/null",
-             "-num_threads", str(threads), "-evalue", "0.001"],
-            check=True, capture_output=True, timeout=600,
+            [
+                binary,
+                "-query",
+                str(fasta),
+                "-db",
+                database,
+                "-num_iterations",
+                "3",
+                "-out_ascii_pssm",
+                str(pssm),
+                "-out",
+                "/dev/null",
+                "-num_threads",
+                str(threads),
+                "-evalue",
+                "0.001",
+            ],
+            check=True,
+            capture_output=True,
+            timeout=600,
         )
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
         logger.warning("psiblast failed for %s: %s", protein_id, type(error).__name__)
@@ -155,21 +183,36 @@ def extract_features(
     out: dict[str, dict[str, Any]] = {}
     with tempfile.TemporaryDirectory() as work:
         with ProcessPoolExecutor(max_workers=workers) as pool:
-            jobs = [(p["protein_id"], p["sequence"], predict_property_home, work)
-                    for p in proteins]
+            jobs = [
+                (p["protein_id"], p["sequence"], predict_property_home, work)
+                for p in proteins
+            ]
             for protein_id, ss3, ss8, acc in pool.map(_run_raptorx, jobs):
                 if ss3:
-                    out[protein_id] = {"ss3": ss3, "ss8": ss8, "acc": acc,
-                                       "pssm": np.zeros(1110, dtype="float32")}
+                    out[protein_id] = {
+                        "ss3": ss3,
+                        "ss8": ss8,
+                        "acc": acc,
+                        "pssm": np.zeros(1110, dtype="float32"),
+                    }
         logger.info("RaptorX: %d/%d proteins", len(out), len(proteins))
 
         if psiblast_bin and blast_db:
             import pssmpro.features as descriptors
 
             with ProcessPoolExecutor(max_workers=workers) as pool:
-                jobs = [(p["protein_id"], p["sequence"], psiblast_bin, blast_db,
-                         work, psiblast_threads)
-                        for p in proteins if p["protein_id"] in out]
+                jobs = [
+                    (
+                        p["protein_id"],
+                        p["sequence"],
+                        psiblast_bin,
+                        blast_db,
+                        work,
+                        psiblast_threads,
+                    )
+                    for p in proteins
+                    if p["protein_id"] in out
+                ]
                 built = 0
                 for protein_id, path in pool.map(_run_psiblast, jobs):
                     if not path:
@@ -178,17 +221,23 @@ def extract_features(
                         # not be silent -- it costs ~0.10 accuracy.
                         logger.warning(
                             "PSI-BLAST produced no PSSM for %s; its PSSM block "
-                            "stays zeroed", protein_id,
+                            "stays zeroed",
+                            protein_id,
                         )
                         continue
                     matrix = descriptors.read_pssm_matrix(path)
-                    out[protein_id]["pssm"] = np.concatenate([
-                        np.asarray(getattr(descriptors, d)(matrix)).ravel()
-                        for d in PSSM_DESCRIPTORS
-                    ])
+                    out[protein_id]["pssm"] = np.concatenate(
+                        [
+                            np.asarray(getattr(descriptors, d)(matrix)).ravel()
+                            for d in PSSM_DESCRIPTORS
+                        ]
+                    )
                     built += 1
-            logger.info("PSI-BLAST: %d/%d PSSMs (no hits leaves the block zeroed)",
-                        built, len(out))
+            logger.info(
+                "PSI-BLAST: %d/%d PSSMs (no hits leaves the block zeroed)",
+                built,
+                len(out),
+            )
 
     if out:
         import esm as esm_lib
@@ -213,7 +262,9 @@ def extract_features(
             batch = [(i, by_id[i][:1022]) for i in chunk]
             _, _, tokens = convert(batch)
             with torch.no_grad():
-                reps = model(tokens.to(esm_device), repr_layers=[33])["representations"][33]
+                reps = model(tokens.to(esm_device), repr_layers=[33])[
+                    "representations"
+                ][33]
             for row, (protein_id, sequence) in enumerate(batch):
                 out[protein_id]["embedding"] = (
                     reps[row, 1 : len(sequence) + 1].mean(0).cpu().numpy()
@@ -221,7 +272,9 @@ def extract_features(
     return out
 
 
-def score(features: dict[str, dict[str, Any]], model_checkpoint: str) -> dict[str, float]:
+def score(
+    features: dict[str, dict[str, Any]], model_checkpoint: str
+) -> dict[str, float]:
     """Run AcrNET over pre-extracted features.
 
     Args:
@@ -267,7 +320,9 @@ def score(features: dict[str, dict[str, Any]], model_checkpoint: str) -> dict[st
     # IndexError; each protein is duplicated and the copy discarded.
     def one_hot(rows: list[Any], classes: int) -> Any:
         padded = pad_sequence(rows, batch_first=True)
-        return functional.one_hot(torch.unsqueeze(padded, 1), num_classes=classes).float()
+        return functional.one_hot(
+            torch.unsqueeze(padded, 1), num_classes=classes
+        ).float()
 
     for protein_id in ids:
         f = features[protein_id]

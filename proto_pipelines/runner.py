@@ -200,8 +200,6 @@ def _build_generator(prompt: Prompt, settings: GenerationSettings) -> Any:
     raise ValueError(f"generator must be 'evo1' or 'evo2', got {settings.generator!r}")
 
 
-
-
 def _records_from_history(optimizer: Any, prompt_id: str) -> list[ProposalRecord]:
     """Turn the optimizer's proposal history into ``ProposalRecord`` objects.
 
@@ -228,8 +226,10 @@ def _records_from_history(optimizer: Any, prompt_id: str) -> list[ProposalRecord
             records[index] = ProposalRecord(
                 prompt_id=prompt_id,
                 proposal_index=index,
-                outcome="accepted" if proposal.get("accepted") else str(
-                    proposal.get("rejected_by") or "rejected"
+                outcome=(
+                    "accepted"
+                    if proposal.get("accepted")
+                    else str(proposal.get("rejected_by") or "rejected")
                 ),
                 dna=segment_data.get("sequence") or "",
                 energy=proposal.get("energy_score"),
@@ -265,7 +265,9 @@ def run_prompt(
         proposal order.
     """
     segment_length = (
-        len(prompt.sequence) + settings.n_tokens if settings.prepend_prompt else settings.n_tokens
+        len(prompt.sequence) + settings.n_tokens
+        if settings.prepend_prompt
+        else settings.n_tokens
     )
     segment = Segment(length=segment_length, sequence_type="dna", label=segment_label)
     construct = Construct([segment], label=f"{segment_label}_construct")
@@ -334,7 +336,6 @@ def _shared_compute() -> AbstractContextManager[Any]:
     return ToolPool()
 
 
-
 def _append_checkpoint(path: Path | None, records: list[ProposalRecord]) -> None:
     """Append one prompt's proposals to the checkpoint file as JSON lines.
 
@@ -353,15 +354,21 @@ def _append_checkpoint(path: Path | None, records: list[ProposalRecord]) -> None
         path.parent.mkdir(parents=True, exist_ok=True)
         with path.open("a") as handle:
             for record in records:
-                handle.write(json.dumps({
-                    "prompt_id": record.prompt_id,
-                    "proposal_index": record.proposal_index,
-                    "outcome": record.outcome,
-                    "accepted": record.accepted,
-                    "energy": record.energy,
-                    "dna": record.dna,
-                    "constraints": record.constraint_data,
-                }, default=str) + "\n")
+                handle.write(
+                    json.dumps(
+                        {
+                            "prompt_id": record.prompt_id,
+                            "proposal_index": record.proposal_index,
+                            "outcome": record.outcome,
+                            "accepted": record.accepted,
+                            "energy": record.energy,
+                            "dna": record.dna,
+                            "constraints": record.constraint_data,
+                        },
+                        default=str,
+                    )
+                    + "\n"
+                )
     except OSError as error:
         print(f"WARNING: could not append to checkpoint {path}: {error}")
 
@@ -407,7 +414,10 @@ def run_prompts(
             _append_checkpoint(checkpoint_path, fresh)
 
     accepted = sum(1 for record in records if record.accepted)
-    print(f"Screened {len(records)} proposal(s); {accepted} passed every filter", flush=True)
+    print(
+        f"Screened {len(records)} proposal(s); {accepted} passed every filter",
+        flush=True,
+    )
     if records and accepted == 0:
         print(
             "WARNING: every proposal was rejected. See the filter diagnostics "

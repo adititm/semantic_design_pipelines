@@ -54,10 +54,18 @@ def main() -> None:
     """Rank candidates and report expected yield at each cut."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--evidence", required=True, type=Path,
-                        help="acr_evidence.csv from a pipeline run.")
-    parser.add_argument("--prior", type=float, default=0.05,
-                        help="Expected fraction of real Acrs among candidates.")
+    parser.add_argument(
+        "--evidence",
+        required=True,
+        type=Path,
+        help="acr_evidence.csv from a pipeline run.",
+    )
+    parser.add_argument(
+        "--prior",
+        type=float,
+        default=0.05,
+        help="Expected fraction of real Acrs among candidates.",
+    )
     parser.add_argument("--calibration", type=Path, default=CALIBRATION)
     parser.add_argument("--out", required=True, type=Path)
     args = parser.parse_args()
@@ -66,11 +74,10 @@ def main() -> None:
     model = json.loads(args.calibration.read_text())
     calibrated = np.interp(
         frame["acr_locus_score"].fillna(0.0),
-        model["raw_score"], model["calibrated_precision"],
+        model["raw_score"],
+        model["calibrated_precision"],
     )
-    frame["p_acr"] = rescale_prior(
-        calibrated, model["calibration_prior"], args.prior
-    )
+    frame["p_acr"] = rescale_prior(calibrated, model["calibration_prior"], args.prior)
     # A tier-1 HMM hit is categorically stronger than any tier-2 rank: it had
     # zero false positives across 191 negatives, so it sorts above everything.
     frame["tier_rank"] = (frame.get("acr_tier", "divergent") != "hmm_hit").astype(int)
@@ -81,16 +88,20 @@ def main() -> None:
     frame.to_csv(args.out, index=False)
 
     hmm_hits = int((frame["tier_rank"] == 0).sum())
-    print(f"\n  {len(frame)} candidates, prior {args.prior:.0%}, "
-          f"{hmm_hits} with an HMM hit (accept directly)")
+    print(
+        f"\n  {len(frame)} candidates, prior {args.prior:.0%}, "
+        f"{hmm_hits} with an HMM hit (accept directly)"
+    )
     print(f"  {'take top':>9} {'expected true Acrs':>19} {'expected precision':>19}")
     for k in (5, 10, 20, 50, len(frame)):
         if k > len(frame):
             continue
         expected = frame["expected_true_acrs_by_here"].iloc[k - 1]
         print(f"  {k:>9} {expected:>19.1f} {expected / k:>18.0%}")
-    print("\n  Choose k by the yield you are willing to test, not by a score "
-          "cutoff:\n  the calibration shows thresholds do not transfer across runs.")
+    print(
+        "\n  Choose k by the yield you are willing to test, not by a score "
+        "cutoff:\n  the calibration shows thresholds do not transfer across runs."
+    )
 
 
 if __name__ == "__main__":

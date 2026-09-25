@@ -67,7 +67,10 @@ class ProfileHMMFilterConfig(BaseConfig):
         description="Profile names that must be hit; empty means any hit counts.",
     )
     min_matching_proteins: int = ConfigField(
-        default=1, ge=1, title="Minimum Matching Proteins", description="Proteins needing a hit."
+        default=1,
+        ge=1,
+        title="Minimum Matching Proteins",
+        description="Proteins needing a hit.",
     )
     annotate_only: bool = ConfigField(
         default=False,
@@ -150,7 +153,9 @@ def profile_hmm_filter_constraint(
                 f"profile_hmm_filter: no metadata from {config.qc_constraint_label!r}; "
                 "declare the QC constraint before this filter."
             )
-        proteins: list[dict[str, Any]] = qc_entry.get("data", {}).get("qc_proteins") or []
+        proteins: list[dict[str, Any]] = (
+            qc_entry.get("data", {}).get("qc_proteins") or []
+        )
 
         per_protein: list[dict[str, Any]] = []
         matching = 0

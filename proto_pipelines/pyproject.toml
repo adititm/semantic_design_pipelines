@@ -62,6 +62,10 @@ proto_pipelines = [
     "calibration/data/ta_families.hmm",
 ]
 
+[tool.black]
+line-length = 88
+extend-exclude = "archive|calibration/results|outputs"
+
 [tool.ruff]
 line-length = 88
 extend-exclude = ["archive", "calibration/results", "outputs"]

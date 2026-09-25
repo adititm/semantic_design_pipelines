@@ -84,7 +84,9 @@ def read_prompts(path: str | Path) -> list[Prompt]:
                 Prompt(
                     index=index,
                     sequence=sequence,
-                    fields={key: (value or "").strip() for key, value in row.items() if key},
+                    fields={
+                        key: (value or "").strip() for key, value in row.items() if key
+                    },
                 )
             )
 

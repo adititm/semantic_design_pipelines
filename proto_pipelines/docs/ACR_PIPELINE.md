@@ -4,8 +4,7 @@ The published workflow called anti-CRISPRs with PaCRISPR. **PaCRISPR is no
 longer available** -- a web server with no offline release, not part of the
 published code -- so that step cannot be reproduced as written. It is
 replaced here by five callers that run offline. The fitted models they use
-are in `data/models/acr/` and are loaded directly; how they were
-derived is not part of this repository.
+are in `data/models/acr/` and are loaded directly; how they were derived is not part of this repository.
 
     python -m proto_pipelines.pipelines.acr_sample \
         --config proto_pipelines/configs/acr_sample.yaml

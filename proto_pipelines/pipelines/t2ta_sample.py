@@ -179,7 +179,11 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
     targets: dict[str, str] = {}
     if data.get("cofold_target_fasta"):
         from proto_pipelines.calibration.build_tadb_set import read_fasta
-        targets = {h.split()[0]: v for h, v in read_fasta(Path(data["cofold_target_fasta"])).items()}
+
+        targets = {
+            h.split()[0]: v
+            for h, v in read_fasta(Path(data["cofold_target_fasta"])).items()
+        }
         logger.info("Cofolding against %d fixed target(s)", len(targets))
     cofold_config = TACofoldConfig(
         source_constraint_label=AF3_LABEL if run_af3 else QC_LABEL,
@@ -198,8 +202,11 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
             msa_device=data.get("af3_msa_device", "cuda"),
             num_recycles=int(data.get("cofold_af3_num_recycles", 10)),
             num_diffusion_samples=int(data.get("cofold_af3_num_diffusion_samples", 5)),
-            output_dir=(str(output_dir / "af3_complexes")
-                        if data.get("cofold_af3_save_structures", True) else None),
+            output_dir=(
+                str(output_dir / "af3_complexes")
+                if data.get("cofold_af3_save_structures", True)
+                else None
+            ),
             device=data.get("device", "cuda"),
             verbose=bool(data.get("verbose", False)),
         ),
@@ -342,14 +349,20 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
         passing = pairs[pairs["passed_gates"]]
         passing.to_csv(output_dir / "cofold_high_confidence.csv", index=False)
         write_fasta(
-            (e for row in passing.itertuples()
-             for e in ((f"{row.uid_1} pdockq2={row.pdockq2:.3f}", row.seq_1),
-                       (f"{row.uid_2} pdockq2={row.pdockq2:.3f}", row.seq_2))),
+            (
+                e
+                for row in passing.itertuples()
+                for e in (
+                    (f"{row.uid_1} pdockq2={row.pdockq2:.3f}", row.seq_1),
+                    (f"{row.uid_2} pdockq2={row.pdockq2:.3f}", row.seq_2),
+                )
+            ),
             output_dir / "cofold_high_confidence.fasta",
         )
         logger.info(
             "Cofolded %d pair(s); %d passed all gates (pDockQ2/ipTM/pLDDT)",
-            len(pairs), int(pairs["passed_gates"].sum()),
+            len(pairs),
+            int(pairs["passed_gates"].sum()),
         )
     else:
         print(
@@ -368,16 +381,24 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
     if novelty_db and not pairs.empty and pairs["passed_gates"].any():
         gated = apply_novelty_filter(
             pairs[pairs["passed_gates"]].rename(
-                columns={"seq_1": "sequence_1", "seq_2": "sequence_2"}),
-            str(novelty_db), float(data.get("novelty_max_identity", 75.0)),
+                columns={"seq_1": "sequence_1", "seq_2": "sequence_2"}
+            ),
+            str(novelty_db),
+            float(data.get("novelty_max_identity", 75.0)),
         )
         gated.to_csv(output_dir / "cofold_gated_with_novelty.csv", index=False)
-        logger.info("Novelty: %d/%d gated pair(s) below %.0f%% identity",
-                    int(gated["is_novel"].sum()), len(gated),
-                    float(data.get("novelty_max_identity", 75.0)))
+        logger.info(
+            "Novelty: %d/%d gated pair(s) below %.0f%% identity",
+            int(gated["is_novel"].sum()),
+            len(gated),
+            float(data.get("novelty_max_identity", 75.0)),
+        )
 
     logger.info(
-        "Wrote %d protein(s) and %d scored pair(s) to %s", len(proteins), len(pairs), output_dir
+        "Wrote %d protein(s) and %d scored pair(s) to %s",
+        len(proteins),
+        len(pairs),
+        output_dir,
     )
     logger.info(
         "These gates filter for a plausible predicted complex, NOT a functional "
@@ -388,12 +409,13 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
     )
 
 
-
 def main() -> None:
     """Parse ``--config`` and run the pipeline."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--config", required=True, help="Path to the pipeline YAML config.")
+    parser.add_argument(
+        "--config", required=True, help="Path to the pipeline YAML config."
+    )
     parser.add_argument(
         "--output-root",
         default=None,

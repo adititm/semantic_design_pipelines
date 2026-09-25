@@ -117,7 +117,9 @@ def read_reference_fasta(path: Path) -> tuple[dict[str, str], dict[str, str]]:
         by_id[record.id] = sequence
         description = record.description.lower()
         keys = {record.id.lower(), description}
-        keys.update(token.strip("[](),") for token in description.replace("/", " ").split())
+        keys.update(
+            token.strip("[](),") for token in description.replace("/", " ").split()
+        )
         for key in keys:
             if key and key not in by_label:
                 by_label[key] = sequence
@@ -316,7 +318,9 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
             "top_k": settings.top_k,
         },
     )
-    summary = write_filter_summary(records, [QC_LABEL], output_dir / "filter_summary.csv")
+    summary = write_filter_summary(
+        records, [QC_LABEL], output_dir / "filter_summary.csv"
+    )
     write_hmm_hits(records, output_dir / "hmm_hits.csv")
     write_raw_metadata(records, output_dir / "raw_metadata.json")
     stages = write_stage_tables(records, output_dir)
@@ -333,7 +337,9 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
         logger.info("run_identity_analysis is false; stopping after generation.")
         return
 
-    reference_by_id, reference_by_label = read_reference_fasta(Path(data["reference_seqs"]))
+    reference_by_id, reference_by_label = read_reference_fasta(
+        Path(data["reference_seqs"])
+    )
     results = score_identities(
         records,
         prompts,
@@ -358,7 +364,9 @@ def main() -> None:
     """Parse ``--config`` and run the pipeline."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--config", required=True, help="Path to the pipeline YAML config.")
+    parser.add_argument(
+        "--config", required=True, help="Path to the pipeline YAML config."
+    )
     parser.add_argument(
         "--output-root",
         default=None,

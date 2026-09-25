@@ -77,7 +77,6 @@ def load_yaml(path: str | Path, *, allowed_keys: set[str]) -> dict[str, Any]:
     return data
 
 
-
 #: Env var overriding where every run writes, without editing any config.
 OUTPUT_ROOT_ENV = "PROTO_PIPELINES_OUTPUT_ROOT"
 
@@ -116,7 +115,9 @@ def resolve_output_dir(data: dict[str, Any], *, cli_root: str | None = None) -> 
     return Path(root).expanduser() / name
 
 
-def generation_settings(data: dict[str, Any], *, prepend_prompt: bool) -> GenerationSettings:
+def generation_settings(
+    data: dict[str, Any], *, prepend_prompt: bool
+) -> GenerationSettings:
     """Build :class:`GenerationSettings` from a parsed config mapping.
 
     Args:
@@ -169,7 +170,9 @@ def af3_run_config(
         num_diffusion_samples=int(data.get("af3_num_diffusion_samples", 5)),
         seeds=list(data.get("af3_seeds", [0])),
         output_dir=(
-            str(output_dir / subdirectory) if data.get("af3_save_structures", True) else None
+            str(output_dir / subdirectory)
+            if data.get("af3_save_structures", True)
+            else None
         ),
         device=data.get("device", "cuda"),
         verbose=bool(data.get("verbose", False)),

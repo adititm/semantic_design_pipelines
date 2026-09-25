@@ -38,7 +38,10 @@ def original_is_highly_repetitive(seq, min_repeat_length=3, threshold=0.3):
     for k in range(min_repeat_length, min_repeat_length + 7):
         kmers = np.lib.stride_tricks.sliding_window_view(seq_array, k)
         kmer_strings = ["".join(kmer) for kmer in kmers]
-        if kmer_strings and max(Counter(kmer_strings).values()) * k > seq_len * threshold:
+        if (
+            kmer_strings
+            and max(Counter(kmer_strings).values()) * k > seq_len * threshold
+        ):
             return True
     return False
 
@@ -71,7 +74,9 @@ def original_pdockq(pdb: str):
         if not line.startswith("ATOM"):
             continue
         rec = parse_atm_record(line)
-        if rec["atm_name"] == "CB" or (rec["atm_name"] == "CA" and rec["res_name"] == "GLY"):
+        if rec["atm_name"] == "CB" or (
+            rec["atm_name"] == "CA" and rec["res_name"] == "GLY"
+        ):
             chain_coords[rec["chain"]].append(list(rec["coords"]))
             plddt_dict.setdefault(f"{rec['chain']}{rec['res_no']}", []).append(rec["B"])
     plddt = np.array([np.mean(v) for v in plddt_dict.values()])
@@ -90,7 +95,9 @@ def original_pdockq(pdb: str):
         return 0.0
     avg_if_plddt = float(
         np.average(
-            np.concatenate([plddt[np.unique(contacts[:, 0])], plddt[np.unique(contacts[:, 1])]])
+            np.concatenate(
+                [plddt[np.unique(contacts[:, 0])], plddt[np.unique(contacts[:, 1])]]
+            )
         )
     )
     x = avg_if_plddt * np.log10(contacts.shape[0] + 1)
@@ -154,11 +161,21 @@ def make_two_chain_pdb(separation: float, bfactor: float) -> str:
     lines = []
     serial = 1
     for index in range(6):
-        lines.append(_atom(serial, "CB", "ALA", "A", index + 1, (index * 3.8, 0.0, 0.0), bfactor))
+        lines.append(
+            _atom(serial, "CB", "ALA", "A", index + 1, (index * 3.8, 0.0, 0.0), bfactor)
+        )
         serial += 1
     for index in range(6):
         lines.append(
-            _atom(serial, "CB", "ALA", "B", index + 1, (index * 3.8, separation, 0.0), bfactor)
+            _atom(
+                serial,
+                "CB",
+                "ALA",
+                "B",
+                index + 1,
+                (index * 3.8, separation, 0.0),
+                bfactor,
+            )
         )
         serial += 1
     return "\n".join(lines) + "\n"
@@ -176,9 +193,13 @@ def check_repetitiveness() -> list[str]:
         here = is_highly_repetitive(sequence)
         published = original_is_highly_repetitive(sequence)
         if here != published:
-            failures.append(f"repetitive: here={here} published={published} for {sequence[:20]}")
+            failures.append(
+                f"repetitive: here={here} published={published} for {sequence[:20]}"
+            )
         if here != expected:
-            failures.append(f"repetitive: got {here}, expected {expected} for {sequence[:20]}")
+            failures.append(
+                f"repetitive: got {here}, expected {expected} for {sequence[:20]}"
+            )
     return failures
 
 
@@ -207,7 +228,11 @@ def check_pdockq() -> list[str]:
     scorer that returned a constant would pass the positive case.
     """
     failures = []
-    cases = [("contacting", 6.0, 90.0), ("separated", 20.0, 90.0), ("low-confidence", 6.0, 30.0)]
+    cases = [
+        ("contacting", 6.0, 90.0),
+        ("separated", 20.0, 90.0),
+        ("low-confidence", 6.0, 30.0),
+    ]
     for name, separation, bfactor in cases:
         pdb = make_two_chain_pdb(separation, bfactor)
         here = pdockq_v1(pdb)["pdockq_v1"]
@@ -215,9 +240,13 @@ def check_pdockq() -> list[str]:
         if abs(here - published) > 1e-9:
             failures.append(f"pdockq[{name}]: here={here!r} published={published!r}")
         if name == "separated" and here != 0.0:
-            failures.append(f"pdockq[separated]: expected 0.0 for a non-interface, got {here!r}")
+            failures.append(
+                f"pdockq[separated]: expected 0.0 for a non-interface, got {here!r}"
+            )
         if name == "contacting" and here <= 0.0:
-            failures.append(f"pdockq[contacting]: expected a positive score, got {here!r}")
+            failures.append(
+                f"pdockq[contacting]: expected a positive score, got {here!r}"
+            )
     return failures
 
 
@@ -254,7 +283,9 @@ def check_configs() -> list[str]:
         retired_path = Path(handle.name)
     try:
         load_yaml(retired_path, allowed_keys=t2ta_sample.ALLOWED_KEYS)
-        failures.append("config: a retired 'plddt_threshold' key was accepted; it must be rejected")
+        failures.append(
+            "config: a retired 'plddt_threshold' key was accepted; it must be rejected"
+        )
     except ValueError:
         pass
     finally:
@@ -288,10 +319,18 @@ def check_accepted_proteins() -> list[str]:
         },
     )
     qc_only = ProposalRecord(
-        "p0", 1, "accepted", "ACGT", constraint_data={"protein_qc": {"qc_proteins": [protein]}}
+        "p0",
+        1,
+        "accepted",
+        "ACGT",
+        constraint_data={"protein_qc": {"qc_proteins": [protein]}},
     )
     rejected = ProposalRecord(
-        "p0", 2, "protein_qc", "ACGT", constraint_data={"protein_qc": {"qc_proteins": [protein]}}
+        "p0",
+        2,
+        "protein_qc",
+        "ACGT",
+        constraint_data={"protein_qc": {"qc_proteins": [protein]}},
     )
 
     failures = []
@@ -333,8 +372,12 @@ def check_auroc() -> list[str]:
         return float(wins / (positives.size * negatives.size))
 
     def youden_threshold(positives, negatives):
-        best = {"threshold": float("nan"), "sensitivity": 0.0,
-                "specificity": 0.0, "youden_j": -1.0}
+        best = {
+            "threshold": float("nan"),
+            "sensitivity": 0.0,
+            "specificity": 0.0,
+            "youden_j": -1.0,
+        }
         if positives.size == 0 or negatives.size == 0:
             return best
         for cutoff in np.unique(np.concatenate([positives, negatives])):
@@ -342,8 +385,12 @@ def check_auroc() -> list[str]:
             specificity = float((negatives < cutoff).mean())
             j = sensitivity + specificity - 1.0
             if j > best["youden_j"]:
-                best = {"threshold": float(cutoff), "sensitivity": sensitivity,
-                        "specificity": specificity, "youden_j": j}
+                best = {
+                    "threshold": float(cutoff),
+                    "sensitivity": sensitivity,
+                    "specificity": specificity,
+                    "youden_j": j,
+                }
         return best
 
     cases = [
@@ -388,12 +435,18 @@ def check_reporting() -> list[str]:
     from proto_pipelines.runner import ProposalRecord
 
     records = [
-        ProposalRecord("p0", 0, "accepted", "ACGT", constraint_data={"qc": {}, "af3": {}}),
+        ProposalRecord(
+            "p0", 0, "accepted", "ACGT", constraint_data={"qc": {}, "af3": {}}
+        ),
         ProposalRecord("p0", 1, "qc", "ACGT", constraint_data={"qc": {}}),
         ProposalRecord("p0", 2, "af3", "ACGT", constraint_data={"qc": {}, "af3": {}}),
         # Passed every filter but lost the top-k cut: must not be blamed on a filter.
         ProposalRecord(
-            "p0", 3, "did_not_enter_top_k", "ACGT", constraint_data={"qc": {}, "af3": {}}
+            "p0",
+            3,
+            "did_not_enter_top_k",
+            "ACGT",
+            constraint_data={"qc": {}, "af3": {}},
         ),
     ]
     # A proposal the AF3 screen rejected: its folds must still be reported, or
@@ -408,8 +461,18 @@ def check_reporting() -> list[str]:
                 "af3_monomer_screen": {
                     "af3_proteins": None,
                     "af3_folded_proteins": [
-                        {"protein_id": "g1", "avg_plddt": 81.0, "ptm": 0.6, "passed_af3_screen": True},
-                        {"protein_id": "g2", "avg_plddt": 42.0, "ptm": 0.2, "passed_af3_screen": False},
+                        {
+                            "protein_id": "g1",
+                            "avg_plddt": 81.0,
+                            "ptm": 0.6,
+                            "passed_af3_screen": True,
+                        },
+                        {
+                            "protein_id": "g2",
+                            "avg_plddt": 42.0,
+                            "ptm": 0.2,
+                            "passed_af3_screen": False,
+                        },
                     ],
                 }
             },
@@ -418,14 +481,20 @@ def check_reporting() -> list[str]:
     expected = {
         "qc": {"evaluated": 4, "rejected": 1, "passed": 3},
         "af3": {"evaluated": 3, "rejected": 1, "passed": 2},
-        "(non-filter) did_not_enter_top_k": {"evaluated": 1, "rejected": 1, "passed": 0},
+        "(non-filter) did_not_enter_top_k": {
+            "evaluated": 1,
+            "rejected": 1,
+            "passed": 0,
+        },
         "TOTAL": {"evaluated": 4, "rejected": 3, "passed": 1},
     }
 
     failures = []
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
-        summary = write_filter_summary(records, ["qc", "af3"], root / "filter_summary.csv")
+        summary = write_filter_summary(
+            records, ["qc", "af3"], root / "filter_summary.csv"
+        )
         for _, row in summary.iterrows():
             want = expected[row["filter"]]
             for column, value in want.items():
@@ -435,7 +504,9 @@ def check_reporting() -> list[str]:
                     )
 
         filter_rows = summary[summary["filter"] != "TOTAL"]
-        total_rejected = int(summary.loc[summary["filter"] == "TOTAL", "rejected"].iloc[0])
+        total_rejected = int(
+            summary.loc[summary["filter"] == "TOTAL", "rejected"].iloc[0]
+        )
         if int(filter_rows["rejected"].sum()) != total_rejected:
             failures.append(
                 f"per-row rejections sum to {int(filter_rows['rejected'].sum())}, "
@@ -444,22 +515,30 @@ def check_reporting() -> list[str]:
 
         table = write_proposal_table(records, root / "generated_sequences.csv")
         if len(table) != len(records):
-            failures.append(f"proposal table has {len(table)} rows, want {len(records)}")
+            failures.append(
+                f"proposal table has {len(table)} rows, want {len(records)}"
+            )
         if int(table["accepted"].sum()) != 1:
-            failures.append(f"proposal table marks {int(table['accepted'].sum())} accepted, want 1")
+            failures.append(
+                f"proposal table marks {int(table['accepted'].sum())} accepted, want 1"
+            )
         if not (root / "generated_sequences.csv").exists():
             failures.append("write_proposal_table did not write its CSV")
 
         folds = write_fold_scores(fold_records, root / "af3_fold_scores.csv")
         if len(folds) != 2:
-            failures.append(f"fold scores table has {len(folds)} rows, want 2 (pass + fail)")
+            failures.append(
+                f"fold scores table has {len(folds)} rows, want 2 (pass + fail)"
+            )
         elif int(folds["passed_af3_screen"].sum()) != 1:
             failures.append("fold scores table lost the pass/fail distinction")
         elif not (folds["avg_plddt"].iloc[0] >= folds["avg_plddt"].iloc[1]):
             failures.append("fold scores table is not sorted by pLDDT descending")
         empty = write_fold_scores([], root / "empty_folds.csv")
         if not empty.empty or not (root / "empty_folds.csv").exists():
-            failures.append("write_fold_scores must still write a file when nothing folded")
+            failures.append(
+                "write_fold_scores must still write a file when nothing folded"
+            )
     return failures
 
 
@@ -510,9 +589,7 @@ def check_filter_labels() -> list[str]:
         # Control: the same records with the label dropped must misreport.
         control = write_filter_summary(records, chain[:-1], Path(tmp) / "control.csv")
         if not control["filter"].str.contains("non-filter").any():
-            failures.append(
-                "control did not reproduce the bug; this check cannot fail"
-            )
+            failures.append("control did not reproduce the bug; this check cannot fail")
 
     return failures
 
@@ -548,13 +625,17 @@ def check_generator_prepend_parity() -> list[str]:
         )
         try:
             generator = _build_generator(prompt, settings)
-            generator.assign(Segment(length=segment_length, sequence_type="dna", label="s"))
+            generator.assign(
+                Segment(length=segment_length, sequence_type="dna", label="s")
+            )
         except Exception as error:
             failures.append(f"{family}: could not build generator: {error}")
             continue
 
         if not generator.prepend_prompt:
-            failures.append(f"{family}: prepend_prompt did not reach the generator config")
+            failures.append(
+                f"{family}: prepend_prompt did not reach the generator config"
+            )
             continue
         new_tokens = generator._compute_max_new_tokens(prompt_length, True)
         if new_tokens != n_tokens:
@@ -611,7 +692,9 @@ def check_fold_cap_keeps_hmm_hits() -> list[str]:
             proteins,
             key=lambda entry: (entry["protein_id"] not in qualifying, -entry["length"]),
         )
-        return [entry["protein_id"] for entry in ordered[: config.max_proteins_per_proposal]]
+        return [
+            entry["protein_id"] for entry in ordered[: config.max_proteins_per_proposal]
+        ]
 
     kept = keep(_Sequence(metadata))
     if "gene_2" not in kept:
@@ -656,7 +739,12 @@ def check_shipped_configs_build_generators() -> list[str]:
     failures: list[str] = []
     modules = {
         stem: importlib.import_module(f"proto_pipelines.pipelines.{stem}")
-        for stem in ("t2ta_sample", "acr_sample", "gene_completion", "operon_completion")
+        for stem in (
+            "t2ta_sample",
+            "acr_sample",
+            "gene_completion",
+            "operon_completion",
+        )
     }
     prompt = Prompt(index=0, sequence="ATG" * 30)
 
@@ -735,9 +823,26 @@ def check_acr_assets() -> list[str]:
 
     _AA = "ACDEFGHIKLMNPQRSTVWY"
     _GROUPS = {
-        "A": "1", "V": "1", "G": "1", "I": "2", "L": "2", "F": "2", "P": "2",
-        "Y": "3", "M": "3", "T": "3", "S": "3", "H": "4", "N": "4", "Q": "4",
-        "W": "4", "R": "5", "K": "5", "D": "6", "E": "6", "C": "7",
+        "A": "1",
+        "V": "1",
+        "G": "1",
+        "I": "2",
+        "L": "2",
+        "F": "2",
+        "P": "2",
+        "Y": "3",
+        "M": "3",
+        "T": "3",
+        "S": "3",
+        "H": "4",
+        "N": "4",
+        "Q": "4",
+        "W": "4",
+        "R": "5",
+        "K": "5",
+        "D": "6",
+        "E": "6",
+        "C": "7",
     }
 
     def _l2(vector):
@@ -757,15 +862,23 @@ def check_acr_assets() -> list[str]:
     def ref_features(sequence):
         length = max(len(sequence), 1)
         composition = _np.array([sequence.count(a) / length for a in _AA])
-        return _np.concatenate([
-            _l2(composition), _l2(_kmer_block(sequence, 2)), _l2(_kmer_block(sequence, 3))
-        ])
+        return _np.concatenate(
+            [
+                _l2(composition),
+                _l2(_kmer_block(sequence, 2)),
+                _l2(_kmer_block(sequence, 3)),
+            ]
+        )
 
     failures: list[str] = []
     data = Path("proto_pipelines/data/models/acr")
     model_path = data / "acr_combined_model.json"
-    for asset in ("acr_families_default.hmm", "acranker_booster.json",
-                  "acr_combined_model.json", "acr_divergent_model.json"):
+    for asset in (
+        "acr_families_default.hmm",
+        "acranker_booster.json",
+        "acr_combined_model.json",
+        "acr_divergent_model.json",
+    ):
         if not (data / asset).exists():
             failures.append(f"missing shipped Acr asset: {asset}")
     if failures:
@@ -779,8 +892,14 @@ def check_acr_assets() -> list[str]:
     # positives), so a model fit on it partly reads profilability rather than
     # Acr-likeness -- a has_pssm flag alone scored AUROC 0.825.
     expected = {
-        "acr_combined_model.json": ["hmm_score", "acranker_raw", "acranker_z",
-                                    "best_tmscore", "avg_plddt", "acrnet_pctile"],
+        "acr_combined_model.json": [
+            "hmm_score",
+            "acranker_raw",
+            "acranker_z",
+            "best_tmscore",
+            "avg_plddt",
+            "acrnet_pctile",
+        ],
         "acr_divergent_model.json": ["acranker_raw", "best_tmscore", "acrnet_pctile"],
         "acr_prescreen_model.json": ["acranker_raw", "acrnet_pctile"],
     }
@@ -792,9 +911,13 @@ def check_acr_assets() -> list[str]:
     # AcRanker features must match the calibration code exactly, or the
     # booster is being fed a different vector than it was scored with.
     sequence = "MKFIKYLSTAHLNYMNIAVYENGSKIKARVENVVNGKSVGARDFDSTEQLESWFYGLPGSGLG"
-    drift = float(np.abs(np.array(_acranker_features(sequence)) - ref_features(sequence)).max())
+    drift = float(
+        np.abs(np.array(_acranker_features(sequence)) - ref_features(sequence)).max()
+    )
     if drift > 1e-9:
-        failures.append(f"AcRanker features drifted from calibration: max|diff|={drift:.2e}")
+        failures.append(
+            f"AcRanker features drifted from calibration: max|diff|={drift:.2e}"
+        )
 
     # Control: a known Acr must outscore a random-DNA ORF of equal length.
     config = AcrEvidenceConfig(
@@ -806,12 +929,16 @@ def check_acr_assets() -> list[str]:
     )
     # A two-sequence fixture, not the calibration set: one known Acr and one
     # random ORF, which is all this control needs.
-    table = pd.read_csv(Path(__file__).resolve().parent / "fixtures/acr_control_pair.csv")
+    table = pd.read_csv(
+        Path(__file__).resolve().parent / "fixtures/acr_control_pair.csv"
+    )
     acr = table[table.seq_class == "acr"].iloc[0]
     junk = table[table.seq_class == "random_orf"].iloc[0]
     scored = score_proteins(
-        [{"protein_id": "acr", "sequence": acr.sequence, "avg_plddt": 60.0},
-         {"protein_id": "junk", "sequence": junk.sequence, "avg_plddt": 60.0}],
+        [
+            {"protein_id": "acr", "sequence": acr.sequence, "avg_plddt": 60.0},
+            {"protein_id": "junk", "sequence": junk.sequence, "avg_plddt": 60.0},
+        ],
         config,
     )
     by_id = {r["protein_id"]: r for r in scored}
@@ -855,7 +982,9 @@ def check_acrnet_batch_of_one() -> list[str]:
     length = 60
     features = {
         f"p{i}": {
-            "ss3": "C" * length, "ss8": "L" * length, "acc": "E" * length,
+            "ss3": "C" * length,
+            "ss8": "L" * length,
+            "acc": "E" * length,
             "sequence": "A" * length,
             "pssm": np.zeros(1110, dtype="float32"),
             "embedding": rng.standard_normal(1280).astype("float32"),
@@ -960,11 +1089,15 @@ def check_prescreen_fold_gating() -> list[str]:
         {"protein_id": f"gene_{i}", "acr_locus_score": s}
         for i, s in enumerate(scores, start=1)
     ]
-    sequence = _Sequence({
-        "acr_prescreen": {"data": {"acr_evidence": evidence}},
-        # gene_5 scores 0.01 but is an HMM hit, so it must survive.
-        "profile_hmm": {"data": {"hmm_hits": [{"protein_id": "gene_5", "qualifies": True}]}},
-    })
+    sequence = _Sequence(
+        {
+            "acr_prescreen": {"data": {"acr_evidence": evidence}},
+            # gene_5 scores 0.01 but is an HMM hit, so it must survive.
+            "profile_hmm": {
+                "data": {"hmm_hits": [{"protein_id": "gene_5", "qualifies": True}]}
+            },
+        }
+    )
     config = AlphaFold3MonomerScreenConfig(
         prescreen_constraint_label="acr_prescreen", prescreen_min_score=0.20
     )
@@ -972,7 +1105,8 @@ def check_prescreen_fold_gating() -> list[str]:
     prescore = _prescreen_scores(sequence, config.prescreen_constraint_label)
     qualifying = _hmm_qualifying_ids(sequence, config.hmm_constraint_label)
     kept = {
-        p["protein_id"] for p in proteins
+        p["protein_id"]
+        for p in proteins
         if prescore.get(p["protein_id"], 1.0) >= config.prescreen_min_score
         or p["protein_id"] in qualifying
     }
@@ -982,9 +1116,18 @@ def check_prescreen_fold_gating() -> list[str]:
         failures.append("an HMM-qualifying ORF was dropped by the prescreen")
 
     # Control: everything below threshold must still yield one fold.
-    weak = _Sequence({"acr_prescreen": {"data": {"acr_evidence": [
-        {"protein_id": f"g{i}", "acr_locus_score": 0.01} for i in range(3)
-    ]}}})
+    weak = _Sequence(
+        {
+            "acr_prescreen": {
+                "data": {
+                    "acr_evidence": [
+                        {"protein_id": f"g{i}", "acr_locus_score": 0.01}
+                        for i in range(3)
+                    ]
+                }
+            }
+        }
+    )
     weak_scores = _prescreen_scores(weak, "acr_prescreen")
     weak_proteins = [{"protein_id": f"g{i}"} for i in range(3)]
     survivors = [
@@ -1022,7 +1165,9 @@ def check_acrnet_tiers() -> list[str]:
     ops = json.loads(path.read_text())
 
     if set(ops.get("regimes", {})) != {"has_pssm", "no_pssm"}:
-        return [f"expected regimes has_pssm/no_pssm, got {sorted(ops.get('regimes', {}))}"]
+        return [
+            f"expected regimes has_pssm/no_pssm, got {sorted(ops.get('regimes', {}))}"
+        ]
 
     def tier_of(regime: str, score: float) -> str | None:
         for entry in ops["regimes"][regime]["tiers"]:
@@ -1039,8 +1184,8 @@ def check_acrnet_tiers() -> list[str]:
                 failures.append(f"{name}: gap between tiers at {upper} -> {lower}")
 
         ratios = [
-            t["likelihood_ratio"] for t in
-            sorted(regime["tiers"], key=lambda t: t["lower"])
+            t["likelihood_ratio"]
+            for t in sorted(regime["tiers"], key=lambda t: t["lower"])
             if t["likelihood_ratio"] is not None
         ]
         if ratios != sorted(ratios):
@@ -1094,8 +1239,12 @@ def check_acrnet_batch_invariance() -> list[str]:
 
     query = synthetic(1, 65)
     observed = []
-    for companions in ([], [synthetic(2, 70)], [synthetic(2, 800)],
-                       [synthetic(j, 80 + j * 37) for j in range(5)]):
+    for companions in (
+        [],
+        [synthetic(2, 70)],
+        [synthetic(2, 800)],
+        [synthetic(j, 80 + j * 37) for j in range(5)],
+    ):
         features = {"QUERY": query}
         features.update({f"c{j}": c for j, c in enumerate(companions)})
         observed.append(score(features, str(checkpoint))["QUERY"])
@@ -1140,36 +1289,51 @@ def check_custom_checkpoint() -> list[str]:
 
     # Evo 1 has no local_path field; setting one must raise, not be ignored.
     try:
-        _build_generator(prompt, GenerationSettings(
-            generator="evo1", model_checkpoint="evo-1.5-8k-base",
-            model_local_path="/nonexistent/weights"))
-        failures.append("evo1 + model_local_path was accepted; the path would "
-                        "be silently dropped and stock weights sampled")
+        _build_generator(
+            prompt,
+            GenerationSettings(
+                generator="evo1",
+                model_checkpoint="evo-1.5-8k-base",
+                model_local_path="/nonexistent/weights",
+            ),
+        )
+        failures.append(
+            "evo1 + model_local_path was accepted; the path would "
+            "be silently dropped and stock weights sampled"
+        )
     except ValueError:
         pass
     except Exception as error:
-        failures.append(f"evo1 + model_local_path raised {type(error).__name__}, "
-                        "expected ValueError")
+        failures.append(
+            f"evo1 + model_local_path raised {type(error).__name__}, "
+            "expected ValueError"
+        )
 
     # A file, not a directory, must raise before the tool env is reached.
     with tempfile.NamedTemporaryFile(suffix=".pt") as handle:
         try:
-            _build_generator(prompt, GenerationSettings(
-                generator="evo2", model_local_path=handle.name))
+            _build_generator(
+                prompt,
+                GenerationSettings(generator="evo2", model_local_path=handle.name),
+            )
             failures.append("model_local_path pointing at a file was accepted")
         except NotADirectoryError:
             pass
         except Exception as error:
-            failures.append(f"file path raised {type(error).__name__}, "
-                            "expected NotADirectoryError")
+            failures.append(
+                f"file path raised {type(error).__name__}, "
+                "expected NotADirectoryError"
+            )
 
     # CONTROL: unset must mean None, not "".
     settings = GenerationSettings(generator="evo2")
     if settings.model_local_path != "":
         failures.append("default model_local_path is not empty")
     if (settings.model_local_path or None) is not None:
-        failures.append("an unset model_local_path does not normalise to None; "
-                        "proto-tools would treat '' as a path")
+        failures.append(
+            "an unset model_local_path does not normalise to None; "
+            "proto-tools would treat '' as a path"
+        )
     return failures
 
 
@@ -1191,10 +1355,20 @@ def check_af3_gate_governs_candidacy() -> list[str]:
     failures: list[str] = []
     seq = "MKIAELLNRYSDGAALTQEEQAFLDGYFEQLDAQNEALSAEIAALRAQLAGKDA"
     proteins = [
-        {"protein_id": "failed", "sequence": seq, "avg_plddt": 18.0,
-         "ptm": 0.09, "passed_af3_screen": False},
-        {"protein_id": "passed", "sequence": seq, "avg_plddt": 88.0,
-         "ptm": 0.81, "passed_af3_screen": True},
+        {
+            "protein_id": "failed",
+            "sequence": seq,
+            "avg_plddt": 18.0,
+            "ptm": 0.09,
+            "passed_af3_screen": False,
+        },
+        {
+            "protein_id": "passed",
+            "sequence": seq,
+            "avg_plddt": 88.0,
+            "ptm": 0.81,
+            "passed_af3_screen": True,
+        },
         {"protein_id": "unfolded", "sequence": seq},
     ]
     config = AcrEvidenceConfig(min_score=0.0, require_af3_pass=True)

@@ -253,20 +253,23 @@ def cofold_pairs(records: list[ProposalRecord]) -> pd.DataFrame:
     for record in records:
         root_id = f"{record.prompt_id}_{record.proposal_index}"
         for pair in record.data("ta_cofold").get("cofold_pairs") or []:
-            rows.append({
-                "root_id": root_id,
-                "prompt_id": record.prompt_id,
-                "proposal_outcome": record.outcome,
-                **pair,
-            })
+            rows.append(
+                {
+                    "root_id": root_id,
+                    "prompt_id": record.prompt_id,
+                    "proposal_outcome": record.outcome,
+                    **pair,
+                }
+            )
     frame = pd.DataFrame(rows)
     if not frame.empty and "pdockq2" in frame.columns:
         frame = frame.sort_values("pdockq2", ascending=False)
     return frame
 
 
-
-def write_stage_tables(records: list[ProposalRecord], output_dir: Path) -> dict[str, int]:
+def write_stage_tables(
+    records: list[ProposalRecord], output_dir: Path
+) -> dict[str, int]:
     """Write one CSV per filtering stage, so each step is inspectable on its own.
 
     The end-of-run tables describe survivors and folds; they do not show what
@@ -299,26 +302,34 @@ def write_stage_tables(records: list[ProposalRecord], output_dir: Path) -> dict[
 
     for record in records:
         root_id = f"{record.prompt_id}_{record.proposal_index}"
-        common = {"root_id": root_id, "prompt_id": record.prompt_id,
-                  "proposal_outcome": record.outcome}
+        common = {
+            "root_id": root_id,
+            "prompt_id": record.prompt_id,
+            "proposal_outcome": record.outcome,
+        }
         qc = record.data("protein_qc")
         for orf in qc.get("qc_orfs") or []:
             orfs.append({**common, **orf})
         for protein in qc.get("qc_proteins") or []:
             qc_proteins.append({**common, **protein})
         for protein in record.data("profile_hmm").get("hmm_hits") or []:
-            hmm_proteins.append({
-                **common,
-                "protein_id": protein["protein_id"],
-                "qualifies": protein.get("qualifies"),
-                "best_profile": protein.get("best_profile"),
-                "best_evalue": protein.get("best_evalue"),
-                "n_hits": len(protein.get("hits") or []),
-            })
+            hmm_proteins.append(
+                {
+                    **common,
+                    "protein_id": protein["protein_id"],
+                    "qualifies": protein.get("qualifies"),
+                    "best_profile": protein.get("best_profile"),
+                    "best_evalue": protein.get("best_evalue"),
+                    "n_hits": len(protein.get("hits") or []),
+                }
+            )
 
     written: dict[str, int] = {}
-    for name, rows in (("orfs.csv", orfs), ("qc_proteins.csv", qc_proteins),
-                       ("hmm_proteins.csv", hmm_proteins)):
+    for name, rows in (
+        ("orfs.csv", orfs),
+        ("qc_proteins.csv", qc_proteins),
+        ("hmm_proteins.csv", hmm_proteins),
+    ):
         path = output_dir / name
         path.parent.mkdir(parents=True, exist_ok=True)
         pd.DataFrame(rows).to_csv(path, index=False)
@@ -347,20 +358,21 @@ def write_hmm_hits(records: list[ProposalRecord], path: Path) -> pd.DataFrame:
         root_id = f"{record.prompt_id}_{record.proposal_index}"
         for protein in record.data("profile_hmm").get("hmm_hits") or []:
             for hit in protein.get("hits") or []:
-                rows.append({
-                    "root_id": root_id,
-                    "proposal_outcome": record.outcome,
-                    "protein_id": protein["protein_id"],
-                    "qualifies": protein.get("qualifies"),
-                    **hit,
-                })
+                rows.append(
+                    {
+                        "root_id": root_id,
+                        "proposal_outcome": record.outcome,
+                        "protein_id": protein["protein_id"],
+                        "qualifies": protein.get("qualifies"),
+                        **hit,
+                    }
+                )
     frame = pd.DataFrame(rows)
     if not frame.empty and "evalue" in frame.columns:
         frame = frame.sort_values("evalue")
     path.parent.mkdir(parents=True, exist_ok=True)
     frame.to_csv(path, index=False)
     return frame
-
 
 
 def write_acr_evidence(records: list[ProposalRecord], path: Path) -> pd.DataFrame:
@@ -383,14 +395,19 @@ def write_acr_evidence(records: list[ProposalRecord], path: Path) -> pd.DataFram
         root_id = f"{record.prompt_id}_{record.proposal_index}"
         evidence = record.data("acr_evidence")
         for protein in evidence.get("acr_evidence") or []:
-            rows.append({
-                "root_id": root_id, "prompt_id": record.prompt_id,
-                "proposal_outcome": record.outcome,
-                # Locus-level context on every row, so a candidate can be read
-                # without joining back to the proposal.
-                "locus_has_acr_and_aca_like": evidence.get("locus_has_acr_and_aca_like"),
-                **protein,
-            })
+            rows.append(
+                {
+                    "root_id": root_id,
+                    "prompt_id": record.prompt_id,
+                    "proposal_outcome": record.outcome,
+                    # Locus-level context on every row, so a candidate can be read
+                    # without joining back to the proposal.
+                    "locus_has_acr_and_aca_like": evidence.get(
+                        "locus_has_acr_and_aca_like"
+                    ),
+                    **protein,
+                }
+            )
     frame = pd.DataFrame(rows)
     if not frame.empty and "acr_locus_score" in frame.columns:
         frame = frame.sort_values("acr_locus_score", ascending=False)
