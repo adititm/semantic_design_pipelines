@@ -209,7 +209,14 @@ def prodigal_protein_qc_constraint(
         # generation yields nothing.
         verdicts: list[dict[str, Any]] = []
 
-        def _reject(orf: Any, protein: str, reason: str) -> None:
+        # Bound as defaults rather than captured: the closure is rebuilt each
+        # iteration and only called within it, so late binding is harmless
+        # today -- but a deferred call would silently write to the next
+        # proposal's counters.
+        def _reject(
+            orf: Any, protein: str, reason: str,
+            rejections: Counter = rejections, verdicts: list = verdicts,
+        ) -> None:
             rejections[reason] += 1
             verdicts.append({
                 "protein_id": orf.orf_id, "length": len(protein), "strand": orf.strand,

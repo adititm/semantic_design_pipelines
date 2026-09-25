@@ -47,13 +47,13 @@ from proto_pipelines.identity import (
 from proto_pipelines.prompts import Prompt, read_prompts
 from proto_pipelines.qc import ProteinQCConfig, prodigal_protein_qc_constraint
 from proto_pipelines.reporting import (
-    write_stage_tables,
     accepted_proteins,
     write_fasta,
     write_filter_summary,
     write_hmm_hits,
     write_proposal_table,
     write_raw_metadata,
+    write_stage_tables,
 )
 from proto_pipelines.runner import ProposalRecord, run_prompts
 

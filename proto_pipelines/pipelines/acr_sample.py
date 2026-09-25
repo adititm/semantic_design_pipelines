@@ -26,20 +26,28 @@ import pandas as pd
 from proto_language.core import Constraint, Segment
 
 from proto_pipelines.acr import AcrEvidenceConfig, acr_evidence_constraint
-from proto_pipelines.af3 import AlphaFold3MonomerScreenConfig, af3_monomer_screen_constraint
-from proto_pipelines.config import af3_run_config, generation_settings, load_yaml, resolve_output_dir
+from proto_pipelines.af3 import (
+    AlphaFold3MonomerScreenConfig,
+    af3_monomer_screen_constraint,
+)
+from proto_pipelines.config import (
+    af3_run_config,
+    generation_settings,
+    load_yaml,
+    resolve_output_dir,
+)
 from proto_pipelines.prompts import Prompt, read_prompts
 from proto_pipelines.qc import ProteinQCConfig, prodigal_protein_qc_constraint
 from proto_pipelines.reporting import (
-    write_acr_evidence,
-    write_stage_tables,
     accepted_proteins,
+    write_acr_evidence,
     write_fasta,
     write_filter_summary,
     write_fold_scores,
     write_hmm_hits,
     write_proposal_table,
     write_raw_metadata,
+    write_stage_tables,
 )
 from proto_pipelines.runner import run_prompts
 
@@ -94,6 +102,7 @@ ALLOWED_KEYS = {
     "acrnet_device",
     "acrnet_operating_points",
     "acr_source_key",
+    "acr_require_af3_pass",
     "acr_prescreen_model",
     "acr_fold_fraction",
     "acr_prescreen_min_score",
@@ -199,11 +208,12 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
         acrnet_workers=int(data.get("acrnet_workers", 8)),
         acrnet_device=str(data.get("acrnet_device", "cuda")),
         acrnet_operating_points=str(data.get("acrnet_operating_points", "")),
+        require_af3_pass=bool(data.get("acr_require_af3_pass", True)),
         min_score=float(data.get("acr_min_score", 0.0)),
         min_qualifying_proteins=int(data.get("acr_min_qualifying_proteins", 1)),
     )
 
-    def build(segment: Segment, prompt: Prompt) -> list[Constraint]:  # noqa: ARG001
+    def build(segment: Segment, prompt: Prompt) -> list[Constraint]:
         constraints = [
             Constraint(
                 inputs=[segment],

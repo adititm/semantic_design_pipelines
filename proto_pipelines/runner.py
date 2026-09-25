@@ -27,10 +27,10 @@ from __future__ import annotations
 
 import json
 import logging
-from pathlib import Path
 from collections.abc import Callable
 from contextlib import AbstractContextManager, nullcontext
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 from proto_language.core import Constraint, Construct, Program, Segment
@@ -40,7 +40,10 @@ from proto_language.generator import (
     Evo2Generator,
     Evo2GeneratorConfig,
 )
-from proto_language.optimizer import RejectionSamplingOptimizer, RejectionSamplingOptimizerConfig
+from proto_language.optimizer import (
+    RejectionSamplingOptimizer,
+    RejectionSamplingOptimizerConfig,
+)
 
 from proto_pipelines.prompts import Prompt
 
@@ -61,7 +64,7 @@ class GenerationSettings:
             reproducing its numbers requires switching both.
         model_local_path: Directory of local Evo 2 weights, replacing the
             HuggingFace download. Use this to sample from a fine-tuned or
-            watermarked checkpoint. ``model_checkpoint`` still selects the
+            modified checkpoint. ``model_checkpoint`` still selects the
             *architecture* the weights are loaded into, so it must name the
             variant the checkpoint was derived from. Evo 2 only -- Evo 1 has
             no such hook, and setting both raises.

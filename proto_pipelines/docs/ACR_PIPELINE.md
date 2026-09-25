@@ -1,8 +1,11 @@
 # Anti-CRISPR screening pipeline
 
-Replaces the paper's PaCRISPR step with five callers that run offline. The
-fitted models they use are in `data/models/acr/` and are loaded directly;
-how they were derived is not part of this repository.
+The published workflow called anti-CRISPRs with PaCRISPR. **PaCRISPR is no
+longer available** -- a web server with no offline release, not part of the
+published code -- so that step cannot be reproduced as written. It is
+replaced here by five callers that run offline. The fitted models they use
+are in `data/models/acr/` and are loaded directly; how they were
+derived is not part of this repository.
 
     python -m proto_pipelines.pipelines.acr_sample \
         --config proto_pipelines/configs/acr_sample.yaml
@@ -103,12 +106,12 @@ calibration set's class balance, which is nothing like the fraction of real
 Acrs in a pool of generated sequence. Reading it as a probability, or
 thresholding it, will overstate.
 
-`tools/rank_candidates.py` does the conversion: isotonic calibration, then
+`utils/rank_candidates.py` does the conversion: isotonic calibration, then
 a prior-independent likelihood-ratio rescale to whatever base rate you
 actually expect.
 
 ```bash
-python -m proto_pipelines.tools.rank_candidates \
+python -m proto_pipelines.utils.rank_candidates \
     --evidence outputs/.../acr_evidence.csv --prior 0.05 --out ranked.csv
 ```
 

@@ -10,6 +10,7 @@ can only ever pass would be visible.
 
 from __future__ import annotations
 
+import itertools
 import sys
 import tempfile
 from collections import Counter, OrderedDict, defaultdict
@@ -242,7 +243,7 @@ def check_configs() -> list[str]:
         path = config_dir / f"{name}.yaml"
         try:
             load_yaml(path, allowed_keys=module.ALLOWED_KEYS)
-        except Exception as error:  # noqa: BLE001 -- the check is that it parses
+        except Exception as error:
             failures.append(f"config[{name}]: {error}")
 
     # Negative control: a config using the old ESMFold-scale key must fail.
@@ -548,7 +549,7 @@ def check_generator_prepend_parity() -> list[str]:
         try:
             generator = _build_generator(prompt, settings)
             generator.assign(Segment(length=segment_length, sequence_type="dna", label="s"))
-        except Exception as error:  # noqa: BLE001 - reported, not swallowed
+        except Exception as error:
             failures.append(f"{family}: could not build generator: {error}")
             continue
 
@@ -683,7 +684,7 @@ def check_shipped_configs_build_generators() -> list[str]:
         settings = generation_settings(parsed, prepend_prompt=False)
         try:
             _build_generator(prompt, settings)
-        except Exception as error:  # noqa: BLE001 - reported, not swallowed
+        except Exception as error:
             failures.append(
                 f"{Path(config_path).name}: generator={settings.generator} "
                 f"model_name={settings.model_checkpoint} -> {type(error).__name__}"
@@ -698,7 +699,7 @@ def check_shipped_configs_build_generators() -> list[str]:
             GenerationSettings(generator="evo2", model_checkpoint="evo-1.5-8k-base"),
         )
         failures.append("control did not reject an evo2/evo1-checkpoint mismatch")
-    except Exception:  # noqa: BLE001 - the expected outcome
+    except Exception:
         pass
 
     return failures
@@ -716,17 +717,21 @@ def check_acr_assets() -> list[str]:
     feature vector must match the calibration implementation exactly.
     """
     import json
+    from itertools import product as _product
 
-    import numpy as np
-
-    from proto_pipelines.acr import AcrEvidenceConfig, _acranker_features, score_proteins
     # AcRanker's published 412-feature construction, carried here rather than
     # imported, so the suite stays a self-contained check of the shipped
     # models. Verbatim from server2.prot_feats_seq: 20 L2-normalised amino
     # acid fractions, then 2-mer and 3-mer counts over a 7-group reduced
     # alphabet, each divided by len(seq)-1 and L2-normalised.
     import numpy as _np
-    from itertools import product as _product
+    import numpy as np
+
+    from proto_pipelines.acr import (
+        AcrEvidenceConfig,
+        _acranker_features,
+        score_proteins,
+    )
 
     _AA = "ACDEFGHIKLMNPQRSTVWY"
     _GROUPS = {
@@ -862,7 +867,7 @@ def check_acrnet_batch_of_one() -> list[str]:
         subset = {k: features[k] for k in list(features)[:size]}
         try:
             scored = score(subset, str(checkpoint))
-        except Exception as error:  # noqa: BLE001 - reported, not swallowed
+        except Exception as error:
             failures.append(f"batch of {size} raised {type(error).__name__}: {error}")
             continue
         if len(scored) != size:
@@ -1029,7 +1034,7 @@ def check_acrnet_tiers() -> list[str]:
         edges = sorted((t["lower"], t["upper"]) for t in regime["tiers"])
         if edges[0][0] > 0.0 or edges[-1][1] < 1.0:
             failures.append(f"{name}: tiers do not span [0, 1]: {edges}")
-        for (_, upper), (lower, _) in zip(edges, edges[1:], strict=False):
+        for (_, upper), (lower, _) in itertools.pairwise(edges):
             if upper != lower:
                 failures.append(f"{name}: gap between tiers at {upper} -> {lower}")
 
@@ -1117,7 +1122,7 @@ def check_custom_checkpoint() -> list[str]:
     """A custom Evo 2 checkpoint must be loadable, and misuse must raise.
 
     ``model_local_path`` replaces the HuggingFace download so a fine-tuned or
-    watermarked checkpoint can be sampled. Two ways to get this silently
+    modified checkpoint can be sampled. Two ways to get this silently
     wrong, both guarded here: pointing it at an Evo 1 run, where the field
     does not exist and would be dropped (you would sample the stock model and
     never know), and pointing it at a checkpoint *file* instead of the
@@ -1127,8 +1132,8 @@ def check_custom_checkpoint() -> list[str]:
     config must carry ``local_path=None`` rather than an empty string, since
     proto-tools treats "" as a path and fails inside the tool env.
     """
-    from proto_pipelines.runner import GenerationSettings, _build_generator
     from proto_pipelines.prompts import Prompt
+    from proto_pipelines.runner import GenerationSettings, _build_generator
 
     failures: list[str] = []
     prompt = Prompt(index=0, sequence="ACGT" * 8)
@@ -1142,7 +1147,7 @@ def check_custom_checkpoint() -> list[str]:
                         "be silently dropped and stock weights sampled")
     except ValueError:
         pass
-    except Exception as error:  # noqa: BLE001
+    except Exception as error:
         failures.append(f"evo1 + model_local_path raised {type(error).__name__}, "
                         "expected ValueError")
 
@@ -1154,7 +1159,7 @@ def check_custom_checkpoint() -> list[str]:
             failures.append("model_local_path pointing at a file was accepted")
         except NotADirectoryError:
             pass
-        except Exception as error:  # noqa: BLE001
+        except Exception as error:
             failures.append(f"file path raised {type(error).__name__}, "
                             "expected NotADirectoryError")
 
@@ -1165,6 +1170,55 @@ def check_custom_checkpoint() -> list[str]:
     if (settings.model_local_path or None) is not None:
         failures.append("an unset model_local_path does not normalise to None; "
                         "proto-tools would treat '' as a path")
+    return failures
+
+
+def check_af3_gate_governs_candidacy() -> list[str]:
+    """A protein that failed the AlphaFold 3 gate must not be a candidate.
+
+    The gate is applied when folding, but the Acr stage deliberately scores
+    *every* folded ORF so an Aca partner still contributes locus context
+    even when its own fold is poor. Without this, a low-pLDDT protein would
+    be scored and then counted as something to test.
+
+    Controls: a protein that passed the gate with the same score must stay a
+    candidate (or the check would pass for a function that rejects
+    everything), and a protein with no AF3 verdict at all -- the
+    sequence-only prescreen stage -- must not be treated as a failure.
+    """
+    from proto_pipelines.acr import AcrEvidenceConfig, score_proteins
+
+    failures: list[str] = []
+    seq = "MKIAELLNRYSDGAALTQEEQAFLDGYFEQLDAQNEALSAEIAALRAQLAGKDA"
+    proteins = [
+        {"protein_id": "failed", "sequence": seq, "avg_plddt": 18.0,
+         "ptm": 0.09, "passed_af3_screen": False},
+        {"protein_id": "passed", "sequence": seq, "avg_plddt": 88.0,
+         "ptm": 0.81, "passed_af3_screen": True},
+        {"protein_id": "unfolded", "sequence": seq},
+    ]
+    config = AcrEvidenceConfig(min_score=0.0, require_af3_pass=True)
+    records = {r["protein_id"]: r for r in score_proteins(proteins, config)}
+
+    if records["failed"].get("is_candidate") is not False:
+        failures.append("a protein that failed the AF3 gate was still a candidate")
+    # CONTROL: identical score, gate passed -> must remain a candidate.
+    if records["passed"].get("is_candidate") is not True:
+        failures.append("a protein that passed the AF3 gate was not a candidate")
+    # CONTROL: no verdict is not a failure.
+    if records["unfolded"].get("is_candidate") is not True:
+        failures.append(
+            "a protein with no AF3 verdict was treated as a gate failure; the "
+            "sequence-only prescreen stage would reject everything"
+        )
+    # The failure must still be scored, so locus context survives.
+    if records["failed"].get("acr_locus_score") is None and config.divergent_model:
+        failures.append("gate failures are not being scored at all")
+
+    off = AcrEvidenceConfig(min_score=0.0, require_af3_pass=False)
+    relaxed = {r["protein_id"]: r for r in score_proteins(proteins, off)}
+    if relaxed["failed"].get("is_candidate") is not True:
+        failures.append("require_af3_pass=False did not re-admit the gate failure")
     return failures
 
 
@@ -1188,6 +1242,7 @@ def main() -> int:
         "prescreen fold gating": check_prescreen_fold_gating,
         "AUROC statistic incl. ties": check_auroc,
         "custom Evo 2 checkpoint hook": check_custom_checkpoint,
+        "AF3 gate governs candidacy": check_af3_gate_governs_candidacy,
         "AcrNET tiers from real distribution": check_acrnet_tiers,
     }
     total_failures = 0

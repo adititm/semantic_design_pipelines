@@ -20,8 +20,8 @@ output_dir: acr_sample
 generator: evo2
 model_name: evo2_7b        # evo2_7b | evo2_40b | evo2_7b_base | evo2_1b_base | ...
 
-# Sample from a CUSTOM Evo 2 checkpoint (fine-tuned, watermarked, ablated)
-# instead of the HuggingFace download. Point it at the weights DIRECTORY, not
+# Sample from a CUSTOM Evo 2 checkpoint -- fine-tuned, continued-pretrained,
+# or otherwise modified -- instead of the HuggingFace download. Point it at the weights DIRECTORY, not
 # a checkpoint file. `model_name` above still selects the architecture the
 # weights load into, so it must name the variant the checkpoint derives from.
 # Evo 2 only -- Evo 1 has no such hook and setting both raises rather than
@@ -67,14 +67,30 @@ segmasker_threshold: 0.1
 # differs, not because it recognises a specific fold. Treat it as a
 # protein-likeness floor, not a quality score.
 run_af3: true
-# Basal gate only, from the monomer calibration: Evo ORFs vs random-DNA ORFs
-# gave pTM AUROC 0.854, so these remove junk without selecting for
-# resemblance to known folds. Everything clearing them is scored and ranked.
+# Basal gate only. Re-derived for Acrs on 316 single-sequence folds rather
+# than inherited from the TA pipeline: real Acrs fold BADLY (median pLDDT
+# 49.4, pTM 0.365), so 30/0.20 sits at roughly their 1st-5th percentile and
+# discards 2/64. It is also the most efficient point available -- it removes
+# 27% of junk per 3% of Acrs lost (8.5x), and every tighter setting trades
+# worse: 35/0.25 is 4.7x, 40/0.30 is 2.5x. Fold confidence barely separates
+# Acrs from real phage proteins (pLDDT AUROC 0.548, pTM 0.617), so this is a
+# junk floor, not a discriminator -- the five-caller model does that.
+# Everything clearing it is scored and ranked.
 af3_plddt_threshold: 30.0
 af3_ptm_threshold: 0.20
 
 af3_max_proteins_per_proposal: 0   # 0 = fold every QC-surviving ORF
-af3_use_msa: true            # MSA on: Foldseek ranks on these folds, so quality matters
+# MSA OFF, measured rather than assumed. On 127 paired Acr/phage chains
+# folded both ways, an MSA raises absolute pLDDT hugely (Acr median 49 -> 87)
+# but buys nothing downstream: Foldseek TM AUROC 0.635 with MSA vs 0.643
+# without (95% CI on the difference [-0.091, +0.070]; per-chain Wilcoxon
+# p=0.44; MSA higher on exactly 50% of chains). What it does do is confound
+# the gate -- Spearman(MSA depth, pLDDT) = +0.40 with MSA, -0.19 without --
+# so deep- and shallow-MSA Acrs differ by 27 pLDDT points under MSA and ~5
+# without. Divergent candidates are precisely the shallow-MSA ones, so an
+# MSA gate penalises what the pipeline exists to find. Turning it off also
+# removes the dominant share of fold runtime.
+af3_use_msa: false
 af3_msa_device: cuda
 af3_num_recycles: 10
 af3_num_diffusion_samples: 5

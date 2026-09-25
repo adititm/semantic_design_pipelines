@@ -21,8 +21,8 @@ output_dir: operon_completion
 generator: evo2
 model_name: evo2_7b        # evo2_7b | evo2_40b | evo2_7b_base | evo2_1b_base | ...
 
-# Sample from a CUSTOM Evo 2 checkpoint (fine-tuned, watermarked, ablated)
-# instead of the HuggingFace download. Point it at the weights DIRECTORY, not
+# Sample from a CUSTOM Evo 2 checkpoint -- fine-tuned, continued-pretrained,
+# or otherwise modified -- instead of the HuggingFace download. Point it at the weights DIRECTORY, not
 # a checkpoint file. `model_name` above still selects the architecture the
 # weights load into, so it must name the variant the checkpoint derives from.
 # Evo 2 only -- Evo 1 has no such hook and setting both raises rather than

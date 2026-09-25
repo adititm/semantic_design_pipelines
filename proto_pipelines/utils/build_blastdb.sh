@@ -4,7 +4,7 @@
 # No cluster required — this is plain mmseqs + makeblastdb. It is CPU-only but
 # heavy: ~16 GB of output and a few hours. Run it once.
 #
-#   scripts/build_blastdb.sh
+#   utils/build_blastdb.sh
 #
 # Then set these in your Acr config:
 #   acrnet_psiblast: ./.scratch_acr/blast/ncbi-blast-2.17.0+/bin/psiblast

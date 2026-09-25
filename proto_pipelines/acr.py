@@ -1,8 +1,9 @@
 """Anti-CRISPR evidence scoring for generated proteins.
 
 The published workflow stopped at structure prediction and called
-anti-CRISPRs with a separate PaCRISPR analysis that has no usable offline
-release. This module replaces that step with five independent callers --
+anti-CRISPRs with PaCRISPR. **PaCRISPR is no longer available** -- it was a
+web server with no offline release, and it is not part of the published code.
+That step is therefore not reproducible as written. This module replaces that step with five independent callers --
 profile HMM, AcRanker, AcrNET, Foldseek TM-score and AlphaFold 3 pLDDT --
 combined by logistic models fitted on a labelled calibration set.
 
@@ -166,6 +167,14 @@ class AcrEvidenceConfig(BaseConfig):
             "Model used when the HMM finds nothing. Absence of a Pfam hit is not "
             "evidence against an Acr -- 49 of 64 known Acrs have none -- so the "
             "HMM feature must be dropped rather than read as a negative."))
+    require_af3_pass: bool = ConfigField(
+        default=True, title="Require AF3 Pass",
+        description=(
+            "Exclude proteins that failed the AlphaFold 3 pLDDT/pTM gate from "
+            "counting as candidates. They stay in the evidence table and still "
+            "contribute locus context -- an Aca partner is identified by "
+            "sequence HMM and is useful even when its own fold is poor -- but "
+            "a candidate you would actually test should have folded."))
     min_score: float = ConfigField(
         default=0.0, ge=0, le=1, title="Minimum Score",
         description="acr_locus_score a protein must reach; 0 records evidence without filtering.")
@@ -338,6 +347,10 @@ def score_proteins(
             "protein_id": p["protein_id"],
             "length": len(p["sequence"]),
             "avg_plddt": p.get("avg_plddt"),
+            "ptm": p.get("ptm"),
+            # None when the monomer screen did not run (sequence-only
+            # prescreen stage), which must not be read as a failure.
+            "passed_af3_screen": p.get("passed_af3_screen"),
             "hmm_score": None, "hmm_best_profile": None, "hmm_best_evalue": None,
             "acranker_raw": None, "acranker_z": None,
             "foldseek_tmscore": None, "foldseek_target": None,
@@ -487,6 +500,21 @@ def score_proteins(
         model = combined if (has_hmm_hit and combined) else (divergent or combined)
         if model is not None:
             record["acr_locus_score"] = apply(model, record)
+
+    # A candidate is a protein you would put on a bench: it must clear the
+    # score AND have survived the AlphaFold 3 gate. Gate failures stay in the
+    # table, flagged, because they still carry locus context -- an Aca partner
+    # is identified by sequence HMM and is informative even when its own fold
+    # is poor. ``passed_af3_screen`` is None when no fold ran at all (the
+    # sequence-only prescreen stage); that is not a failure.
+    for record in records:
+        record["is_candidate"] = bool(
+            (record.get("acr_locus_score") or 0.0) >= config.min_score
+            and not (
+                config.require_af3_pass
+                and record.get("passed_af3_screen") is False
+            )
+        )
     return records
 
 
@@ -581,9 +609,7 @@ def acr_evidence_constraint(
         records = (
             score_proteins(proteins, config, local, local_pssm) if proteins else []
         )
-        qualifying = sum(
-            1 for r in records if (r.get("acr_locus_score") or 0.0) >= config.min_score
-        )
+        qualifying = sum(1 for r in records if r.get("is_candidate"))
         # Guilt by association. An Acr operon carries an Acr and its Aca
         # repressor, and Aca are far better covered by Pfam than Acrs, so the
         # partner is often the detectable half.

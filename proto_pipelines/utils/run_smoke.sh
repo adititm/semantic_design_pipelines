@@ -5,8 +5,8 @@
 # (no folding, minutes), then the two folding pipelines (AlphaFold 3, ~1 hour
 # each on one GPU).
 #
-#   scripts/run_smoke.sh              # everything
-#   scripts/run_smoke.sh nofold       # skip the folding pipelines
+#   utils/run_smoke.sh              # everything
+#   utils/run_smoke.sh nofold       # skip the folding pipelines
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CFG=proto_pipelines/configs/smoke

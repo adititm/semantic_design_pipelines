@@ -35,7 +35,7 @@ pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121   # 
 export PROTO_HOME=/path/you/own/proto_home   # the runner derives the rest
 
 python proto_pipelines/tests/test_parity.py     # 18 checks, no GPU needed
-proto_pipelines/scripts/run_pipeline.sh acr_sample \
+proto_pipelines/utils/run_pipeline.sh acr_sample \
     proto_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
 
@@ -55,7 +55,7 @@ required. **Slurm is optional**: nothing in the pipelines needs it, and
 | workflow | what it does |
 | --- | --- |
 | `t2ta_sample` | Type II toxin–antitoxin: generate → QC → TA profile-HMM → monomer fold → pair → cofold + interface scoring |
-| `acr_sample` | Anti-CRISPR candidates: generate → QC → sequence prescreen → monomer fold → five-caller Acr/Aca evidence → ranked candidates. Replaces the published PaCRISPR step, which has no usable offline release, with callers that run locally ([docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)) |
+| `acr_sample` | Anti-CRISPR candidates: generate → QC → sequence prescreen → monomer fold → five-caller Acr/Aca evidence → ranked candidates. Replaces the published PaCRISPR step (**PaCRISPR is no longer available**) with callers that run locally ([docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)) |
 | `gene_completion` | How closely a truncated gene is completed, by MAFFT identity to a reference |
 | `operon_completion` | Whether the downstream operon genes are produced |
 
@@ -110,8 +110,9 @@ tops out near 2:1 enrichment. The calibration behind every number is below.
 > Pipeline ordering, what each caller contributes, and how to read
 > `acr_evidence.csv`: **[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**
 
-The paper called Acrs with PaCRISPR, a web server that cannot be run offline
-and is not part of the released code. It is replaced here by five callers
+The paper called Acrs with PaCRISPR. **PaCRISPR is no longer available** --
+it was a web server, it has no offline release, and it is not part of the
+published code. That step is replaced here by five callers
 that run locally -- a profile HMM over Acr/Aca families, AcRanker, AcrNET,
 Foldseek against known Acr chains, and AlphaFold 3 pLDDT -- combined by
 logistic models shipped in `data/models/acr/`.
@@ -123,7 +124,7 @@ against the PSSM regime that produced it.
 
 The shipped configs set `acr_min_score: 0.0` -- record evidence, reject
 nothing, so `acr_evidence.csv` contains every folded ORF rather than a
-filtered set. Use `tools/rank_candidates.py` to turn that into a top-k with
+filtered set. Use `utils/rank_candidates.py` to turn that into a top-k with
 an expected yield at your own base rate; see the pipeline doc. The callers were calibrated on natural Acrs, so gating on them
 would select for resemblance to known Acrs, which is the opposite of the
 point.
@@ -134,7 +135,7 @@ The pipelines do not care where the heavy tools run. One script covers every
 case:
 
 ```bash
-scripts/run_pipeline.sh acr_sample configs/smoke/acr_sample_smoke.yaml
+utils/run_pipeline.sh acr_sample configs/smoke/acr_sample_smoke.yaml
 ```
 
 It resolves the repo root from its own location, derives the asset roots from
@@ -190,7 +191,7 @@ sbatch --job-name=acr --partition=YOUR_PARTITION \
        --cpus-per-task=32 --gpus=1 --mem=256G --time=14:00:00 \
        --output=logs/%x_%j.out --error=logs/%x_%j.err \
        --export=ALL,PROTO_HOME=$HOME/proto_home,PYTHON=$(which python) \
-       --wrap="proto_pipelines/scripts/run_pipeline.sh acr_sample \
+       --wrap="proto_pipelines/utils/run_pipeline.sh acr_sample \
                proto_pipelines/configs/acr_sample.yaml"
 ```
 
@@ -202,7 +203,7 @@ a long prompt will not fit in 20 GB. `build_blastdb.sh` picks up
 ## Custom Evo 2 checkpoints
 
 Any pipeline can sample from local Evo 2 weights instead of the released
-ones — a fine-tuned, ablated or watermarked checkpoint — by setting one key:
+ones — a fine-tuned or otherwise modified checkpoint — by setting one key:
 
 ```yaml
 generator: evo2
@@ -213,9 +214,9 @@ model_local_path: /path/to/weights   # a DIRECTORY, not a checkpoint file
 `model_local_path` replaces the HuggingFace download; `model_name` still
 selects the architecture, so it must name the variant your checkpoint was
 derived from. Everything downstream — ORF calling, QC, HMMs, folding, the
-Acr callers — is generator-agnostic and needs no change, so a watermarked
-model can be run through the identical filter stack and compared against the
-stock model run from the same prompts.
+Acr callers — is generator-agnostic and needs no change, so a custom
+checkpoint can be run through the identical filter stack and compared
+against the released weights from the same prompts.
 
 Two misuses raise instead of degrading quietly, both covered by a parity
 check:
@@ -227,6 +228,12 @@ check:
   environment is reached, where the error would otherwise be opaque.
 
 Leave it empty (the default) to use the released weights.
+
+## Settings
+
+Every stage, its defaults, and what changing them costs:
+**[docs/SETTINGS.md](docs/SETTINGS.md)**. Unknown or retired config keys are
+rejected at startup rather than ignored, so a typo fails immediately.
 
 ## Calibration
 
@@ -382,7 +389,7 @@ the protein in a weaker calibration regime (see
 [docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)), so supply it if you can.
 
 ```bash
-scripts/build_blastdb.sh        # no cluster needed; CPU-only, ~16 GB, a few hours
+utils/build_blastdb.sh        # no cluster needed; CPU-only, ~16 GB, a few hours
 ```
 
 Then set `acrnet_psiblast` and `acrnet_blast_db` in the config.

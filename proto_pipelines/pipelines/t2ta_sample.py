@@ -36,13 +36,21 @@ from proto_pipelines.af3 import (
     AlphaFold3RunConfig,
     af3_monomer_screen_constraint,
 )
-from proto_pipelines.cofold import TACofoldConfig, apply_novelty_filter, ta_cofold_constraint
-from proto_pipelines.config import af3_run_config, generation_settings, load_yaml, resolve_output_dir
+from proto_pipelines.cofold import (
+    TACofoldConfig,
+    apply_novelty_filter,
+    ta_cofold_constraint,
+)
+from proto_pipelines.config import (
+    af3_run_config,
+    generation_settings,
+    load_yaml,
+    resolve_output_dir,
+)
 from proto_pipelines.hmm import ProfileHMMFilterConfig, profile_hmm_filter_constraint
 from proto_pipelines.prompts import Prompt, read_prompts
 from proto_pipelines.qc import ProteinQCConfig, prodigal_protein_qc_constraint
 from proto_pipelines.reporting import (
-    write_stage_tables,
     accepted_proteins,
     cofold_pairs,
     write_fasta,
@@ -51,6 +59,7 @@ from proto_pipelines.reporting import (
     write_hmm_hits,
     write_proposal_table,
     write_raw_metadata,
+    write_stage_tables,
 )
 from proto_pipelines.runner import run_prompts
 
@@ -196,7 +205,7 @@ def build_constraint_chain(data: dict[str, Any], output_dir: Path) -> Any:
         ),
     )
 
-    def build(segment: Segment, prompt: Prompt) -> list[Constraint]:  # noqa: ARG001
+    def build(segment: Segment, prompt: Prompt) -> list[Constraint]:
         constraints = [
             Constraint(
                 inputs=[segment],

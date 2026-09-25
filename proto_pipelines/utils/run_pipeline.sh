@@ -5,7 +5,7 @@
 # -- the only difference is the `device` key in your config (see
 # "Execution modes" in the README). Nothing here is cluster-specific.
 #
-#   scripts/run_pipeline.sh acr_sample configs/smoke/acr_sample_smoke.yaml
+#   utils/run_pipeline.sh acr_sample configs/smoke/acr_sample_smoke.yaml
 #
 # Environment:
 #   PROTO_HOME    required. Asset root you own; tool envs are built under it.

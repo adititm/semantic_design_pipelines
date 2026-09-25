@@ -51,7 +51,10 @@ from proto_tools import (
     run_alphafold3,
     run_pdockq2,
 )
-from proto_tools.entities.structures.selection import ChainSelection, SingleChainSelection
+from proto_tools.entities.structures.selection import (
+    ChainSelection,
+    SingleChainSelection,
+)
 
 logger = logging.getLogger(__name__)
 

@@ -12,7 +12,7 @@ Pick k by the yield you want to test rather than by a score cutoff -- a
 cutoff is exactly what the calibration says not to trust.
 
 Usage:
-    python -m proto_pipelines.tools.rank_candidates \
+    python -m proto_pipelines.utils.rank_candidates \
         --evidence acr_evidence.csv --prior 0.05 --out ranked.csv
 """
 

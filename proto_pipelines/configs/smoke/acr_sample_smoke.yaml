@@ -26,7 +26,17 @@ run_af3: true
 af3_plddt_threshold: 30.0
 af3_ptm_threshold: 0.20
 af3_max_proteins_per_proposal: 0
-af3_use_msa: true
+# MSA OFF, measured rather than assumed. On 127 paired Acr/phage chains
+# folded both ways, an MSA raises absolute pLDDT hugely (Acr median 49 -> 87)
+# but buys nothing downstream: Foldseek TM AUROC 0.635 with MSA vs 0.643
+# without (95% CI on the difference [-0.091, +0.070]; per-chain Wilcoxon
+# p=0.44; MSA higher on exactly 50% of chains). What it does do is confound
+# the gate -- Spearman(MSA depth, pLDDT) = +0.40 with MSA, -0.19 without --
+# so deep- and shallow-MSA Acrs differ by 27 pLDDT points under MSA and ~5
+# without. Divergent candidates are precisely the shallow-MSA ones, so an
+# MSA gate penalises what the pipeline exists to find. Turning it off also
+# removes the dominant share of fold runtime.
+af3_use_msa: false
 af3_msa_device: cuda
 af3_num_recycles: 3
 af3_num_diffusion_samples: 1
