@@ -139,17 +139,6 @@ acrnet_operating_points: ./proto_pipelines/data/models/acr/acrnet_operating_poin
 run_acr_prescreen: true
 acr_prescreen_model: ./proto_pipelines/data/models/acr/acr_prescreen_model.json
 acr_fold_fraction: 1.0
-# On the REFIT prescreen model (acranker_raw + acrnet_pctile): 0.15 keeps 95%
-# of known Acrs and folds 28% of negatives, vs 92%/23% at 0.20. 0.15 is
-# chosen to hold the ~94% Acr-retention target the pipeline is designed
-# around, and it beats the superseded model's 94%/35% on both axes.
-# Verified NOT to bias toward known-Acr similarity, re-derived on the refit
-# model over the 300-sequence diverse panel (the only set here with a real
-# gradient -- all 64 calibration Acrs are AcrDB entries and hit it at 50%
-# identity). Spearman(identity, prescreen score) = +0.012 (p=0.84), and
-# -0.099 (p=0.14) excluding the no-alignment bin. At 0.15, sequences <30%
-# identical to a known Acr pass at 67% vs 65% for >=50% -- a 2 pt gap
-# favouring the MORE divergent. Pass rate by bin is non-monotone in
-# identity: none 59%, lt30 76%, 30_50 64%, ge50 65%.
-# HMM hits always fold regardless.
+# Increase to fold fewer sequences and enable a stricter Acr calling thresholding
+# at the risk of losing potentially promising but more divergent Acrs.
 acr_prescreen_min_score: 0.15
