@@ -456,7 +456,7 @@ def score_proteins(
     ]
 
     if config.hmm_path:
-        from proto_pipelines.hmm import _scan
+        from proto_pipelines.stages.hmm import _scan
 
         for record, protein in zip(records, proteins, strict=True):
             hits = _scan(protein["sequence"], config.hmm_path, config.hmm_evalue)
@@ -468,7 +468,7 @@ def score_proteins(
                 record["hmm_score"] = 0.0
 
     if config.aca_hmm_path:
-        from proto_pipelines.hmm import _scan
+        from proto_pipelines.stages.hmm import _scan
 
         for record, protein in zip(records, proteins, strict=True):
             hits = _scan(protein["sequence"], config.aca_hmm_path, config.hmm_evalue)
@@ -663,7 +663,7 @@ def acr_evidence_constraint(
     acrnet_scores: dict[str, float] = {}
     acrnet_has_pssm: dict[str, bool] = {}
     if config.acrnet_home and config.acrnet_predict_property:
-        from proto_pipelines import acrnet as acrnet_module
+        from proto_pipelines.callers import acrnet as acrnet_module
 
         flat = [
             {"protein_id": f"p{i}_{p['protein_id']}", "sequence": p["sequence"]}

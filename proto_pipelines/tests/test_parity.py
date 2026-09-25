@@ -20,8 +20,11 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from proto_pipelines.af3 import pdockq_v1
-from proto_pipelines.qc import has_underrepresented_amino_acids, is_highly_repetitive
+from proto_pipelines.stages.af3 import pdockq_v1
+from proto_pipelines.stages.qc import (
+    has_underrepresented_amino_acids,
+    is_highly_repetitive,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -252,7 +255,7 @@ def check_pdockq() -> list[str]:
 
 def check_configs() -> list[str]:
     """Every shipped config must parse, and retired keys must be rejected."""
-    from proto_pipelines.config import load_yaml
+    from proto_pipelines.core.config import load_yaml
     from proto_pipelines.pipelines import (
         acr_sample,
         gene_completion,
@@ -301,8 +304,8 @@ def check_accepted_proteins() -> list[str]:
     their identity analysis silently scores zero sequences. The second case
     below is that control; the first keeps the folding path honest.
     """
-    from proto_pipelines.reporting import accepted_proteins
-    from proto_pipelines.runner import ProposalRecord
+    from proto_pipelines.core.reporting import accepted_proteins
+    from proto_pipelines.core.runner import ProposalRecord
 
     protein = {"protein_id": "gene_1", "sequence": "MKTAYIAK", "length": 8}
 
@@ -427,12 +430,12 @@ def check_reporting() -> list[str]:
     """
     import tempfile
 
-    from proto_pipelines.reporting import (
+    from proto_pipelines.core.reporting import (
         write_filter_summary,
         write_fold_scores,
         write_proposal_table,
     )
-    from proto_pipelines.runner import ProposalRecord
+    from proto_pipelines.core.runner import ProposalRecord
 
     records = [
         ProposalRecord(
@@ -555,8 +558,8 @@ def check_filter_labels() -> list[str]:
     """
     import tempfile
 
-    from proto_pipelines.reporting import write_filter_summary
-    from proto_pipelines.runner import ProposalRecord
+    from proto_pipelines.core.reporting import write_filter_summary
+    from proto_pipelines.core.runner import ProposalRecord
 
     failures: list[str] = []
 
@@ -608,8 +611,8 @@ def check_generator_prepend_parity() -> list[str]:
     """
     from proto_language.core import Segment
 
-    from proto_pipelines.prompts import Prompt
-    from proto_pipelines.runner import GenerationSettings, _build_generator
+    from proto_pipelines.core.prompts import Prompt
+    from proto_pipelines.core.runner import GenerationSettings, _build_generator
 
     failures: list[str] = []
     prompt = Prompt(index=0, sequence="ATG" * 40)
@@ -661,7 +664,10 @@ def check_fold_cap_keeps_hmm_hits() -> list[str]:
     carried the sole hit and was the one discarded. The controls below cover
     the no-HMM fallback and reproduce the original length-only behaviour.
     """
-    from proto_pipelines.af3 import AlphaFold3MonomerScreenConfig, _hmm_qualifying_ids
+    from proto_pipelines.stages.af3 import (
+        AlphaFold3MonomerScreenConfig,
+        _hmm_qualifying_ids,
+    )
 
     class _Sequence:
         def __init__(self, metadata: dict[str, Any]) -> None:
@@ -732,9 +738,9 @@ def check_shipped_configs_build_generators() -> list[str]:
     import glob
     import importlib
 
-    from proto_pipelines.config import generation_settings, load_yaml
-    from proto_pipelines.prompts import Prompt
-    from proto_pipelines.runner import _build_generator
+    from proto_pipelines.core.config import generation_settings, load_yaml
+    from proto_pipelines.core.prompts import Prompt
+    from proto_pipelines.core.runner import _build_generator
 
     failures: list[str] = []
     modules = {
@@ -779,7 +785,7 @@ def check_shipped_configs_build_generators() -> list[str]:
             )
 
     # Control: a deliberately mismatched pair must still be rejected.
-    from proto_pipelines.runner import GenerationSettings
+    from proto_pipelines.core.runner import GenerationSettings
 
     try:
         _build_generator(
@@ -815,7 +821,7 @@ def check_acr_assets() -> list[str]:
     import numpy as _np
     import numpy as np
 
-    from proto_pipelines.acr import (
+    from proto_pipelines.callers.acr import (
         AcrEvidenceConfig,
         _acranker_features,
         score_proteins,
@@ -971,7 +977,7 @@ def check_acrnet_batch_of_one() -> list[str]:
 
     import numpy as np
 
-    from proto_pipelines.acrnet import score
+    from proto_pipelines.callers.acrnet import score
 
     checkpoint = _Path("proto_pipelines/data/models/acr/acrnet/model.ckpt")
     if not checkpoint.exists():
@@ -1024,7 +1030,7 @@ def check_acr_model_features_resolve() -> list[str]:
     import json as _json
     import tempfile as _tempfile
 
-    from proto_pipelines.acr import AcrEvidenceConfig, score_proteins
+    from proto_pipelines.callers.acr import AcrEvidenceConfig, score_proteins
 
     data = Path("proto_pipelines/data/models/acr")
     if not (data / "acr_divergent_model.json").exists():
@@ -1073,7 +1079,7 @@ def check_prescreen_fold_gating() -> list[str]:
     still folds its best ORF -- returning no structures would look like a
     pipeline failure rather than a weak generation.
     """
-    from proto_pipelines.af3 import (
+    from proto_pipelines.stages.af3 import (
         AlphaFold3MonomerScreenConfig,
         _hmm_qualifying_ids,
         _prescreen_scores,
@@ -1224,7 +1230,7 @@ def check_acrnet_batch_invariance() -> list[str]:
     if not checkpoint.exists():
         return [f"missing AcrNET checkpoint: {checkpoint}"]
 
-    from proto_pipelines.acrnet import score
+    from proto_pipelines.callers.acrnet import score
 
     def synthetic(seed: int, length: int) -> dict[str, Any]:
         rng = np.random.default_rng(seed)
@@ -1281,8 +1287,8 @@ def check_custom_checkpoint() -> list[str]:
     config must carry ``local_path=None`` rather than an empty string, since
     proto-tools treats "" as a path and fails inside the tool env.
     """
-    from proto_pipelines.prompts import Prompt
-    from proto_pipelines.runner import GenerationSettings, _build_generator
+    from proto_pipelines.core.prompts import Prompt
+    from proto_pipelines.core.runner import GenerationSettings, _build_generator
 
     failures: list[str] = []
     prompt = Prompt(index=0, sequence="ACGT" * 8)
@@ -1350,7 +1356,7 @@ def check_af3_gate_governs_candidacy() -> list[str]:
     everything), and a protein with no AF3 verdict at all -- the
     sequence-only prescreen stage -- must not be treated as a failure.
     """
-    from proto_pipelines.acr import AcrEvidenceConfig, score_proteins
+    from proto_pipelines.callers.acr import AcrEvidenceConfig, score_proteins
 
     failures: list[str] = []
     seq = "MKIAELLNRYSDGAALTQEEQAFLDGYFEQLDAQNEALSAEIAALRAQLAGKDA"

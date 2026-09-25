@@ -15,8 +15,8 @@ from typing import Any
 
 import yaml
 
-from proto_pipelines.af3 import AlphaFold3RunConfig
-from proto_pipelines.runner import GenerationSettings
+from proto_pipelines.core.runner import GenerationSettings
+from proto_pipelines.stages.af3 import AlphaFold3RunConfig
 
 RETIRED_KEYS = {
     "segmasker_path": "proto-tools provisions segmasker; remove this key.",
@@ -109,7 +109,7 @@ def resolve_output_dir(data: dict[str, Any], *, cli_root: str | None = None) -> 
         cli_root
         or os.environ.get(OUTPUT_ROOT_ENV)
         or data.get("output_root")
-        # proto_pipelines/config.py -> proto_pipelines -> repo root
+        # proto_pipelines/core/config.py -> proto_pipelines -> repo root
         or Path(__file__).resolve().parent.parent / "outputs"
     )
     return Path(root).expanduser() / name

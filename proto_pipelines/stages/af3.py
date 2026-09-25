@@ -9,7 +9,7 @@
 ``score_complex``
     Cofolds two chains with a taxonomy-paired MMseqs2 MSA and returns
     AlphaFold 3's ipTM/pTM/pLDDT/PAE alongside pDockQ2 and pDockQ v1. Used by
-    the cofold constraint in :mod:`proto_pipelines.cofold`.
+    the cofold constraint in :mod:`proto_pipelines.stages.cofold`.
 
 Interpreting the numbers
 ------------------------

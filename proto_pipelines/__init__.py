@@ -8,9 +8,9 @@ environment. Thresholds are documented with the data behind them; see
 
 Importing anything here resolves ``proto_language`` and ``proto_tools``
 first, so import order inside a module never matters. See
-:mod:`proto_pipelines.bootstrap`.
+:mod:`proto_pipelines.core.bootstrap`.
 """
 
-from proto_pipelines import bootstrap as _bootstrap
+from proto_pipelines.core import bootstrap as _bootstrap
 
 _bootstrap.activate()

@@ -45,7 +45,7 @@ from proto_language.optimizer import (
     RejectionSamplingOptimizerConfig,
 )
 
-from proto_pipelines.prompts import Prompt
+from proto_pipelines.core.prompts import Prompt
 
 logger = logging.getLogger(__name__)
 

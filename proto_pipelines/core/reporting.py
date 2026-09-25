@@ -36,7 +36,7 @@ from typing import Any
 
 import pandas as pd
 
-from proto_pipelines.runner import ProposalRecord
+from proto_pipelines.core.runner import ProposalRecord
 
 
 def write_proposal_table(
@@ -47,7 +47,7 @@ def write_proposal_table(
     """Write one row per proposal, accepted and rejected alike.
 
     Args:
-        records: Proposals from :func:`proto_pipelines.runner.run_prompts`.
+        records: Proposals from :func:`proto_pipelines.core.runner.run_prompts`.
         path: Destination CSV.
         extra_columns: Constant columns stamped onto every row (for example
             the model checkpoint and sampling temperature), so a results

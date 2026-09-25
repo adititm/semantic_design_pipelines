@@ -47,7 +47,7 @@ def activate() -> None:
     if "proto_language" in sys.modules or "proto_tools" in sys.modules:
         raise RuntimeError(
             "proto_language/proto_tools were imported before bootstrap.activate(); "
-            "import proto_pipelines.bootstrap first."
+            "import proto_pipelines.core.bootstrap first."
         )
 
     sys.meta_path = [

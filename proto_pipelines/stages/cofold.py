@@ -30,8 +30,8 @@ from proto_language.constraint.constraint_registry import constraint
 from proto_language.core import ConstraintOutput
 from proto_language.utils.base import BaseConfig, ConfigField
 
-from proto_pipelines.af3 import AlphaFold3RunConfig, job_name_for, score_complex
-from proto_pipelines.identity import pairwise_identity
+from proto_pipelines.stages.af3 import AlphaFold3RunConfig, job_name_for, score_complex
+from proto_pipelines.stages.identity import pairwise_identity
 
 logger = logging.getLogger(__name__)
 

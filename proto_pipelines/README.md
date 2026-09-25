@@ -105,7 +105,7 @@ confirmed-functional pairs. For selection, **rank within a generation and take
 the top-k** (80% top-1-of-4 versus 25% chance) rather than thresholding, which
 tops out near 2:1 enrichment. The calibration behind every number is below.
 
-## Anti-CRISPR calling (`acr.py`)
+## Anti-CRISPR calling (`callers/acr.py`)
 
 > Pipeline ordering, what each caller contributes, and how to read
 > `acr_evidence.csv`: **[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**
@@ -250,28 +250,33 @@ them: the fitted artefacts are read directly from `data/models/`.
 
 ## Layout
 
-Nothing at the top level is a script: those thirteen modules are the library,
-none has a `__main__`, and every one is imported by something below. The only
-things you run are the four pipelines, the scripts in `scripts/`, and the
-tests.
+Nothing here is a script except the four pipelines, the tests, and the
+helpers in `utils/`. Everything else is library code, grouped by role.
 
 ```
 proto_pipelines/
+├── __init__.py           Resolves proto_language/proto_tools before any import
 │
-│   ── library (imported, never run directly) ──
-├── __init__.py           Runs bootstrap.activate() before anything else imports
-├── bootstrap.py          Resolves proto_language/proto_tools before first import
-├── prompts.py            Prompt-CSV loading, metadata columns retained
-├── qc.py                 Prodigal ORF calling + the paper's protein QC predicates
-├── hmm.py                Profile-HMM filter over QC survivors
-├── af3.py                AlphaFold 3 monomer screen, complex scoring, pDockQ v1
-├── cofold.py             Pair enumeration + AF3 cofold constraint + novelty filter
-├── identity.py           The three MAFFT identity definitions
-├── acr.py                Five-caller anti-CRISPR evidence + Aca co-occurrence
-├── acrnet.py             AcrNET feature extraction (RaptorX, PSI-BLAST, ESM-1b)
-├── runner.py             One Program per prompt; proposal history -> records
-├── reporting.py          Stage CSVs, filter_summary, fold scores, FASTA
-├── config.py             YAML loading; rejects retired and unknown keys
+├── core/                 Framework: how a run is driven and recorded
+│   ├── bootstrap.py          Resolves proto_language/proto_tools
+│   ├── config.py             YAML loading; rejects retired and unknown keys
+│   ├── prompts.py            Prompt-CSV loading, metadata columns retained
+│   ├── runner.py             One Program per prompt; proposal history -> records
+│   └── reporting.py          Stage CSVs, filter_summary, fold scores, FASTA
+│
+├── stages/               Pipeline stages, each providing a proto constraint
+│   ├── qc.py                 Prodigal ORF calling + the paper's QC predicates
+│   ├── hmm.py                Profile-HMM filter over QC survivors
+│   ├── af3.py                AlphaFold 3 monomer screen, complex scoring, pDockQ
+│   ├── cofold.py             Pair enumeration + cofold constraint + novelty filter
+│   └── identity.py           The three MAFFT identity definitions
+│
+├── callers/              Anti-CRISPR evidence, specific to acr_sample
+│   ├── acr.py                Five-caller evidence + Aca co-occurrence
+│   └── acrnet.py             AcrNET features (RaptorX, PSI-BLAST, ESM-1b)
+│
+├── vendor/               Verbatim third-party sources — do not reformat
+│   └── acrnet_model.py       AcrNET architecture, byte-identical to upstream
 │
 │   ── entry points (python -m ...) ──
 ├── pipelines/
@@ -280,33 +285,36 @@ proto_pipelines/
 │   ├── gene_completion.py    generation -> QC -> MAFFT identity
 │   └── operon_completion.py  generation -> QC -> MAFFT identity
 ├── tests/test_parity.py  20 CPU checks; the install check
-├── vendor/               Verbatim third-party sources — see vendor/README.md
-│   └── acrnet_model.py       AcrNET architecture, byte-identical to upstream
 │
-│   ── data and settings ──
+│   ── data, settings, helpers ──
 ├── configs/              One YAML per pipeline, plus configs/smoke/ for fast runs
 ├── data/
 │   ├── prompts/              bundled prompt CSVs
 │   ├── reference/            reference sequences for the identity pipelines
-│   └── models/               the fitted models and profiles the pipeline loads
-├── tools/
-│   └── rank_candidates.py    calibrated top-k selection from acr_evidence.csv
-├── scripts/
+│   └── models/               the fitted models and profiles the pipelines load
+├── utils/
 │   ├── run_pipeline.sh       run any pipeline: local, Slurm, or remote
 │   ├── run_smoke.sh          run every smoke config, in cost order
-│   └── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
+│   ├── build_blastdb.sh      build UniRef30 for AcrNET's PSSM (no cluster needed)
+│   └── rank_candidates.py    calibrated top-k selection from acr_evidence.csv
 └── docs/
-    └── ACR_PIPELINE.md   the anti-CRISPR stack in detail
+    ├── SETTINGS.md           every stage, its defaults, and what changing them costs
+    ├── ACR_PIPELINE.md       the anti-CRISPR caller stack
+    └── T2TA_PIPELINE.md      the toxin-antitoxin pipeline
 ```
 
-The import graph is a DAG, four modules deep at most:
+Coupling between groups is deliberately thin — seven first-party import
+edges in total:
 
 ```
-bootstrap -> (everything, via __init__)
-prompts   -> runner -> config, reporting
-identity  -> cofold -> af3
-acrnet    -> acr -> af3
-qc, hmm, af3, cofold, acr, config, reporting, runner -> pipelines/*
+__init__          -> core.bootstrap          (before anything else imports)
+core.runner       -> core.prompts
+core.config       -> core.runner
+core.reporting    -> core.runner
+stages.cofold     -> stages.identity
+callers.acr       -> stages.hmm
+callers.acrnet    -> vendor.acrnet_model
+pipelines/*       -> core, stages, callers
 ```
 
 ## Setup
@@ -416,7 +424,7 @@ no AF3 weights.
 ### Working from a checkout
 
 If several proto-language checkouts exist on one machine, or a stale editable
-install points at the wrong one, `bootstrap.py` takes an override:
+install points at the wrong one, `core/bootstrap.py` takes an override:
 
 ```bash
 export PROTO_LANGUAGE_ROOT=/path/to/proto-language
@@ -433,7 +441,7 @@ These scripts work around two things absent from `proto-tools` `main`:
 
 * **Foldseek TM-scores.** `FoldseekHit` parses a plain 12-column M8 row and
   carries no TM field. The Acr caller's model feature is a TM-score, so
-  `acr.py` invokes the provisioned `foldseek` binary directly with
+  `callers/acr.py` invokes the provisioned `foldseek` binary directly with
   `--format-output …,qtmscore,alntmscore`. Ranking on E-value instead is not
   viable: measured as a model feature it was worth nothing over dropping the
   structural term entirely, whereas a real TM-score contributes.

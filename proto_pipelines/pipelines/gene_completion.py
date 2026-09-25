@@ -11,7 +11,7 @@ ESMFold, so there is nothing for AlphaFold 3 to replace and no structure
 prediction is performed.
 
 Three identity definitions are reported, all reproduced from the published workflow and
-all different (see ``proto_pipelines.identity``):
+all different (see ``proto_pipelines.stages.identity``):
 
 * ``best_reference_identity`` -- ungapped-column identity to the closest
   sequence in the reference FASTA, used with ``seq_identity_match_threshold``
@@ -37,16 +37,13 @@ from typing import Any
 import pandas as pd
 from proto_language.core import Constraint, Segment
 
-from proto_pipelines.config import generation_settings, load_yaml, resolve_output_dir
-from proto_pipelines.identity import (
-    best_reference_match,
-    non_prompt_identity,
-    pairwise_identity,
-    translate_prompt,
+from proto_pipelines.core.config import (
+    generation_settings,
+    load_yaml,
+    resolve_output_dir,
 )
-from proto_pipelines.prompts import Prompt, read_prompts
-from proto_pipelines.qc import ProteinQCConfig, prodigal_protein_qc_constraint
-from proto_pipelines.reporting import (
+from proto_pipelines.core.prompts import Prompt, read_prompts
+from proto_pipelines.core.reporting import (
     accepted_proteins,
     write_fasta,
     write_filter_summary,
@@ -55,7 +52,14 @@ from proto_pipelines.reporting import (
     write_raw_metadata,
     write_stage_tables,
 )
-from proto_pipelines.runner import ProposalRecord, run_prompts
+from proto_pipelines.core.runner import ProposalRecord, run_prompts
+from proto_pipelines.stages.identity import (
+    best_reference_match,
+    non_prompt_identity,
+    pairwise_identity,
+    translate_prompt,
+)
+from proto_pipelines.stages.qc import ProteinQCConfig, prodigal_protein_qc_constraint
 
 logger = logging.getLogger(__name__)
 
@@ -282,7 +286,7 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
     Args:
         config_path: Path to the pipeline YAML config.
         output_root: Overrides where the run writes; see
-            :func:`proto_pipelines.config.resolve_output_dir` for precedence.
+            :func:`proto_pipelines.core.config.resolve_output_dir` for precedence.
 
     Returns:
         None. Writes ``generated_sequences.csv``, ``filter_summary.csv``,

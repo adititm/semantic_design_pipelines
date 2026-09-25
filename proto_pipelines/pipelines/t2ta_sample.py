@@ -31,26 +31,14 @@ from typing import Any
 import pandas as pd
 from proto_language.core import Constraint, Segment
 
-from proto_pipelines.af3 import (
-    AlphaFold3MonomerScreenConfig,
-    AlphaFold3RunConfig,
-    af3_monomer_screen_constraint,
-)
-from proto_pipelines.cofold import (
-    TACofoldConfig,
-    apply_novelty_filter,
-    ta_cofold_constraint,
-)
-from proto_pipelines.config import (
+from proto_pipelines.core.config import (
     af3_run_config,
     generation_settings,
     load_yaml,
     resolve_output_dir,
 )
-from proto_pipelines.hmm import ProfileHMMFilterConfig, profile_hmm_filter_constraint
-from proto_pipelines.prompts import Prompt, read_prompts
-from proto_pipelines.qc import ProteinQCConfig, prodigal_protein_qc_constraint
-from proto_pipelines.reporting import (
+from proto_pipelines.core.prompts import Prompt, read_prompts
+from proto_pipelines.core.reporting import (
     accepted_proteins,
     cofold_pairs,
     write_fasta,
@@ -61,7 +49,22 @@ from proto_pipelines.reporting import (
     write_raw_metadata,
     write_stage_tables,
 )
-from proto_pipelines.runner import run_prompts
+from proto_pipelines.core.runner import run_prompts
+from proto_pipelines.stages.af3 import (
+    AlphaFold3MonomerScreenConfig,
+    AlphaFold3RunConfig,
+    af3_monomer_screen_constraint,
+)
+from proto_pipelines.stages.cofold import (
+    TACofoldConfig,
+    apply_novelty_filter,
+    ta_cofold_constraint,
+)
+from proto_pipelines.stages.hmm import (
+    ProfileHMMFilterConfig,
+    profile_hmm_filter_constraint,
+)
+from proto_pipelines.stages.qc import ProteinQCConfig, prodigal_protein_qc_constraint
 
 logger = logging.getLogger(__name__)
 
@@ -267,7 +270,7 @@ def run_pipeline(config_path: Path, output_root: str | None = None) -> None:
     Args:
         config_path: Path to the pipeline YAML config.
         output_root: Overrides where the run writes; see
-            :func:`proto_pipelines.config.resolve_output_dir` for precedence.
+            :func:`proto_pipelines.core.config.resolve_output_dir` for precedence.
 
     Returns:
         None. Writes ``generated_sequences.csv``, ``filter_summary.csv``,
