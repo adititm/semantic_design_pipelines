@@ -64,27 +64,3 @@ proto_pipelines/utils/run_pipeline.sh acr_sample \
 compute — the only difference is the `device` key. **No GPU?** Set
 `device: modal` (or `proto`) and no local accelerator, AlphaFold 3 weights or
 MSA database is needed.
-
-## Scope
-
-This repository carries only what runs a sampling pass and produces results.
-The workflows that fit the shipped models — labelled sequence sets,
-per-caller scoring, AUROC analysis — are deliberately absent; the fitted
-artefacts they produce are in `proto_pipelines/data/models/` and are loaded
-directly.
-
-Candidates these pipelines emit are structure- and similarity-screened, not
-validated. A high score means "worth testing", never "is functional".
-
-## Citation
-
-Please cite the original work when using these pipelines:
-
-```
-@article{merchant2025,
-  title  = {Semantic design of functional de novo genes from a genomic language model},
-  doi    = {10.1038/s41586-025-09749-7},
-  year   = {2025},
-  journal = {Nature}
-}
-```
