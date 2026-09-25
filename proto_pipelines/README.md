@@ -40,15 +40,11 @@ proto_pipelines/utils/run_pipeline.sh acr_sample \
 ```
 
 The parity suite is the install check and needs neither a GPU nor AF3
-weights. The smoke config is a two-prompt run that exercises every stage; it
-took 54 minutes on one H100, most of it AlphaFold 3 MSAs and first-use
-tool-environment builds.
+weights. The smoke config is a two-prompt run that exercises every stage.
 
-**No GPU?** Set `device: modal` (or `proto`) in the config and the heavy tools
-run on connected compute — no local accelerator, AF3 weights or MSA database
-required. **Slurm is optional**: nothing in the pipelines needs it, and
-`run_pipeline.sh` covers every mode. See
-[Execution modes](#execution-modes) and full [Setup](#setup) below.
+To test while not connected to a GPU, set `device: modal` (or `proto`) in the
+config and the heavy tools run on connected compute. 
+See [Execution modes](#execution-modes) and full [Setup](#setup) below.
 
 ## The four workflows
 
@@ -58,9 +54,6 @@ required. **Slurm is optional**: nothing in the pipelines needs it, and
 | `acr_sample` | Anti-CRISPR candidates: generate → QC → sequence prescreen → monomer fold → five-caller Acr/Aca evidence → ranked candidates. Replaces the published PaCRISPR step (**PaCRISPR is no longer available**) with callers that run locally ([docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)) |
 | `gene_completion` | How closely a truncated gene is completed, by MAFFT identity to a reference |
 | `operon_completion` | Whether the downstream operon genes are produced |
-
-Type III TA is not included: it needs Infernal (`cmscan`) and Tandem Repeat
-Finder, neither of which has a managed-environment wrapper.
 
 ## Generator
 
@@ -79,10 +72,8 @@ Nothing downstream reads either, so nothing else differs between the two.
 ```yaml
 ```
 
-The published work used **Evo 1.5**, so reproducing its numbers means setting
-`generator: evo1` and `model_name: evo-1.5-8k-base`. Note also that every
-threshold shipped here was measured on Evo 1.5 output; on Evo 2 they are
-an assumption until re-measured.
+The published work used **Evo 1.5**, to reproduce, set
+`generator: evo1` and `model_name: evo-1.5-8k-base`. 
 
 ## Bundled data
 
@@ -92,42 +83,24 @@ data/reference/    rpoS and modABC reference proteins for the completion workflo
 data/models/       fitted models + profile HMMs the pipelines load
 ```
 
-Every prompt from the paper's four supported workflows is included, so each
-`configs/*.yaml` runs as shipped with no extra downloads. The t3ta prompts are
-bundled for reference only — there is no t3ta script here.
-
-## Structure filtering, in one paragraph
-
-Structure confidence gates plausibility, not function. On functionally
-labelled de novo pairs the one known non-functional pair was indistinguishable
-from two confirmed-functional ones, and the shipped gate set rejects 3 of 9
-confirmed-functional pairs. For selection, **rank within a generation and take
-the top-k** (80% top-1-of-4 versus 25% chance) rather than thresholding, which
-tops out near 2:1 enrichment. The calibration behind every number is below.
+Example prompts from the paper's four supported workflows are included, so each
+`configs/*.yaml` runs as shipped with no extra downloads.
 
 ## Anti-CRISPR calling (`callers/acr.py`)
 
 > Pipeline ordering, what each caller contributes, and how to read
 > `acr_evidence.csv`: **[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**
 
-The paper called Acrs with PaCRISPR. **PaCRISPR is no longer available** --
-it was a web server, it has no offline release, and it is not part of the
-published code. That step is replaced here by five callers
-that run locally -- a profile HMM over Acr/Aca families, AcRanker, AcrNET,
-Foldseek against known Acr chains, and AlphaFold 3 pLDDT -- combined by
-logistic models shipped in `data/models/acr/`.
-
-Two things govern how the output should be read, both handled automatically
-and both explained in the pipeline doc: which model applies depends on
-whether the profile HMM hit, and AcrNET's score is only interpretable
-against the PSSM regime that produced it.
+The paper called Acrs with PaCRISPR. PaCRISPR is no longer available. 
+That step is replaced here by five callers that run locally: a profile
+HMM over Acr/Aca families, AcRanker, AcrNET, Foldseek against known Acr
+chains, and AlphaFold 3 pLDDT, which combined by logistic models shipped
+in `data/models/acr/`.
 
 The shipped configs set `acr_min_score: 0.0` -- record evidence, reject
 nothing, so `acr_evidence.csv` contains every folded ORF rather than a
 filtered set. Use `utils/rank_candidates.py` to turn that into a top-k with
-an expected yield at your own base rate; see the pipeline doc. The callers were calibrated on natural Acrs, so gating on them
-would select for resemblance to known Acrs, which is the opposite of the
-point.
+an expected yield at your own base rate; see the pipeline doc.
 
 ## Execution modes
 
@@ -163,7 +136,7 @@ without them dispatch fails immediately with a credentials error rather than
 falling back to CPU. `af3_msa_device` takes the same values, so the MSA search
 can be dispatched independently of folding.
 
-Two limits worth knowing before you rely on this:
+Notes on the Modal compute availability:
 
 * **`acrnet_device` must stay local** (`cpu` / `cuda`). ESM-1b is loaded with
   torch directly rather than dispatched as a proto tool, so a remote value
@@ -171,14 +144,12 @@ Two limits worth knowing before you rely on this:
   AcrNET's other two inputs — RaptorX and PSI-BLAST — are local binaries and
   are unaffected.
 * **`model_local_path` and remote devices are mutually exclusive.** A local
-  weights directory does not exist on a hosted worker, and proto-tools says
-  so. Sample a custom checkpoint on hardware that can see the weights.
+  weights directory does not exist on a hosted worker. Sample a custom checkpoint
+  on hardware that can see the weights.
 
 ### Running under Slurm
 
-There is no Slurm-specific code and no template to maintain: the runner is a
-plain script, so `--wrap` it. What is worth keeping is the resource sizing,
-which is not obvious from the outside:
+Below are recommended resource allocations for each job:
 
 | job | CPUs | GPU | memory | wall time |
 | --- | --- | --- | --- | --- |
@@ -203,7 +174,7 @@ a long prompt will not fit in 20 GB. `build_blastdb.sh` picks up
 ## Custom Evo 2 checkpoints
 
 Any pipeline can sample from local Evo 2 weights instead of the released
-ones — a fine-tuned or otherwise modified checkpoint — by setting one key:
+ones by setting the following key:
 
 ```yaml
 generator: evo2
@@ -217,9 +188,6 @@ derived from. Everything downstream — ORF calling, QC, HMMs, folding, the
 Acr callers — is generator-agnostic and needs no change, so a custom
 checkpoint can be run through the identical filter stack and compared
 against the released weights from the same prompts.
-
-Two misuses raise instead of degrading quietly, both covered by a parity
-check:
 
 * **Evo 1 + `model_local_path`** raises. `Evo1GeneratorConfig` has no
   `local_path` field, so the path would be dropped and you would sample the
@@ -238,20 +206,7 @@ rejected at startup rather than ignored, so a typo fails immediately.
 Per-pipeline detail: **[docs/T2TA_PIPELINE.md](docs/T2TA_PIPELINE.md)** and
 **[docs/ACR_PIPELINE.md](docs/ACR_PIPELINE.md)**.
 
-## Calibration
-
-The thresholds and models shipped in `data/models/` are measured, not
-guesses. The workflows that fit them -- labelled sequence sets, per-caller
-scoring, AUROC analysis -- are **not** in this repository; it carries only
-what is needed to run a sampling pass and get results.
-
-They live in the research tree this was exported from. Nothing here loads
-them: the fitted artefacts are read directly from `data/models/`.
-
 ## Layout
-
-Nothing here is a script except the four pipelines, the tests, and the
-helpers in `utils/`. Everything else is library code, grouped by role.
 
 ```
 proto_pipelines/
@@ -303,8 +258,7 @@ proto_pipelines/
     └── T2TA_PIPELINE.md      the toxin-antitoxin pipeline
 ```
 
-Coupling between groups is deliberately thin — seven first-party import
-edges in total:
+Coupling between groups is minimal:
 
 ```
 __init__          -> core.bootstrap          (before anything else imports)
@@ -319,7 +273,7 @@ pipelines/*       -> core, stages, callers
 
 ## Setup
 
-Verified end to end on 2026-09-24 against `evo-design/proto-language` `main`
+Verified end to end against `evo-design/proto-language` `main`
 (`1a56693e`) and its pinned `proto-tools` submodule (`55339880`), in a clean
 environment with no other packages on the path.
 
@@ -421,55 +375,6 @@ filter's accounting, the Acr callers against their calibration, the shipped
 model feature order, and the custom-checkpoint guards. It needs no GPU and
 no AF3 weights.
 
-### Working from a checkout
-
-If several proto-language checkouts exist on one machine, or a stale editable
-install points at the wrong one, `core/bootstrap.py` takes an override:
-
-```bash
-export PROTO_LANGUAGE_ROOT=/path/to/proto-language
-```
-
-Leave it unset to use the installed package. Note that a personal branch can
-be internally inconsistent in ways a matched pair of `main`s is not — a
-checkout whose `proto_language` expects a `proto_tools` module its own
-submodule lacks will fail at import.
-
-### Known proto-tools gaps
-
-These scripts work around two things absent from `proto-tools` `main`:
-
-* **Foldseek TM-scores.** `FoldseekHit` parses a plain 12-column M8 row and
-  carries no TM field. The Acr caller's model feature is a TM-score, so
-  `callers/acr.py` invokes the provisioned `foldseek` binary directly with
-  `--format-output …,qtmscore,alntmscore`. Ranking on E-value instead is not
-  viable: measured as a model feature it was worth nothing over dropping the
-  structural term entirely, whereas a real TM-score contributes.
-
-### Repository size
-
-A clone is ~17 MB. `outputs/` is gitignored; the fitted models the
-pipelines load are tracked, in `data/models/`.
-
-Profile HMMs (`*.hmm`) and model checkpoints (`*.ckpt`, `*.pt`, `*.pth`) are
-stored in **Git LFS** — `data/models/ta_families.hmm` is 12 MB on its
-own and is needed at run time. Git keeps a ~130-byte pointer per file
-instead of the blob, so history stays small even as these are regenerated.
-
-```bash
-git lfs install      # once per machine
-git lfs pull         # once per clone, if files came down as pointers
-```
-
-**If you skip this, failures are confusing rather than obvious.** The working
-tree gets pointer text where the data should be, so pyhmmer reports a
-malformed profile and torch a corrupt checkpoint — a parse error, not a
-missing file. `git lfs env` tells you whether LFS is active; a `.hmm` of
-about 130 bytes tells you it is not.
-
-Patterns rather than paths are tracked, so an asset regenerated under a new
-name is captured automatically instead of silently landing in git proper.
-
 ## Running the workflows
 
 ```bash
@@ -480,10 +385,7 @@ python -m proto_pipelines.pipelines.operon_completion --config proto_pipelines/c
 ```
 
 `t2ta_sample` cofolds its own candidate pairs, so it is a single command; set
-`run_cofold: false` in the config to stop after the monomer screen. The
-completion workflows are evaluations and run no structure prediction at all —
-the published versions never used ESMFold either.
-
+`run_cofold: false` in the config to stop after the monomer screen. 
 Run the CPU parity checks with:
 
 ```bash
@@ -497,13 +399,12 @@ goes. Two levers:
 
 * Monomer triage runs **single-sequence** (`af3_use_msa: false`) and caps folds
   per generation (`af3_max_proteins_per_proposal`). Lower pLDDT than MSA mode
-  is expected; this is triage, and the cutoffs must be set against what this
-  mode actually produces.
+  is expected and beneficial, given that many generated candidates may appear
+  to have lower pLDDTs solely due to a lack of homologs.
 * The complex screen runs **with a taxonomy-paired MSA**, because that is where
   the interface estimate comes from. That needs the `uniref30-2302` MMseqs2
   database provisioned locally (~365 GB); set `af3_use_msa: false` in the
-  cofold config to run single-sequence instead, at a real cost to interface
-  confidence. `max_pairs` caps how many pairs are
+  cofold config to run single-sequence instead. `max_pairs` caps how many pairs are
   folded; with `max_pairs: 0` an unbounded pair list is easy to under-budget,
   since pair count grows quadratically in proteins per generation.
 
@@ -515,20 +416,3 @@ how many proposals each filter saw.
 each per-prompt `Program.run()` opens and closes its own pool, tearing down the
 persistent tool workers and reloading Evo's 7B weights onto the GPU once per
 prompt — which dominates wall time at paper scale.
-
-## Citation
-
-```
-@article{merchant2025semantic,
-    author = {Merchant, Aditi T and King, Samuel H and Nguyen, Eric and Hie, Brian L},
-    title = {Semantic design of functional de novo genes from a genomic language model},
-    year = {2025},
-    doi = {10.1038/s41586-025-09749-7},
-    URL = {https://www.nature.com/articles/s41586-025-09749-7},
-    journal = {Nature}
-}
-```
-
-AlphaFold 3: Abramson et al., *Nature* 630, 493–500 (2024).
-pDockQ: Bryant, Pozzati & Elofsson, *Nat Commun* 13, 1265 (2022).
-pDockQ2: Zhu, Shenoy, Kundrotas & Elofsson, *Bioinformatics* 39, btad424 (2023).
