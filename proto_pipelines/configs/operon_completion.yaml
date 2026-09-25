@@ -13,6 +13,9 @@
 input_prompts: ./proto_pipelines/data/prompts/operon_completion_prompts.csv
 reference_seqs: ./proto_pipelines/data/reference/modabc_operon_sequences.fasta
 output_dir: operon_completion
+# Where output_dir is created. Precedence: --output-root > the
+# PROTO_PIPELINES_OUTPUT_ROOT env var > this key > <repo>/outputs.
+# output_root: /path/to/results
 
 # Generator family and checkpoint. 'evo2' is the default; the paper used
 # Evo 1.5, so reproducing its numbers needs BOTH lines switched to:

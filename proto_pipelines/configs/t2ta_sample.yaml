@@ -20,6 +20,9 @@
 # --- inputs / outputs -------------------------------------------------------
 input_prompts: ./proto_pipelines/data/prompts/t2ta_sample_prompts.csv
 output_dir: t2ta_sample
+# Where output_dir is created. Precedence: --output-root > the
+# PROTO_PIPELINES_OUTPUT_ROOT env var > this key > <repo>/outputs.
+# output_root: /path/to/results
 
 # --- generation -------------------------------------------------------------
 # Generator family and checkpoint. 'evo2' is the default; the paper used
@@ -82,6 +85,11 @@ af3_ptm_threshold: 0.20      # 0-1; the load-bearing one
 
 af3_max_proteins_per_proposal: 8   # fold at most N ORFs per generation (0 = all)
 af3_use_msa: false            # single-sequence: this is a triage step over many ORFs
+
+# Only used when af3_use_msa is true; inert otherwise.
+#   af3_msa_search_mode: local        # 'local' searches a provisioned DB
+#   af3_msa_device: cuda              # CPU runs a 365 GB uniref30 search
+#   af3_pair_heterocomplex_msas: true # pair chain MSAs in a complex
 af3_num_recycles: 10
 af3_num_diffusion_samples: 5
 af3_seeds: [0]

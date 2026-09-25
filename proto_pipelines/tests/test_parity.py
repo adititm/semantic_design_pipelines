@@ -1439,6 +1439,68 @@ def check_vendored_sources_unmodified() -> list[str]:
     return failures
 
 
+def check_configs_document_every_key() -> list[str]:
+    """Every accepted config key must appear in the shipped YAML.
+
+    Two failure directions, both silent. A key in the YAML that the pipeline
+    does not accept is rejected at startup -- loud, but only once someone
+    runs it. A key the pipeline *does* accept but that appears nowhere in
+    the config is invisible: the setting exists, changes behaviour, and no
+    user will ever find it.
+
+    A key documented as a commented example counts as documented; that is
+    how optional settings are surfaced without turning them on.
+    """
+    import importlib
+    import re
+
+    import yaml
+
+    failures: list[str] = []
+    root = Path(__file__).resolve().parents[2]
+    pipelines = {
+        "acr_sample": "configs/acr_sample.yaml",
+        "t2ta_sample": "configs/t2ta_sample.yaml",
+        "gene_completion": "configs/gene_completion.yaml",
+        "operon_completion": "configs/operon_completion.yaml",
+    }
+    for pipe, rel in pipelines.items():
+        module = importlib.import_module(f"proto_pipelines.pipelines.{pipe}")
+        allowed = next(
+            (
+                getattr(module, name)
+                for name in dir(module)
+                if isinstance(getattr(module, name), (set, frozenset))
+                and name.isupper()
+            ),
+            None,
+        )
+        if allowed is None:
+            failures.append(f"{pipe}: no ALLOWED_KEYS set found")
+            continue
+        path = root / "proto_pipelines" / rel
+        if not path.exists():
+            failures.append(f"missing config: {rel}")
+            continue
+        text = path.read_text()
+        active = set((yaml.safe_load(text) or {}).keys())
+        commented = {m.group(1) for m in re.finditer(r"^#\s*([a-z0-9_]+):", text, re.M)}
+
+        rejected = sorted(active - allowed)
+        if rejected:
+            failures.append(
+                f"{rel} sets {rejected}, which {pipe} does not accept; the run "
+                "would fail at startup"
+            )
+        undocumented = sorted(allowed - (active | commented))
+        if undocumented:
+            failures.append(
+                f"{pipe} accepts {undocumented} but {rel} never mentions them, "
+                "so the setting is invisible to users"
+            )
+    return failures
+
+
 def main() -> int:
     """Run every check and report the results."""
     checks = {
@@ -1446,6 +1508,7 @@ def main() -> int:
         "underrepresented AAs vs published": check_underrepresented,
         "pDockQ v1 vs published": check_pdockq,
         "config parsing + retired-key rejection": check_configs,
+        "configs document every accepted key": check_configs_document_every_key,
         "survivor collection with and without folding": check_accepted_proteins,
         "filter diagnostics accounting": check_reporting,
         "every chain filter owns its rejections": check_filter_labels,
