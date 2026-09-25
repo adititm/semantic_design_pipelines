@@ -42,54 +42,19 @@ filter_partial_bool: true
 segmasker_threshold: 0.1
 
 # --- AlphaFold 3 monomer screen ---------------------------------------------
-# BASAL GATE, calibrated against real junk. Keeps 92% of Evo ORFs while
-# dropping 46% of spurious ones.
-#
-# Measured on 24 Evo ORFs vs 24 ORFs called on random DNA, GC- and
-# length-matched (both median 156 aa, balance p=0.85):
-#   pTM   AUROC 0.854 [0.742-0.946]   <- the better discriminator
-#   pLDDT AUROC 0.731 [0.580-0.865]
+# BASAL GATE, calibrated against scrambled seqeunces, spurious Evo generations, 
+# natural Acrs, Evo-generated Acrs, and phage proteins. 
 #
 # Why these values and not stricter: pLDDT>=40/pTM>=0.25 drops 83% of junk but
 # keeps only 58% of real ORFs; pLDDT>=45/pTM>=0.30 drops 92% but keeps 38%.
-# The monomer fold is cheap and the cofold is expensive, but the cofold gate
-# already rejects ~1/3 of confirmed-functional pairs, so losses here compound.
-# This setting is deliberately high-sensitivity.
-#
-# Sanity check against knowns: all five validated designs pass comfortably
-# (EvoAT1 67.7/0.46 ... EvoAT4 54.2/0.35), as do the natural E. coli toxins
-# MazF (38.9/0.35) and YoeB (41.5/0.31) whose pairs rescued experimentally.
-#
-# What this gate is NOT doing: judging fold specificity. AlphaFold 3 cannot
-# separate an Evo design from a composition-matched scramble of itself
-# (pLDDT AUROC 0.475 - chance).
-# It separates real ORFs from random-DNA ORFs because their composition
-# differs, not because it recognises a specific fold. Treat it as a
-# protein-likeness floor, not a quality score.
 run_af3: true
-# Basal gate only. Re-derived for Acrs on 316 single-sequence folds rather
-# than inherited from the TA pipeline: real Acrs fold BADLY (median pLDDT
-# 49.4, pTM 0.365), so 30/0.20 sits at roughly their 1st-5th percentile and
-# discards 2/64. It is also the most efficient point available -- it removes
-# 27% of junk per 3% of Acrs lost (8.5x), and every tighter setting trades
-# worse: 35/0.25 is 4.7x, 40/0.30 is 2.5x. Fold confidence barely separates
-# Acrs from real phage proteins (pLDDT AUROC 0.548, pTM 0.617), so this is a
-# junk floor, not a discriminator -- the five-caller model does that.
-# Everything clearing it is scored and ranked.
 af3_plddt_threshold: 30.0
 af3_ptm_threshold: 0.20
 
 af3_max_proteins_per_proposal: 0   # 0 = fold every QC-surviving ORF
-# MSA OFF, measured rather than assumed. On 127 paired Acr/phage chains
-# folded both ways, an MSA raises absolute pLDDT hugely (Acr median 49 -> 87)
-# but buys nothing downstream: Foldseek TM AUROC 0.635 with MSA vs 0.643
-# without (95% CI on the difference [-0.091, +0.070]; per-chain Wilcoxon
-# p=0.44; MSA higher on exactly 50% of chains). What it does do is confound
-# the gate -- Spearman(MSA depth, pLDDT) = +0.40 with MSA, -0.19 without --
-# so deep- and shallow-MSA Acrs differ by 27 pLDDT points under MSA and ~5
-# without. Divergent candidates are precisely the shallow-MSA ones, so an
-# MSA gate penalises what the pipeline exists to find. Turning it off also
-# removes the dominant share of fold runtime.
+# MSA is off by default to remove confounds associated with more sequence-
+# similar sequences having higher confidence scores and not bias towards
+# proteins resembling known Acrs.
 af3_use_msa: false
 af3_msa_device: cuda
 af3_num_recycles: 10
@@ -98,14 +63,11 @@ af3_seeds: [0]
 af3_save_structures: true
 
 # --- anti-CRISPR evidence -----------------------------------------------
-# Five independent callers combined by a logistic model calibrated on 316
-# labelled sequences. Cross-validated AUROCs are recorded in each model
-# JSON (cv_auroc) and in docs/ACR_PIPELINE.md.
+# Five independent callers combined by a logistic model calibrated on
+# labelled sequences.
 #
-# min_score 0.0 = record evidence, reject nothing. The callers are calibrated
-# on natural Acrs; their behaviour on generated sequence is uncharacterised,
-# so gating on them would select for resemblance to known Acrs -- the
-# opposite of what this pipeline is for. Raise it only after inspecting
+# min_score 0.0 = record evidence, reject nothing. Gating on these callers 
+# may select for resemblance to known Acrs. Raise it only after inspecting
 # acr_evidence.csv from your own run.
 run_acr_evidence: true
 acr_hmm_path: ./proto_pipelines/data/models/acr/acr_families_default.hmm
@@ -120,8 +82,7 @@ acr_min_score: 0.0
 acr_min_qualifying_proteins: 1
 
 # --- AcrNET (optional 5th caller) ---------------------------------------
-# The single largest gain of any caller: removing it drops the divergent
-# model from 0.924 to 0.776 (5-fold CV). Needs RaptorX Predict_Property (no
+# The single largest gain of any caller. Needs RaptorX Predict_Property (no
 # database) and, strongly recommended, psiblast + a BLAST DB for the PSSM
 # block. Without a PSSM AcrNET still ranks (AUROC 0.806 in that regime) but
 # its scores inflate toward 1.0 and are read against the weaker `no_pssm`
@@ -136,19 +97,18 @@ acrnet_blast_db: ./.scratch_acr/blast/db/uniref30
 acrnet_workers: 8
 acrnet_device: cuda
 # Per-PSSM-regime tier bounds for the AcrNET probability. A missing
-# PSI-BLAST PSSM inflates the score toward 1.0 on its own -- zeroing the PSSM
-# on the same phage proteins moved them from 19% to 78% above 0.99 -- so a
+# PSI-BLAST PSSM inflates the score toward 1.0 on its own, so a
 # score is only readable against the regime that produced it. Emits
 # acrnet_regime / acrnet_tier / acrnet_pctile per protein.
 acrnet_operating_points: ./proto_pipelines/data/models/acr/acrnet_operating_points.json
 
-# --- sequence-only prescreen (optional speed-up) -------------------------
-# HMM, AcRanker and AcrNET all take sequence only (~5 s/protein) while
-# AlphaFold 3 with an MSA costs minutes. Running them first and folding the
-# ORFs in that order lets acr_fold_fraction skip the least Acr-like tail:
-# folding the top 50% retains 94% of known Acrs. Sequence-only AUROC is
-# 0.911 vs 0.924 with Foldseek, so the ordering is reliable enough to cut on.
-# Off by default; set fold_fraction below 1.0 to actually save folds.
+# --- sequence-only prescreen ---------------------------------------------
+# HMM, AcRanker and AcrNET run first and rank the ORFs. 
+#
+# Two independent cuts, both active only when run_acr_prescreen is true:
+#   acr_prescreen_min_score  drops ORFs below the threshold  (ON: 0.15)
+#   acr_fold_fraction        keeps the top fraction of what remains (OFF: 1.0)
+# An ORF with an HMM hit always folds regardless of either
 run_acr_prescreen: true
 acr_prescreen_model: ./proto_pipelines/data/models/acr/acr_prescreen_model.json
 acr_fold_fraction: 1.0
