@@ -180,6 +180,22 @@ def extract_features(
     """
     import numpy as np
 
+    # Resolve every external path to an absolute one before dispatching.
+    # _run_raptorx passes cwd=home to the subprocess, so a RELATIVE home
+    # makes bash resolve the script path from inside that directory and the
+    # call fails with exit 127 -- silently, because a caller that cannot run
+    # is a supported state. PSI-BLAST has no cwd= but inherits the process
+    # working directory, which is the same hazard one step removed.
+    if predict_property_home:
+        predict_property_home = str(Path(predict_property_home).resolve())
+    # A bare command name on PATH must stay bare; only resolve real paths.
+    if psiblast_bin and ("/" in psiblast_bin or Path(psiblast_bin).exists()):
+        psiblast_bin = str(Path(psiblast_bin).resolve())
+    if blast_db:
+        # A database *prefix*, not an existing file, so resolve without
+        # requiring existence.
+        blast_db = str(Path(blast_db).resolve())
+
     out: dict[str, dict[str, Any]] = {}
     with tempfile.TemporaryDirectory() as work:
         with ProcessPoolExecutor(max_workers=workers) as pool:

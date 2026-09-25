@@ -64,6 +64,9 @@ semantic_design_pipelines = [
 
 [tool.black]
 line-length = 88
+# requires-python is >=3.11; without this black infers a newer target
+# and its AST safety check then fails on the running interpreter.
+target-version = ["py311"]
 extend-exclude = "archive|calibration/results|outputs|vendor"
 
 [tool.ruff]

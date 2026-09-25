@@ -1509,6 +1509,51 @@ def check_configs_document_every_key() -> list[str]:
     return failures
 
 
+def check_acrnet_paths_are_cwd_independent() -> list[str]:
+    """AcrNET's external tool paths must not depend on the caller's CWD.
+
+    ``_run_raptorx`` passes ``cwd=home`` to the subprocess. With a RELATIVE
+    home, bash chdirs there and then resolves the relative script path from
+    inside it, so the call dies with exit 127. Nothing surfaces: a caller
+    that cannot run is a supported state, so the pipeline completes with
+    four callers instead of five and every AcrNET column is empty.
+
+    That is exactly what happened when the configs were changed from
+    absolute to relative paths. This pins the fix.
+    """
+    import inspect
+
+    from semantic_design_pipelines.callers import acrnet
+
+    failures: list[str] = []
+    src = inspect.getsource(acrnet.extract_features)
+    if "Path(predict_property_home).resolve()" not in src:
+        failures.append(
+            "extract_features no longer resolves predict_property_home to an "
+            "absolute path; a relative config value will make RaptorX exit 127 "
+            "silently"
+        )
+    if "Path(blast_db).resolve()" not in src:
+        failures.append("extract_features no longer resolves blast_db")
+
+    # The configs are relative on purpose (they must work from any clone),
+    # so the resolution above is what makes that safe.
+    root = Path(__file__).resolve().parents[2]
+    cfg = root / "semantic_design_pipelines/configs/acr_sample.yaml"
+    if cfg.exists():
+        import yaml
+
+        data = yaml.safe_load(cfg.read_text()) or {}
+        for key in ("acrnet_predict_property", "acrnet_blast_db"):
+            value = str(data.get(key, ""))
+            if value.startswith("/"):
+                failures.append(
+                    f"{key} is an absolute path in the shipped config; it "
+                    "will not resolve in anyone else's clone"
+                )
+    return failures
+
+
 def main() -> int:
     """Run every check and report the results."""
     checks = {
@@ -1525,6 +1570,7 @@ def main() -> int:
         "shipped configs build their generators": check_shipped_configs_build_generators,
         "Acr callers reproduce calibration": check_acr_assets,
         "vendored sources unmodified": check_vendored_sources_unmodified,
+        "AcrNET tool paths are CWD-independent": check_acrnet_paths_are_cwd_independent,
         "AcrNET handles a batch of one": check_acrnet_batch_of_one,
         "AcrNET score is batch-invariant": check_acrnet_batch_invariance,
         "Acr model features resolve": check_acr_model_features_resolve,
