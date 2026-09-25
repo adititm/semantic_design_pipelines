@@ -2,8 +2,7 @@
 
 A reimplementation of the pipelines from [*Semantic design of functional de
 novo genes from a genomic language
-model*](https://www.nature.com/articles/s41586-025-09749-7), built on
-`proto-language` and `proto-tools`.
+model*](https://www.nature.com/articles/s41586-025-09749-7).
 
 Four workflows run end to end from a YAML config — sequence generation, ORF
 calling, quality filtering, profile-HMM screening, structure prediction and
