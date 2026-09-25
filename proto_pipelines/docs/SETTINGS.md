@@ -45,7 +45,7 @@ final call.**
 | key | default | effect of changing it |
 | --- | --- | --- |
 | `run_acr_prescreen` | `true` | Off folds every QC survivor. Correct but slower. |
-| `acr_prescreen_min_score` | `0.15` | Keeps 95% of known Acrs and 95% of a never-used held-out set, while folding 27% of phage. Raising to 0.25 keeps ~88%; lowering approaches "fold everything". An ORF with an HMM hit **always** folds regardless. |
+| `acr_prescreen_min_score` | `0.15` | Keeps 95% of known Acrs and 95% of a never-used held-out set, while folding 27% of other defense proteins. Raising to 0.25 keeps ~88%; lowering approaches "fold everything". An ORF with an HMM hit **always** folds regardless. |
 | `acr_fold_fraction` | `1.0` | Caps folds per proposal as a fraction of survivors, after prescreen ordering. Below 1.0 trades recall for compute. |
 
 A proposal whose ORFs all score below threshold still folds its single best
@@ -56,7 +56,7 @@ pipeline failure.
 
 | key | default | effect of changing it |
 | --- | --- | --- |
-| `hmm_min_matching_proteins` | `1` | A proposal must contain at least one protein hitting a TA family, or it is rejected. **This gates**, unlike the Acr HMM, because Pfam covers TA families well while most Acrs hit no family at all. |
+| `hmm_min_matching_proteins` | `1` | A proposal must contain at least one protein hitting a TA family, or it is rejected. |
 | `hmm_evalue_threshold` | `1.0` | Permissive; the family set is specific enough that recall binds. |
 | `hmm_annotate_only` | `false` | `true` records hits without rejecting anything. |
 | `hmm_required_profiles` | `[]` | Restrict to named families; empty accepts any TA family. |
@@ -67,16 +67,14 @@ AlphaFold 3 folds the survivors; low-confidence folds stop being candidates.
 
 | key | default | effect of changing it |
 | --- | --- | --- |
-| `af3_use_msa` | `false` | **Measured, not assumed.** An MSA raises absolute pLDDT hugely (Acr median 49 → 87) but does not improve Foldseek TM discrimination (AUROC 0.643 without vs 0.635 with; 95% CI on the difference [-0.091, +0.070]). It *does* confound the gate: Spearman(MSA depth, pLDDT) is +0.40 with an MSA and −0.19 without, so deep- and shallow-MSA Acrs differ by 27 pLDDT points under an MSA and ~5 without. Divergent candidates are the shallow-MSA ones. Turning it on also adds the dominant share of fold runtime. |
-| `af3_plddt_threshold` | `30.0` | Real Acrs fold badly — median pLDDT 49.4 single-sequence — so this sits near their 1st–5th percentile and discards 2/64. It is also the most efficient point available: 27% of junk removed per 3% of Acrs lost (8.5×), against 4.7× at 35 and 2.5× at 40. |
-| `af3_ptm_threshold` | `0.20` | The load-bearing half of the gate; pTM discriminates better than pLDDT (AUROC 0.617 vs 0.548 against phage). |
+| `af3_use_msa` | `false` | An MSA raises absolute pLDDT hugely (Acr median 49 → 87) but does not improve Foldseek TM discrimination (AUROC 0.643 without vs 0.635 with; 95% CI on the difference [-0.091, +0.070]). Deep- and shallow-MSA Acrs differ by 27 pLDDT points under an MSA and ~5 without. Divergent candidates are the shallow-MSA ones, therefore, MSA is deliberately turned off as to not bias towards selecting candidates that are highly similar to known Acrs. Turning it on also adds the dominant share of fold runtime. |
+| `af3_plddt_threshold` | `30.0` | Real Acrs fold badly (median pLDDT 39.4). While low, the pLDDT and pTM thresholds were selected as they was the most efficient point available and remained permissive to both de novo Acrs and natural Acrs while removing 8x junk/scrambled sequences over natural Acrs. |
+| `af3_ptm_threshold` | `0.20` | pTM discriminates better than pLDDT. |
 | `af3_max_proteins_per_proposal` | `8` | Caps folds per proposal. HMM-qualifying ORFs sort first and a warning fires if the cap drops one. |
-| `af3_num_recycles` / `af3_num_diffusion_samples` | `10` / `5` | More of each raises confidence and cost. **The gate was calibrated at 3/1**, so the effective gate is marginally more lenient than the figures above. Unmeasured. |
+| `af3_num_recycles` / `af3_num_diffusion_samples` | `10` / `5` | More of each raises confidence and cost. |
 
-The gate is a **junk floor, not a discriminator**: fold confidence barely
-separates Acrs from real phage proteins. On Evo output versus random-DNA
-ORFs it keeps 92% of Evo ORFs while removing 46% of random ones — but it
-cannot tell a poor Evo ORF from a good one. That is the five callers' job.
+This gate is serves to help remove obviously junk sequences, but is not a discriminator,
+as fold confidence barely separates Acrs from other phage proteins.
 
 ## 5. Anti-CRISPR evidence (`acr_evidence`)
 
@@ -85,32 +83,15 @@ All five callers run over every folded ORF. Results go to
 
 | key | default | effect of changing it |
 | --- | --- | --- |
-| `acr_min_score` | `0.0` | **Record evidence, reject nothing.** The callers were calibrated on natural Acrs, so gating on them selects for resemblance to known Acrs — the opposite of the point. Raise only if you accept that bias. |
+| `acr_min_score` | `0.0` | Gating on these callers tends to select for resemblance to known Acrs, which may not be desirable. Raise only if you accept that bias. |
 | `acr_require_af3_pass` | `true` | Proteins that failed the fold gate stay in the table and still contribute locus context — an Aca partner is identified by sequence HMM and is useful even with a poor fold — but cannot be candidates. |
-| `acr_hmm_evalue` | `1.0` | Permissive by design: the profile set has 0 false positives across 191 negatives, so recall is the binding constraint, not precision. |
-| `acr_acranker_shuffles` | `20` | Self-shuffle null for `acranker_z`. More is slower and slightly less noisy. `acranker_z` is weak (AUROC 0.605 vs phage) and is **not** in either shipped model. |
+| `acr_hmm_evalue` | `1.0` | Permissive by design, tighten to select for greater similarity to known Acrs. |
+| `acr_acranker_shuffles` | `20` | Not used by default. Self-shuffle null for `acranker_z`. More is slower and slightly less noisy. `acranker_z` is a relatively weak differentiator and as such is not in either present model. |
 | `acrnet_psiblast` / `acrnet_blast_db` | set | Optional. Without a PSSM AcrNET still ranks, but its scores inflate and are read against the weaker `no_pssm` calibration. Supply the database if you can. |
 | `acrnet_workers` | `8` | Concurrent RaptorX/PSI-BLAST processes. PSI-BLAST scales by process, not thread. |
 | `acrnet_device` | `cuda` | **Local torch device only.** ESM-1b is loaded directly rather than dispatched as a proto tool, so `proto`/`modal` raise here. |
 
-### Caller strength, measured against phage
-
-Natural Acrs versus natural phage proteins, which is the operationally
-relevant comparison:
-
-| caller | AUROC vs phage |
-| --- | --- |
-| AcrNET (within-regime percentile) | 0.918 |
-| AcRanker raw | 0.801 |
-| AcRanker z | 0.605 |
-| profile HMM | 23% sensitivity at **0 false positives** |
-| prescreen model, held-out Acrs | **0.937** |
-
-The held-out figure uses 19 Acrs never involved in any derivation, so there
-is no generalisation gap on natural sequence. Performance on *generated*
-sequence is uncharacterised — there is no labelled set for it.
-
-## 5b. Pairing and cofold (`ta_cofold`, TA pipeline only)
+## 5a. Pairing and cofold (`ta_cofold`, TA pipeline only)
 
 Surviving chains are enumerated into pairs and cofolded; the interface is
 scored with pDockQ2, ipTM, pTM and average pLDDT. Unlike the Acr callers,
@@ -118,28 +99,15 @@ this gate genuinely discriminates, so it rejects rather than only ranking.
 
 | key | default | effect of changing it |
 | --- | --- | --- |
-| `cofold_min_iptm` | `0.55` | Placed by gap, not optimum: de novo positives sit at 0.74-0.86 and rejects at 0.19-0.31, so any cut in ~[0.32, 0.74] scores identically. 0.70 would leave +0.04 to the nearest functional pair, below the seed-to-seed variation, so it would reject on noise. |
-| `cofold_min_avg_plddt` | `80.0` | Free in false-negative terms -- discards no confirmed-functional pair that the pDockQ2 gate keeps, while halving cross-family admissions. |
+| `cofold_min_iptm` | `0.55` | Placed by gap, not optimum: de novo positives sit at 0.74-0.86 and rejects at 0.19-0.31, so any cut in ~[0.32, 0.74] scored roughly the same. 0.70 would leave +0.04 to the nearest functional pair, below the seed-to-seed variation, so could result in rejection on noise. Raise to select for more confident interfaces, at the risk of penalizing more de novo sequences |
+| `cofold_min_avg_plddt` | `80.0` | Raise to select for more confident sequences. |
 | `cofold_min_passing_pairs` | `1` | Pairs a proposal needs to be accepted. |
 | `cofold_max_pairs_per_proposal` | `6` | Pair count grows quadratically with surviving chains and cofolding is the most expensive step; this caps it. |
 | `max_pair_identity` | `70.0` | Drops pairs whose chains are near-copies of each other. |
 | `novelty_max_identity` | `75.0` | Drops candidates too close to natural TA proteins, so a pass is not a rediscovery. |
-
-Same-family non-cognate pairs pass at 12/20 — the gate separates TA-like
-from not-TA-like, **not cognate from non-cognate**. See
-[T2TA_PIPELINE.md](T2TA_PIPELINE.md).
 
 ## 6. Ranking
 
 `acr_locus_score` is a logistic output, not P(Acr). Use
 `utils/rank_candidates.py` to calibrate it to your own base rate and get an
 expected yield; see [ACR_PIPELINE.md](ACR_PIPELINE.md).
-
-## Reproducibility
-
-AlphaFold 3 sampling is not deterministic and `seed` does not fix it: the
-same sequence folded three times moved `acr_locus_score` from 0.048 to
-0.477. Rank within a run; do not compare absolute scores across runs.
-Pointing successive runs at the same AlphaFold 3 output directory makes
-repeat folds both free and deterministic, because the job name is a content
-hash and the score cache sits beside the structures.
