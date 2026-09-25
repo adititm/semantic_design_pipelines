@@ -1,0 +1,5 @@
+# Build output from an editable install at the repo root. The package has
+# its own .gitignore for run outputs and caches.
+*.egg-info/
+__pycache__/
+*.py[cod]

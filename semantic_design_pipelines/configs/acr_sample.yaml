@@ -1,0 +1,144 @@
+# Anti-CRISPR sampling (proto-language + AlphaFold 3)
+#
+#   generate -> Prodigal + QC -> sequence prescreen -> AlphaFold 3 monomer
+#   screen -> five-caller Acr/Aca evidence
+#
+# The published workflow stopped at folding and called Acrs with PaCRISPR,
+# which is no longer available. The evidence stage replaces it with callers
+# that run locally. Nothing here LABELS a sequence as an anti-CRISPR: the
+# output is ranked evidence, and acr_min_score is 0 so nothing is rejected
+# on it. See docs/ACR_PIPELINE.md.
+#
+# Outputs (all in output_dir):
+#   generated_sequences.csv, filter_summary.csv, proteins.csv, proteins.fasta,
+#   af3_monomers/, acr_evidence.csv
+
+input_prompts: ./semantic_design_pipelines/data/prompts/acr_sample_prompts.csv
+output_dir: acr_sample
+# Where output_dir is created. Precedence: --output-root > the
+# PROTO_PIPELINES_OUTPUT_ROOT env var > this key > <repo>/outputs.
+# output_root: /path/to/results
+
+# Generator family and checkpoint. 'evo2' is the default; the paper used
+# Evo 1.5, so reproducing its numbers needs BOTH lines switched to:
+#   generator: evo1
+#   model_name: evo-1.5-8k-base
+generator: evo2
+model_name: evo2_7b        # evo2_7b | evo2_40b | evo2_7b_base | evo2_1b_base | ...
+
+# Sample from a CUSTOM Evo 2 checkpoint -- fine-tuned, continued-pretrained,
+# or otherwise modified -- instead of the HuggingFace download. Point it at the weights DIRECTORY, not
+# a checkpoint file. `model_name` above still selects the architecture the
+# weights load into, so it must name the variant the checkpoint derives from.
+# Evo 2 only -- Evo 1 has no such hook and setting both raises rather than
+# silently sampling the stock model. Empty means "use the released weights".
+model_local_path: ""
+n_tokens: 1000
+temperature: 0.8
+top_k: 4
+batch_size: 10
+n_sample_per_prompt: 5
+seed: null
+device: cuda
+verbose: false
+
+filter_min_length: 50
+filter_max_length: 200        # Acrs are short
+filter_partial_bool: true
+segmasker_threshold: 0.1
+
+# --- AlphaFold 3 monomer screen ---------------------------------------------
+# BASAL GATE, calibrated against scrambled seqeunces, spurious Evo generations, 
+# natural Acrs, Evo-generated Acrs, and phage proteins. 
+#
+# Why these values and not stricter: pLDDT>=40/pTM>=0.25 drops 83% of junk but
+# keeps only 58% of real ORFs; pLDDT>=45/pTM>=0.30 drops 92% but keeps 38%.
+run_af3: true
+af3_plddt_threshold: 30.0
+af3_ptm_threshold: 0.20
+
+af3_max_proteins_per_proposal: 0   # 0 = fold every QC-surviving ORF
+# MSA is off by default to remove confounds associated with more sequence-
+# similar sequences having higher confidence scores and not bias towards
+# proteins resembling known Acrs.
+af3_use_msa: false
+
+# Only used when af3_use_msa is true; inert otherwise.
+#   af3_msa_search_mode: local        # 'local' searches a provisioned DB
+#   af3_msa_device: cuda              # CPU runs a 365 GB uniref30 search
+#   af3_pair_heterocomplex_msas: true # pair chain MSAs in a complex
+af3_msa_device: cuda
+af3_num_recycles: 10
+af3_num_diffusion_samples: 5
+af3_seeds: [0]
+af3_save_structures: true
+
+# --- anti-CRISPR evidence -----------------------------------------------
+# Five independent callers combined by a logistic model calibrated on
+# labelled sequences.
+#
+# min_score 0.0 = record evidence, reject nothing. Gating on these callers 
+# may select for resemblance to known Acrs. Raise it only after inspecting
+# acr_evidence.csv from your own run.
+run_acr_evidence: true
+acr_hmm_path: ./semantic_design_pipelines/data/models/acr/acr_families_default.hmm
+aca_hmm_path: ./semantic_design_pipelines/data/models/acr/aca_families.hmm
+acr_hmm_evalue: 1.0
+acr_acranker_model: ./semantic_design_pipelines/data/models/acr/acranker_booster.json
+acr_acranker_shuffles: 20
+acr_foldseek_ref_dir: ./semantic_design_pipelines/data/models/acr/ref_db_ext/acr_ref_ext
+acr_combined_model: ./semantic_design_pipelines/data/models/acr/acr_combined_model.json
+acr_divergent_model: ./semantic_design_pipelines/data/models/acr/acr_divergent_model.json
+acr_min_score: 0.0
+
+# A protein that failed the AlphaFold 3 pLDDT/pTM gate stays in
+# acr_evidence.csv and still contributes locus context -- an Aca partner is
+# identified by sequence HMM and is informative even with a poor fold -- but
+# is not counted as a candidate. Set false to let gate failures count.
+acr_require_af3_pass: true
+
+# Advanced. Which AlphaFold 3 metadata the evidence stage reads:
+#   af3_folded_proteins  every folded ORF (default; scores the locus whole)
+#   af3_proteins         only the ORFs that passed the fold gate
+# acr_source_key: af3_folded_proteins
+
+# Advanced. foldseek executable. Empty resolves
+# $PROTO_HOME/proto_tool_envs/foldseek_env/bin/foldseek, which proto-tools
+# provisions; set only if that path is wrong for your install.
+# acr_foldseek_binary: ""
+acr_min_qualifying_proteins: 1
+
+# --- AcrNET (optional 5th caller) ---------------------------------------
+# The single largest gain of any caller. Needs RaptorX Predict_Property (no
+# database) and, strongly recommended, psiblast + a BLAST DB for the PSSM
+# block. Without a PSSM AcrNET still ranks (AUROC 0.806 in that regime) but
+# its scores inflate toward 1.0 and are read against the weaker `no_pssm`
+# calibration -- so supply the database if you can. De novo generated ORFs
+# often have no UniRef30 homologs and land in `no_pssm` regardless; that is
+# expected, not a misconfiguration.
+# Leave acrnet_home empty to disable.
+acrnet_home: ./semantic_design_pipelines/data/models/acr/acrnet
+acrnet_predict_property: ./.scratch_acr/Predict_Property
+acrnet_psiblast: ./.scratch_acr/blast/ncbi-blast-2.17.0+/bin/psiblast
+acrnet_blast_db: ./.scratch_acr/blast/db/uniref30
+acrnet_workers: 8
+acrnet_device: cuda
+# Per-PSSM-regime tier bounds for the AcrNET probability. A missing
+# PSI-BLAST PSSM inflates the score toward 1.0 on its own, so a
+# score is only readable against the regime that produced it. Emits
+# acrnet_regime / acrnet_tier / acrnet_pctile per protein.
+acrnet_operating_points: ./semantic_design_pipelines/data/models/acr/acrnet_operating_points.json
+
+# --- sequence-only prescreen ---------------------------------------------
+# HMM, AcRanker and AcrNET run first and rank the ORFs. 
+#
+# Two independent cuts, both active only when run_acr_prescreen is true:
+#   acr_prescreen_min_score  drops ORFs below the threshold  (ON: 0.15)
+#   acr_fold_fraction        keeps the top fraction of what remains (OFF: 1.0)
+# An ORF with an HMM hit always folds regardless of either
+run_acr_prescreen: true
+acr_prescreen_model: ./semantic_design_pipelines/data/models/acr/acr_prescreen_model.json
+acr_fold_fraction: 1.0
+# Increase to fold fewer sequences and enable a stricter Acr calling thresholding
+# at the risk of losing potentially promising but more divergent Acrs.
+acr_prescreen_min_score: 0.15

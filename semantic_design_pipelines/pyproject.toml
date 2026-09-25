@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semantic-design-pipelines"
+version = "0.1.0"
+description = "Runnable, configurable pipelines for the Evo semantic-design workflows."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+    "biopython>=1.83",
+]
+
+# proto-language brings its own proto-tools submodule, which supplies every
+# external tool these pipelines call (AlphaFold 3, Prodigal, segmasker, MAFFT,
+# MMseqs2, pyhmmer, pDockQ2). It is not on PyPI, so install it separately:
+#
+#   pip install "git+https://github.com/evo-design/proto-language.git"
+#
+# Verified present on evo-design/proto-language main and its proto-tools
+# submodule main as of 2026-09-22. Do not pin a personal branch here.
+
+[project.optional-dependencies]
+dev = ["ruff>=0.6"]
+# The anti-CRISPR callers. Each is optional at runtime -- an empty
+# ``acrnet_home`` / ``acr_acranker_model`` disables that caller rather than
+# failing -- so these are an extra rather than core dependencies. Verified
+# against a clean install of evo-design/proto-language main (1a56693e) on
+# 2026-09-23: none of them arrive with proto-language or proto-tools.
+acr = [
+    # Pin the CUDA build to the driver. An unpinned "torch>=2.0" resolved to
+    # 2.14.0 (CUDA 13) against this cluster's 12.6 driver and died at GPU
+    # init with "NVIDIA driver on your system is too old (found version
+    # 12060)". Install from the matching wheel index, e.g.
+    #   pip install torch==2.5.1 --index-url \
+    #       https://download.pytorch.org/whl/cu121
+    "torch>=2.0,<2.6",  # AcrNET checkpoint + ESM-1b
+    "fair-esm>=2.0",   # ESM-1b layer-33 embedding (imports as ``esm``)
+    "pssmpro>=0.0.2",  # POSSUM PSSM descriptors (only 0.0.1/0.0.2 exist)
+    "xgboost>=1.7",    # AcRanker booster
+    "scipy>=1.11",     # AUROC via Mann-Whitney
+    "scikit-learn>=1.3",
+]
+
+[tool.setuptools.packages.find]
+# Resolved relative to this file's parent, so `pip install -e ./semantic_design_pipelines`
+# works unchanged whether semantic_design_pipelines/ sits in this repo or is the package
+# directory of its own repo. Do not change it when lifting the directory out.
+where = [".."]
+include = ["semantic_design_pipelines*"]
+
+[tool.setuptools.package-data]
+semantic_design_pipelines = [
+    "data/prompts/*.csv",
+    "data/reference/*.fasta",
+    "configs/*.yaml",
+    "configs/smoke/*",
+    "calibration/data/ta_families.hmm",
+]
+
+[tool.black]
+line-length = 88
+extend-exclude = "archive|calibration/results|outputs|vendor"
+
+[tool.ruff]
+line-length = 88
+extend-exclude = ["archive", "calibration/results", "outputs", "vendor"]
+
+[tool.ruff.lint]
+# E501 is advisory here: prose in module docstrings is wrapped for reading,
+# not to a formatter's column. Everything else in this set is enforced.
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["semantic_design_pipelines"]

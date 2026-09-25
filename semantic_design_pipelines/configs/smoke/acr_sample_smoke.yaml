@@ -1,0 +1,104 @@
+# Smoke test: 2 Acr prompts x 2 samples, with the AlphaFold 3 monomer screen.
+input_prompts: ./semantic_design_pipelines/configs/smoke/acr_prompts_smoke.csv
+output_dir: smoke/acr_prescreen
+
+# Evo 1.5: the generator family must be named, or the evo2 default is
+# paired with an Evo 1 checkpoint and the run fails at startup.
+generator: evo1
+model_name: evo-1.5-8k-base
+n_tokens: 1000
+temperature: 0.8
+top_k: 4
+batch_size: 2
+n_sample_per_prompt: 4
+seed: 0
+device: cuda
+verbose: true
+
+filter_min_length: 50
+filter_max_length: 200
+filter_partial_bool: true
+segmasker_threshold: 0.1
+
+run_af3: true
+# Zeroed so the screen accepts every fold and the wiring is exercised
+# deterministically. NEVER copy into a real run.
+af3_plddt_threshold: 30.0
+af3_ptm_threshold: 0.20
+af3_max_proteins_per_proposal: 0
+# MSA OFF, measured rather than assumed. On 127 paired Acr/phage chains
+# folded both ways, an MSA raises absolute pLDDT hugely (Acr median 49 -> 87)
+# but buys nothing downstream: Foldseek TM AUROC 0.635 with MSA vs 0.643
+# without (95% CI on the difference [-0.091, +0.070]; per-chain Wilcoxon
+# p=0.44; MSA higher on exactly 50% of chains). What it does do is confound
+# the gate -- Spearman(MSA depth, pLDDT) = +0.40 with MSA, -0.19 without --
+# so deep- and shallow-MSA Acrs differ by 27 pLDDT points under MSA and ~5
+# without. Divergent candidates are precisely the shallow-MSA ones, so an
+# MSA gate penalises what the pipeline exists to find. Turning it off also
+# removes the dominant share of fold runtime.
+af3_use_msa: false
+af3_msa_device: cuda
+af3_num_recycles: 3
+af3_num_diffusion_samples: 1
+af3_seeds: [0]
+af3_save_structures: true
+
+# anti-CRISPR evidence callers (see configs/acr_sample.yaml for the rationale)
+run_acr_evidence: true
+acr_hmm_path: ./semantic_design_pipelines/data/models/acr/acr_families_default.hmm
+aca_hmm_path: ./semantic_design_pipelines/data/models/acr/aca_families.hmm
+acr_hmm_evalue: 1.0
+acr_acranker_model: ./semantic_design_pipelines/data/models/acr/acranker_booster.json
+acr_acranker_shuffles: 10
+acr_foldseek_ref_dir: ./semantic_design_pipelines/data/models/acr/ref_db_ext/acr_ref_ext
+acr_combined_model: ./semantic_design_pipelines/data/models/acr/acr_combined_model.json
+acr_divergent_model: ./semantic_design_pipelines/data/models/acr/acr_divergent_model.json
+acr_min_score: 0.0
+
+# --- AcrNET (optional 5th caller) ---------------------------------------
+# The single largest gain of any caller: removing it drops the divergent
+# model from 0.924 to 0.776 (5-fold CV). Needs RaptorX Predict_Property (no
+# database) and, strongly recommended, psiblast + a BLAST DB for the PSSM
+# block. Without a PSSM AcrNET still ranks (AUROC 0.806 in that regime) but
+# its scores inflate toward 1.0 and are read against the weaker `no_pssm`
+# calibration -- so supply the database if you can. De novo generated ORFs
+# often have no UniRef30 homologs and land in `no_pssm` regardless; that is
+# expected, not a misconfiguration.
+# Leave acrnet_home empty to disable.
+acrnet_home: ./semantic_design_pipelines/data/models/acr/acrnet
+acrnet_predict_property: ./.scratch_acr/Predict_Property
+acrnet_psiblast: ./.scratch_acr/blast/ncbi-blast-2.17.0+/bin/psiblast
+acrnet_blast_db: ./.scratch_acr/blast/db/uniref30
+acrnet_workers: 8
+acrnet_device: cuda
+# Per-PSSM-regime tier bounds for the AcrNET probability. A missing
+# PSI-BLAST PSSM inflates the score toward 1.0 on its own -- zeroing the PSSM
+# on the same phage proteins moved them from 19% to 78% above 0.99 -- so a
+# score is only readable against the regime that produced it. Emits
+# acrnet_regime / acrnet_tier / acrnet_pctile per protein.
+acrnet_operating_points: ./semantic_design_pipelines/data/models/acr/acrnet_operating_points.json
+
+# --- sequence-only prescreen (optional speed-up) -------------------------
+# HMM, AcRanker and AcrNET all take sequence only (~5 s/protein) while
+# AlphaFold 3 with an MSA costs minutes. Running them first and folding the
+# ORFs in that order lets acr_fold_fraction skip the least Acr-like tail:
+# folding the top 50% retains 94% of known Acrs. Sequence-only AUROC is
+# 0.911 vs 0.924 with Foldseek, so the ordering is reliable enough to cut on.
+# Off by default; set fold_fraction below 1.0 to actually save folds.
+run_acr_prescreen: true
+acr_prescreen_model: ./semantic_design_pipelines/data/models/acr/acr_prescreen_model.json
+acr_fold_fraction: 1.0
+# On the REFIT prescreen model (acranker_raw + acrnet_pctile): 0.15 keeps 95%
+# of known Acrs and folds 28% of negatives, vs 92%/23% at 0.20. 0.15 is
+# chosen to hold the ~94% Acr-retention target the pipeline is designed
+# around, and it beats the superseded model's 94%/35% on both axes.
+# Verified NOT to bias toward known-Acr similarity, re-derived on the refit
+# model over the 300-sequence diverse panel (the only set here with a real
+# gradient -- all 64 calibration Acrs are AcrDB entries and hit it at 50%
+# identity). Spearman(identity, prescreen score) = +0.012 (p=0.84), and
+# -0.099 (p=0.14) excluding the no-alignment bin. At 0.15, sequences <30%
+# identical to a known Acr pass at 67% vs 65% for >=50% -- a 2 pt gap
+# favouring the MORE divergent. Pass rate by bin is non-monotone in
+# identity: none 59%, lt30 76%, 30_50 64%, ge50 65%.
+# HMM hits always fold regardless.
+acr_prescreen_min_score: 0.15

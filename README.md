@@ -39,19 +39,19 @@ model_local_path: /path/to/weights   # a directory; empty = released weights
 ```bash
 git lfs install && git lfs pull
 pip install "git+https://github.com/evo-design/proto-language.git"
-pip install -e "./proto_pipelines[acr]"
-python proto_pipelines/tests/test_parity.py      # 20 checks, no GPU needed
+pip install -e "./semantic_design_pipelines[acr]"
+python semantic_design_pipelines/tests/test_parity.py      # 20 checks, no GPU needed
 
 export PROTO_HOME=/path/you/own/proto_home
-proto_pipelines/utils/run_pipeline.sh acr_sample \
-    proto_pipelines/configs/smoke/acr_sample_smoke.yaml
+semantic_design_pipelines/utils/run_pipeline.sh acr_sample \
+    semantic_design_pipelines/configs/smoke/acr_sample_smoke.yaml
 ```
 
-* **[proto_pipelines/README.md](proto_pipelines/README.md)** — setup, the four
+* **[semantic_design_pipelines/README.md](semantic_design_pipelines/README.md)** — setup, the four
   workflows, layout, and cost.
-* **[proto_pipelines/docs/SETTINGS.md](proto_pipelines/docs/SETTINGS.md)** —
+* **[semantic_design_pipelines/docs/SETTINGS.md](semantic_design_pipelines/docs/SETTINGS.md)** —
   every stage, its defaults, and what changing them costs.
-* **[proto_pipelines/docs/ACR_PIPELINE.md](proto_pipelines/docs/ACR_PIPELINE.md)**
+* **[semantic_design_pipelines/docs/ACR_PIPELINE.md](semantic_design_pipelines/docs/ACR_PIPELINE.md)**
   — the anti-CRISPR caller stack and how to read its output.
 
 `run_pipeline.sh` works on a workstation, under Slurm, or against connected
